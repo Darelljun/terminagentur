@@ -26,7 +26,7 @@ export const faqItems = [
   },
   {
     q: "Wie viele Termine sind möglich?",
-    a: "Unser Anspruch sind mindestens 30 qualifizierte Termine pro Monat. Wie viele es bei dir konkret werden, hängt von Zielgruppe, Region und Werbebudget ab – das klären wir im Strategiegespräch.",
+    a: "Wir garantieren dir – abhängig von deinem Werbebudget – mindestens 30 qualifizierte Termine pro Monat. Nach oben gibt es keine Grenze: Mit mehr Budget vereinbaren wir entsprechend mehr Termine. Welches Budget du für dein Ziel brauchst, besprechen wir im Strategiegespräch; die genauen Garantiebedingungen halten wir vor dem Start schriftlich fest.",
   },
   {
     q: "Welche Informationen bekomme ich vor dem Termin?",
@@ -69,7 +69,7 @@ export const landingProps: OverstoryStudioLandingProps = {
     { value: pricing.perAppointment, suffix: " €", label: "pro vereinbartem Termin – sonst nichts" },
     { value: 0, suffix: " €", label: "monatliche Agenturkosten" },
     { value: pricing.setup, suffix: " €", label: "einmalig für die Einrichtung" },
-    { value: 30, suffix: "+", label: "qualifizierte Termine pro Monat als Anspruch" },
+    { value: 30, suffix: "+", label: "qualifizierte Termine pro Monat garantiert – nach oben offen" },
   ],
   services: {
     kicker: "Was wir übernehmen",
