@@ -37,7 +37,7 @@ export default function DatenschutzPage() {
           <li>Diese Website setzt keine Analyse-, Tracking- oder Marketing-Tools ein.</li>
           <li>Es werden keine Cookies gesetzt und keine Informationen auf deinem Endgerät gespeichert, die einer Einwilligung bedürfen.</li>
           <li>Schriftarten werden lokal von unserem Server ausgeliefert. Es werden keine externen Skripte oder Schriftdienste geladen.</li>
-          <li>Das Anfrageformular überträgt keine Daten an uns, sondern bereitet lediglich eine E-Mail in deinem eigenen E-Mail-Programm vor.</li>
+          <li>Kontakt ist ausschließlich per E-Mail möglich; die Website selbst erhebt keine Formulardaten.</li>
         </ul>
       </section>
 
@@ -57,16 +57,11 @@ export default function DatenschutzPage() {
       </section>
 
       <section>
-        <h2>4. Kontakt per E-Mail und Anfrageformular</h2>
+        <h2>4. Kontakt per E-Mail</h2>
         <p>
           Wenn du uns per E-Mail kontaktierst, verarbeiten wir die von dir übermittelten Angaben (z. B. Name, E-Mail-Adresse,
           Unternehmen, Telefonnummer und Nachricht), um deine Anfrage zu beantworten und ein mögliches Strategiegespräch
           vorzubereiten.
-        </p>
-        <p>
-          Das Formular auf unserer Website speichert oder versendet keine Daten. Es erstellt aus deinen Eingaben eine
-          vorbereitete E-Mail, die sich in deinem E-Mail-Programm öffnet. Erst wenn du diese E-Mail selbst absendest, erhalten
-          wir deine Angaben.
         </p>
         <p>
           Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit deine Anfrage auf eine Zusammenarbeit gerichtet ist, im

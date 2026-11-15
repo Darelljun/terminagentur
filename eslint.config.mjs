@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Lokale Vorschau-Kopie für claude.ai (nicht Teil des Projekts)
+    ".export-build/**",
   ]),
 ]);
 

@@ -13,7 +13,7 @@ export const site = {
   founders: ["Magdalena Kayser", "Darell Kacou"],
   title: "KAYCO – Qualifizierte Beratungstermine für Finanzdienstleister",
   description:
-    "Keine Leads. Termine. KAYCO vereinbart vorqualifizierte Beratungstermine für Finanzberater, Versicherungsmakler und Finanzvertriebe – mit Garantie auf mindestens 30 qualifizierte Termine pro Monat.",
+    "Keine Leads. Termine. KAYCO ruft deine Interessenten an, qualifiziert sie und legt fertige Beratungstermine in deinen Kalender. 75 € pro Termin, keine monatlichen Agenturkosten.",
   /**
    * Link zum Online-Buchungstool (z. B. Cal.com, Calendly, Microsoft Bookings).
    * Wird über die Umgebungsvariable NEXT_PUBLIC_BOOKING_URL gesetzt.
@@ -21,17 +21,3 @@ export const site = {
    */
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL?.trim() || null,
 } as const;
-
-export const navItems = [
-  { label: "Unterschied", id: "unterschied" },
-  { label: "Ablauf", id: "ablauf" },
-  { label: "Qualifizierung", id: "qualifizierung" },
-  { label: "Versprechen", id: "versprechen" },
-  { label: "Über uns", id: "ueber-uns" },
-  { label: "FAQ", id: "faq" },
-] as const;
-
-export const contactMailto = (subject = "Anfrage Strategiegespräch", body = "") =>
-  `mailto:${site.email}?subject=${encodeURIComponent(subject)}${
-    body ? `&body=${encodeURIComponent(body)}` : ""
-  }`;

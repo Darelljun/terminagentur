@@ -48,12 +48,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="de" className={`${geistSans.variable} ${instrumentSerif.variable}`}>
       <body className="min-h-dvh">
-        <a
-          href="#main"
-          className="sr-only z-[100] rounded-full bg-ink px-5 py-3 text-sm font-medium text-white focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
-        >
-          Zum Inhalt springen
-        </a>
         <Providers>{children}</Providers>
       </body>
     </html>

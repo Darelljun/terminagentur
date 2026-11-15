@@ -1,18 +1,6 @@
-import { About } from "@/components/sections/about";
-import { Audience } from "@/components/sections/audience";
-import { Contact } from "@/components/sections/contact";
-import { Difference } from "@/components/sections/difference";
-import { Faq, FAQS } from "@/components/sections/faq";
-import { Hero } from "@/components/sections/hero";
-import { Problem } from "@/components/sections/problem";
-import { Process } from "@/components/sections/process";
-import { Guarantee } from "@/components/sections/promise";
-import { Qualification } from "@/components/sections/qualification";
-import { Footer } from "@/components/site/footer";
-import { Header } from "@/components/site/header";
-import { MobileCta } from "@/components/site/mobile-cta";
-import { TimeSaved } from "@/components/sections/time-saved";
-import { site } from "@/lib/site";
+import { KaycoLanding } from "@/components/kayco/kayco-landing"
+import { faqItems, pricing } from "@/content/kayco"
+import { site } from "@/lib/site"
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -41,41 +29,30 @@ const jsonLd = {
       areaServed: "DE",
       audience: { "@type": "BusinessAudience", name: "Finanzdienstleister" },
       description: site.description,
+      offers: [
+        { "@type": "Offer", name: "Beratungstermin", price: pricing.perAppointment, priceCurrency: "EUR" },
+        { "@type": "Offer", name: "Einrichtung", price: pricing.setup, priceCurrency: "EUR" },
+      ],
     },
     {
       "@type": "FAQPage",
-      mainEntity: FAQS.map((f) => ({
+      mainEntity: faqItems.map((f) => ({
         "@type": "Question",
         name: f.q,
         acceptedAnswer: { "@type": "Answer", text: f.a },
       })),
     },
   ],
-};
+}
 
 export default function HomePage() {
   return (
     <>
-      <Header />
-      <main id="main">
-        <Hero />
-        <Problem />
-        <Difference />
-        <TimeSaved />
-        <Process />
-        <Qualification />
-        <Guarantee />
-        <About />
-        <Audience />
-        <Faq />
-        <Contact />
-      </main>
-      <Footer />
-      <MobileCta />
+      <KaycoLanding />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
     </>
-  );
+  )
 }
