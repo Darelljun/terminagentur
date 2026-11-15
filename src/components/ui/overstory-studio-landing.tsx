@@ -148,6 +148,8 @@ export interface OverstoryStudioLandingProps {
   above?: string
   /** Footer-Spalte mit Ort, Uhrzeit und E-Mail anzeigen. */
   showClock?: boolean
+  /** Vorschaukarte, die im Leistungs-Bereich dem Mauszeiger folgt. */
+  servicePreview?: boolean
   /** Height of the hero and finale stages. A definite length, so it survives any host layout. */
   height?: string
   className?: string
@@ -1405,6 +1407,7 @@ export default function OverstoryStudioLanding({
   footerClaim = "Du berätst. Wir füllen deinen Kalender.",
   above = "Mehr Zeit für Beratung",
   showClock = true,
+  servicePreview = true,
   height = "100svh",
   className = "",
 }: OverstoryStudioLandingProps) {
@@ -2075,13 +2078,15 @@ export default function OverstoryStudioLanding({
                 </p>
               </div>
               <div className="ovs-svc-list" onPointerLeave={() => setSvcHover(svcOpen >= 0 ? svcOpen : 0)}>
-                <div className="ovs-svc-prev" aria-hidden="true">
-                  {svcItems.map((s, i) => (
-                    <div key={i} className="ovs-svc-art" data-on={i === svcHover ? "" : undefined}>
-                      <ServiceArt art={s.art} />
-                    </div>
-                  ))}
-                </div>
+                {servicePreview ? (
+                  <div className="ovs-svc-prev" aria-hidden="true">
+                    {svcItems.map((s, i) => (
+                      <div key={i} className="ovs-svc-art" data-on={i === svcHover ? "" : undefined}>
+                        <ServiceArt art={s.art} />
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
                 {svcItems.map((s, i) => {
                   const open = svcOpen === i
                   return (

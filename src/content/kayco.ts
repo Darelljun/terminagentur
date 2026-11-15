@@ -265,6 +265,7 @@ export const landingProps: OverstoryStudioLandingProps = {
   },
   footerClaim: "Du berätst. Wir füllen deinen Kalender.",
   showClock: false,
+  servicePreview: false,
   copyright: `© 2026 ${site.legalName} · ${site.address.street}, ${site.address.zip} ${site.address.city}`,
   email: site.email,
   currency: "€",
