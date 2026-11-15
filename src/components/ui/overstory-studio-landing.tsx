@@ -1589,17 +1589,38 @@ export default function OverstoryStudioLanding({
   React.useEffect(() => {
     const r = root.current
     if (!r) return
-    let last = window.scrollY
+    let lastY = window.scrollY
+    let direction = 0
+    let distance = 0
     let raf = 0
     const onScroll = () => {
-      cancelAnimationFrame(raf)
+      if (raf) return
       raf = requestAnimationFrame(() => {
+        raf = 0
         const y = window.scrollY
+        const delta = y - lastY
+        lastY = y
         const top = r.getBoundingClientRect().top + y
         r.toggleAttribute("data-solid", y > top + 40)
-        r.toggleAttribute("data-navhide", y > last + 4 && y > top + 400)
-        if (y < last - 4) r.removeAttribute("data-navhide")
-        last = y
+
+        // Keep the header visible near the top and ignore tiny scroll jitter.
+        if (y <= top + 400) {
+          r.removeAttribute("data-navhide")
+          direction = 0
+          distance = 0
+          return
+        }
+        if (Math.abs(delta) < 2) return
+
+        // Change visibility only after sustained movement in one direction.
+        const nextDirection = Math.sign(delta)
+        if (nextDirection !== direction) {
+          direction = nextDirection
+          distance = 0
+        }
+        distance += Math.abs(delta)
+        if (direction > 0 && distance >= 32) r.setAttribute("data-navhide", "")
+        if (direction < 0 && distance >= 20) r.removeAttribute("data-navhide")
       })
     }
     window.addEventListener("scroll", onScroll, { passive: true })
