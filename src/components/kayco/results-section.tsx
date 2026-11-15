@@ -61,6 +61,9 @@ export function ResultsSection() {
     return () => {
       ro.disconnect();
       io.disconnect();
+      mq.removeEventListener("change", onMq);
+      if (w.cancelIdleCallback) w.cancelIdleCallback(idle);
+      else window.clearTimeout(idle);
     };
   }, []);
 
