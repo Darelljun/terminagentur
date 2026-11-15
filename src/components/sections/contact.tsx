@@ -3,23 +3,24 @@ import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button-link";
 import { contactMailto, site } from "@/lib/site";
 import { ContactForm } from "./contact-form";
+import { Chapter } from "./section-heading";
 
 export function Contact() {
   const booking = site.bookingUrl;
   return (
-    <section id="kontakt" aria-labelledby="kontakt-title" className="px-3 pb-3 sm:px-4 sm:pb-4">
-      <div className="relative overflow-hidden rounded-[36px] bg-ink py-24 text-white sm:rounded-[48px] sm:py-32">
+    <section id="kontakt" aria-labelledby="kontakt-title" className="bg-canvas px-3 pb-3 sm:px-4 sm:pb-4">
+      <div data-nav-theme="dark" className="relative overflow-hidden rounded-[36px] bg-ink py-24 text-white sm:rounded-[48px] sm:py-32">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-48 left-1/2 size-[42rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgb(47_191_133/0.16),transparent_62%)]"
         />
         <div className="container-kayco relative">
           <Reveal className="mx-auto max-w-[48rem] text-center">
-            <p className="text-[0.8125rem] font-medium text-white/60">Strategiegespräch</p>
-            <h2 id="kontakt-title" className="text-headline mt-4">
+            <Chapter n="10" label="Strategiegespräch" inverse className="justify-center" />
+            <h2 id="kontakt-title" className="type-headline mt-5">
               Dein Kalender. <span className="serif-accent">Unser Ergebnis.</span>
             </h2>
-            <p className="text-lead mx-auto mt-6 max-w-[36rem] text-white/70">
+            <p className="type-lead mx-auto mt-6 max-w-[36rem] text-white/70">
               Lass uns in einem unverbindlichen Strategiegespräch klären, wie viele Termine du brauchst, wen du beraten
               möchtest – und ob KAYCO zu dir passt.
             </p>
@@ -31,7 +32,7 @@ export function Contact() {
               <span className="flex size-11 items-center justify-center rounded-2xl bg-white text-ink">
                 <CalendarClock className="size-5" strokeWidth={1.7} aria-hidden="true" />
               </span>
-              <h3 className="text-title mt-6">Termin direkt buchen</h3>
+              <h3 className="type-title mt-6">Termin direkt buchen</h3>
               {booking ? (
                 <>
                   <p className="mt-3 text-[0.9875rem] leading-relaxed text-white/70">
@@ -78,7 +79,7 @@ export function Contact() {
 
             {/* Formular */}
             <Reveal delay={0.1} className="rounded-[28px] bg-white p-7 text-ink sm:p-9">
-              <h3 className="text-title">Anfrage vorbereiten</h3>
+              <h3 className="type-title">Anfrage vorbereiten</h3>
               <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">
                 Ein paar Angaben helfen uns, das Gespräch gut vorzubereiten.
               </p>

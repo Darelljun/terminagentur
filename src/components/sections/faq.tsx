@@ -1,6 +1,7 @@
 import { Reveal } from "@/components/motion/reveal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { site } from "@/lib/site";
+import { Chapter } from "./section-heading";
 
 export const FAQS: { q: string; a: string }[] = [
   {
@@ -51,14 +52,14 @@ export const FAQS: { q: string; a: string }[] = [
 
 export function Faq() {
   return (
-    <section id="faq" aria-labelledby="faq-title" className="py-24 sm:py-36">
+    <section id="faq" aria-labelledby="faq-title" className="bg-canvas py-24 sm:py-40">
       <div className="container-kayco grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <Reveal className="lg:sticky lg:top-32 lg:self-start">
-          <p className="eyebrow">FAQ</p>
-          <h2 id="faq-title" className="text-headline mt-4 text-ink">
+          <Chapter n="09" label="FAQ" />
+          <h2 id="faq-title" className="type-headline mt-5 text-ink">
             Fragen, <span className="serif-accent">klar beantwortet.</span>
           </h2>
-          <p className="text-lead mt-6 text-muted-foreground">
+          <p className="type-lead mt-6 text-muted-foreground">
             Deine Frage ist nicht dabei?{" "}
             <a href={`mailto:${site.email}`} className="text-ink underline decoration-border underline-offset-4 hover:decoration-ink">
               Schreib uns

@@ -23,6 +23,7 @@ function NavLinks({
   hovered,
   layoutId,
   vertical = false,
+  dark = false,
   reduceMotion,
   onHover,
   onSelect,
@@ -32,16 +33,17 @@ function NavLinks({
   hovered: string | null;
   layoutId: string;
   vertical?: boolean;
+  dark?: boolean;
   reduceMotion: boolean;
   onHover: (id: string | null) => void;
   onSelect: (id: string) => void;
 }) {
-  const highlighted = hovered ?? active;
   return (
     <ul className={cn("flex", vertical ? "flex-col gap-0.5" : "items-center gap-0.5")}>
       {items.map((item) => {
         const isActive = item.id === active;
-        const isHighlighted = item.id === highlighted;
+        const isHovered = item.id === hovered;
+        const lit = isHovered || (hovered === null && isActive);
         return (
           <li key={item.id}>
             <a
@@ -53,15 +55,18 @@ function NavLinks({
               className={cn(
                 "relative isolate flex items-center rounded-full px-3.5 text-sm font-medium transition-colors duration-200",
                 vertical ? "min-h-12 px-4 text-base" : "h-9",
-                isHighlighted ? "text-ink" : "text-muted-foreground",
+                dark ? (lit ? "text-white" : "text-white/60") : lit ? "text-ink" : "text-muted-foreground",
+                // Aktiver Abschnitt: reine CSS-Hervorhebung (keine Layout-Animation, stört kein Scrollen)
+                isActive && hovered === null && (dark ? "bg-white/10" : "bg-black/[0.05]"),
               )}
             >
-              {isHighlighted && (
+              {/* Morphende Hover-Pille nach 21st.dev – nur bei Mauszeiger, nie scrollgesteuert */}
+              {isHovered && (
                 <motion.span
                   layoutId={layoutId}
                   aria-hidden="true"
                   transition={reduceMotion ? { duration: 0 } : SPRING}
-                  className="absolute inset-0 -z-10 rounded-full bg-black/[0.05]"
+                  className={cn("absolute inset-0 -z-10 rounded-full", dark ? "bg-white/10" : "bg-black/[0.05]")}
                 />
               )}
               {item.label}
@@ -82,6 +87,7 @@ export function Header({ onHome = true }: { onHome?: boolean }) {
   const [hovered, setHovered] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dark, setDark] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const desktopId = useId();
@@ -95,7 +101,16 @@ export function Header({ onHome = true }: { onHome?: boolean }) {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 12);
+      const probe = 44;
+      setDark(
+        [...document.querySelectorAll<HTMLElement>("[data-nav-theme=dark]")].some((el) => {
+          const r = el.getBoundingClientRect();
+          return r.top <= probe && r.bottom >= probe;
+        }),
+      );
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -160,12 +175,13 @@ export function Header({ onHome = true }: { onHome?: boolean }) {
         <nav
           aria-label="Hauptnavigation"
           className={cn(
-            "glass relative flex items-center justify-between gap-3 rounded-full py-1.5 pr-1.5 pl-4 ring-1 ring-black/[0.06] transition-shadow duration-300",
+            "relative flex items-center justify-between gap-3 rounded-full py-1.5 pr-1.5 pl-4 ring-1 transition-[background-color,box-shadow] duration-300",
+            dark ? "glass-dark ring-white/10" : "glass ring-black/[0.06]",
             scrolled ? "shadow-[0_12px_40px_-12px_rgb(0_0_0/0.18)]" : "shadow-[0_4px_20px_-10px_rgb(0_0_0/0.10)]",
           )}
         >
           <a href={onHome ? "#top" : "/"} className="rounded-full py-1.5" aria-label="KAYCO – zur Startseite">
-            <Logo />
+            <Logo inverse={dark} />
           </a>
 
           <div className="hidden lg:block">
@@ -174,6 +190,7 @@ export function Header({ onHome = true }: { onHome?: boolean }) {
               active={active}
               hovered={hovered}
               layoutId={`pill-${desktopId}`}
+              dark={dark}
               reduceMotion={reduceMotion}
               onHover={setHovered}
               onSelect={handleSelect}
@@ -181,7 +198,7 @@ export function Header({ onHome = true }: { onHome?: boolean }) {
           </div>
 
           <div className="flex items-center gap-1">
-            <a href={ctaHref} className={cn(buttonStyles({ size: "sm" }), "hidden h-10 px-5 sm:inline-flex")}>
+            <a href={ctaHref} className={cn(buttonStyles({ size: "sm", variant: dark ? "inverse" : "primary" }), "hidden h-10 px-5 sm:inline-flex")}>
               Strategiegespräch
             </a>
             <button
@@ -191,7 +208,10 @@ export function Header({ onHome = true }: { onHome?: boolean }) {
               aria-expanded={open}
               aria-controls={panelId}
               aria-label={open ? "Menü schließen" : "Menü öffnen"}
-              className="relative flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-ink transition-colors hover:bg-black/[0.05] lg:hidden"
+              className={cn(
+                "relative flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors lg:hidden",
+                dark ? "text-white hover:bg-white/10" : "text-ink hover:bg-black/[0.05]",
+              )}
             >
               <span aria-hidden="true" className="relative block h-3 w-[18px]">
                 <span

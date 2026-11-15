@@ -10,6 +10,8 @@ import { Guarantee } from "@/components/sections/promise";
 import { Qualification } from "@/components/sections/qualification";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
+import { MobileCta } from "@/components/site/mobile-cta";
+import { TimeSaved } from "@/components/sections/time-saved";
 import { site } from "@/lib/site";
 
 const jsonLd = {
@@ -59,6 +61,7 @@ export default function HomePage() {
         <Hero />
         <Problem />
         <Difference />
+        <TimeSaved />
         <Process />
         <Qualification />
         <Guarantee />
@@ -68,6 +71,7 @@ export default function HomePage() {
         <Contact />
       </main>
       <Footer />
+      <MobileCta />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}

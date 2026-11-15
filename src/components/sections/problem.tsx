@@ -1,83 +1,109 @@
-import { CalendarX2, Clock3, Hourglass, PhoneOff, ReceiptEuro, TrendingDown, UserX } from "lucide-react";
-import { Stagger, StaggerItem } from "@/components/motion/reveal";
-import { cn } from "@/lib/utils";
-import { SectionHeading } from "./section-heading";
+import { PhoneMissed, PhoneOff, Voicemail, UserX, PhoneForwarded, Hash, PhoneCall } from "lucide-react";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal";
+import { ScrollWords } from "@/components/motion/scroll-words";
+import { Chapter } from "./section-heading";
 
-const PROBLEMS = [
-  {
-    icon: CalendarX2,
-    title: "Zu wenig planbare Gespräche",
-    text: "Eine Woche ist voll, die nächste leer. Ohne verlässliche Termine lässt sich weder Umsatz noch Wachstum planen.",
-    wide: true,
-  },
-  {
-    icon: UserX,
-    title: "Unqualifizierte Leads",
-    text: "Kontaktdaten von Menschen, die sich kaum an ihre Anfrage erinnern oder gar keinen Beratungsbedarf haben.",
-  },
-  {
-    icon: PhoneOff,
-    title: "Niemand ist erreichbar",
-    text: "Mailbox, besetzt, kein Rückruf. Ein großer Teil der Leads führt nie zu einem Gespräch.",
-  },
-  {
-    icon: Clock3,
-    title: "Stundenlanges Nachtelefonieren",
-    text: "Zeit, die du am Telefon verbringst, statt mit Kunden zu arbeiten.",
-  },
-  {
-    icon: ReceiptEuro,
-    title: "Hohe Agenturkosten ohne Garantie",
-    text: "Monatliche Pauschalen werden fällig – ganz gleich, ob am Ende Gespräche stattfinden.",
-  },
-  {
-    icon: TrendingDown,
-    title: "Unzuverlässige Neukundengewinnung",
-    text: "Empfehlungen und Bestandskunden allein tragen auf Dauer kein planbares Wachstum.",
-  },
-  {
-    icon: Hourglass,
-    title: "Zu wenig Zeit für Beratung",
-    text: "Akquise, Nachfassen, Organisation – für die eigentliche Beratung bleibt immer weniger übrig.",
-    wide: true,
-  },
+const LOG = [
+  { time: "08:42", icon: Voicemail, status: "Mailbox" },
+  { time: "08:51", icon: PhoneMissed, status: "Nicht erreicht" },
+  { time: "09:05", icon: UserX, status: "Kein Bedarf mehr" },
+  { time: "09:14", icon: Hash, status: "Nummer ungültig" },
+  { time: "09:26", icon: PhoneForwarded, status: "Rückruf erbeten" },
+  { time: "09:40", icon: Voicemail, status: "Mailbox" },
+  { time: "09:58", icon: PhoneOff, status: "Besetzt" },
+];
+
+const PAINS = [
+  ["Zu wenig planbare Gespräche", "Eine Woche ist voll, die nächste leer."],
+  ["Unqualifizierte Leads", "Kontakte ohne echten Beratungsbedarf."],
+  ["Niemand ist erreichbar", "Mailbox, besetzt, kein Rückruf."],
+  ["Stundenlanges Nachtelefonieren", "Zeit am Telefon statt beim Kunden."],
+  ["Hohe Agenturkosten ohne Garantie", "Pauschalen, egal ob Gespräche stattfinden."],
+  ["Unzuverlässige Neukundengewinnung", "Empfehlungen allein tragen kein Wachstum."],
+  ["Zu wenig Zeit für Beratung", "Akquise frisst den eigentlichen Beruf."],
 ];
 
 export function Problem() {
   return (
-    <section aria-labelledby="problem-title" className="bg-canvas py-24 sm:py-36">
+    <section aria-labelledby="problem-title" className="relative py-24 sm:py-40">
       <div className="container-kayco">
-        <SectionHeading
-          id="problem-title"
-          eyebrow="Das Problem"
-          title={
-            <>
-              Am Beratungswissen liegt es selten.{" "}
-              <span className="text-muted-foreground">Das Problem beginnt vorher.</span>
-            </>
-          }
-          lead="Viele Finanzberater können Kunden hervorragend helfen. Was fehlt, sind genug passende Gespräche – und die Zeit, sie zu führen."
+        <Reveal>
+          <Chapter n="01" label="Das Problem" />
+          <h2 id="problem-title" className="sr-only">
+            Das Problem: Am Beratungswissen fehlt es selten
+          </h2>
+        </Reveal>
+        <ScrollWords
+          className="mt-8 max-w-[62rem] text-[clamp(2rem,5.2vw,4.25rem)] leading-[1.08] font-semibold tracking-[-0.04em] text-ink"
+          segments={[
+            { text: "Am Beratungswissen fehlt es selten." },
+            { text: "Es fehlt an planbaren Gesprächen, an Leads, die erreichbar sind – und an Zeit, die nicht am Telefon verloren geht.", accent: false },
+            { text: "Das ändern wir.", accent: true },
+          ]}
         />
 
-        <Stagger as="ul" className="mt-16 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-          {PROBLEMS.map(({ icon: Icon, title, text, wide }) => (
-            <StaggerItem
-              as="li"
-              key={title}
-              className={cn(
-                "group rounded-3xl bg-white p-7 ring-1 ring-black/[0.05] transition-[box-shadow,transform] duration-300 ease-[var(--ease-premium)] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-24px_rgb(0_0_0/0.25)] sm:p-8",
-                wide && "lg:col-span-2",
-                title === "Zu wenig Zeit für Beratung" && "sm:col-span-2",
-              )}
-            >
-              <span className="flex size-11 items-center justify-center rounded-2xl bg-canvas text-ink transition-colors duration-300 group-hover:bg-ink group-hover:text-white">
-                <Icon className="size-5" strokeWidth={1.6} aria-hidden="true" />
-              </span>
-              <h3 className="text-title mt-6 text-ink">{title}</h3>
-              <p className="mt-2.5 max-w-[34rem] text-[0.9875rem] leading-relaxed text-muted-foreground">{text}</p>
-            </StaggerItem>
-          ))}
-        </Stagger>
+        <div className="mt-20 grid items-start gap-12 sm:mt-28 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-20">
+          {/* Anrufliste */}
+          <Reveal className="lg:sticky lg:top-28">
+            <figure className="relative">
+              <div className="shadow-float overflow-hidden rounded-[28px] bg-white ring-1 ring-black/[0.06]">
+                <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6">
+                  <div className="flex items-center gap-2.5">
+                    <PhoneCall className="size-4 text-ink" strokeWidth={1.7} aria-hidden="true" />
+                    <p className="text-sm font-semibold text-ink">Anrufliste · gekaufte Leads</p>
+                  </div>
+                  <span className="rounded-md bg-canvas px-1.5 py-0.5 text-[0.625rem] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
+                    Illustration
+                  </span>
+                </div>
+                <Stagger as="ul" className="divide-y divide-border">
+                  {LOG.map(({ time, icon: Icon, status }, i) => (
+                    <StaggerItem as="li" key={time} className="flex items-center gap-4 px-5 py-3.5 sm:px-6">
+                      <span className="w-11 text-xs text-muted-foreground tabular-nums">{time}</span>
+                      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-canvas text-muted-foreground">
+                        <Icon className="size-3.5" aria-hidden="true" />
+                      </span>
+                      <span className="flex-1 text-sm text-ink">Kontakt {String(i + 1).padStart(2, "0")}</span>
+                      <span className="rounded-full bg-black/[0.05] px-2.5 py-1 text-xs font-medium text-muted-foreground">{status}</span>
+                    </StaggerItem>
+                  ))}
+                </Stagger>
+                <div className="flex items-center justify-between bg-canvas px-5 py-4 sm:px-6">
+                  <p className="text-sm text-muted-foreground">Ergebnis des Vormittags</p>
+                  <p className="text-sm font-semibold text-ink">kein Beratungstermin</p>
+                </div>
+              </div>
+              <figcaption className="mt-3 text-xs text-muted-foreground">
+                Fiktives Beispiel eines Akquise-Vormittags mit gekauften Kontaktdaten.
+              </figcaption>
+            </figure>
+          </Reveal>
+
+          {/* Schmerzpunkte als Register */}
+          <div>
+            <Reveal>
+              <p className="type-title max-w-[28rem] text-ink">
+                Wir kennen diesen Alltag.{" "}
+                <span className="text-muted-foreground">Viele Finanzberater erleben ihn jede Woche.</span>
+              </p>
+            </Reveal>
+            <Stagger as="ol" className="mt-10 border-t border-border">
+              {PAINS.map(([title, text], i) => (
+                <StaggerItem
+                  as="li"
+                  key={title}
+                  className="group grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-4 border-b border-border py-5 sm:grid-cols-[3rem_minmax(0,1fr)_minmax(0,1fr)] sm:items-baseline"
+                >
+                  <span className="text-xs font-semibold text-muted-foreground tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="text-[1.0625rem] font-semibold tracking-[-0.015em] text-ink transition-transform duration-300 group-hover:translate-x-1 sm:text-lg">
+                    {title}
+                  </h3>
+                  <p className="col-start-2 mt-1 text-[0.9375rem] text-muted-foreground sm:col-start-3 sm:mt-0">{text}</p>
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </div>
+        </div>
       </div>
     </section>
   );

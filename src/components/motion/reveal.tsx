@@ -1,7 +1,7 @@
 "use client";
 
-import { animate, motion, useInView, useReducedMotion, type Variants } from "motion/react";
-import { useEffect, useRef, type ReactNode } from "react";
+import { motion, type Variants } from "motion/react";
+import type { ReactNode } from "react";
 
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -72,40 +72,5 @@ export function StaggerItem({
     <Comp className={className} variants={item}>
       {children}
     </Comp>
-  );
-}
-
-/** Zählt beim Erscheinen von 0 auf den Zielwert hoch. Ohne Bewegung: sofort Endwert. */
-export function CountUp({ to, className, duration = 1.6 }: { to: number; className?: string; duration?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const numRef = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -15% 0px" });
-  const reduce = useReducedMotion();
-
-  // Das servergerenderte HTML enthält den echten Wert; erst im Browser wird auf 0 zurückgesetzt.
-  useEffect(() => {
-    if (reduce || inView || !numRef.current) return;
-    numRef.current.textContent = "0";
-  }, [reduce, inView]);
-
-  useEffect(() => {
-    if (!inView || reduce) return;
-    const controls = animate(0, to, {
-      duration,
-      ease: EASE,
-      onUpdate: (v) => {
-        if (numRef.current) numRef.current.textContent = String(Math.round(v));
-      },
-    });
-    return () => controls.stop();
-  }, [inView, reduce, to, duration]);
-
-  return (
-    <span ref={ref} className={className}>
-      <span className="sr-only">{to}</span>
-      <span ref={numRef} aria-hidden="true">
-        {to}
-      </span>
-    </span>
   );
 }

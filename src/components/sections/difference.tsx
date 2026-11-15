@@ -1,102 +1,132 @@
-import { CalendarCheck2, Check, FileText, Minus, PhoneMissed } from "lucide-react";
-import { Reveal } from "@/components/motion/reveal";
+import { ArrowRight, CalendarCheck2, Clock, FileText, Minus, Check, UserRound } from "lucide-react";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal";
 import { SectionHeading } from "./section-heading";
 
-const CLASSIC = ["Kontaktdaten", "Eigene Nachfassarbeit", "Unklare Abschlussrelevanz", "Ungewisse Terminquote"];
-const KAYCO = [
-  "Vereinbarte Termine",
-  "Vorqualifizierte Interessenten",
-  "Relevante Vorabinformationen",
-  "Direkte Kalenderintegration",
-  "Ergebnisorientiertes Vergütungsmodell",
+const ROWS: [string, string][] = [
+  ["Kontaktdaten", "Vereinbarte Termine"],
+  ["Eigene Nachfassarbeit", "Vorqualifizierte Interessenten"],
+  ["Unklare Abschlussrelevanz", "Relevante Vorabinformationen"],
+  ["Ungewisse Terminquote", "Direkte Kalenderintegration"],
+  ["Vergütung pro Lead", "Ergebnisorientiertes Vergütungsmodell"],
 ];
+
+function LeadArtifact() {
+  return (
+    <div className="overflow-hidden rounded-[24px] bg-white ring-1 ring-black/[0.06]" aria-hidden="true">
+      <div className="flex items-center gap-2 border-b border-border px-4 py-3">
+        <span className="size-2.5 rounded-full bg-black/10" />
+        <span className="size-2.5 rounded-full bg-black/10" />
+        <span className="size-2.5 rounded-full bg-black/10" />
+        <span className="ml-2 text-xs text-muted-foreground">leads_export.csv</span>
+      </div>
+      <div className="overflow-hidden px-4 py-4 text-[0.75rem] leading-relaxed text-muted-foreground tabular-nums">
+        <div className="grid grid-cols-[1.1fr_1.2fr_0.9fr] gap-3 border-b border-dashed border-border pb-2 font-semibold text-ink/70">
+          <span>Name</span>
+          <span>Telefon</span>
+          <span>Status</span>
+        </div>
+        {[
+          ["M. Schneider", "0151 ••• 2291", "offen"],
+          ["K. Yilmaz", "0176 ••• 0834", "Mailbox"],
+          ["J. Becker", "0160 ••• 5517", "2 Versuche"],
+        ].map(([n, t, s]) => (
+          <div key={n} className="grid grid-cols-[1.1fr_1.2fr_0.9fr] gap-3 border-b border-dashed border-border py-2 last:border-0">
+            <span className="truncate">{n}</span>
+            <span className="truncate">{t}</span>
+            <span className="truncate">{s}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AppointmentArtifact() {
+  return (
+    <div className="overflow-hidden rounded-[24px] bg-white shadow-[0_30px_60px_-24px_rgb(14_122_82/0.45)] ring-1 ring-signal/30" aria-hidden="true">
+      <div className="flex items-center gap-3 bg-signal px-4 py-3.5 text-white">
+        <CalendarCheck2 className="size-[18px]" strokeWidth={1.8} />
+        <p className="text-sm font-semibold">Beratung · Altersvorsorge</p>
+        <span className="ml-auto rounded-full bg-white/20 px-2 py-0.5 text-[0.6875rem] font-medium">Bestätigt</span>
+      </div>
+      <div className="space-y-2.5 px-4 py-4 text-[0.8125rem] text-ink">
+        <p className="flex items-center gap-2.5">
+          <Clock className="size-3.5 text-muted-foreground" />
+          Dienstag, 14:00 – 15:00 Uhr
+        </p>
+        <p className="flex items-center gap-2.5">
+          <UserRound className="size-3.5 text-muted-foreground" />
+          Lena M. · hat zugesagt
+        </p>
+        <div className="rounded-xl bg-canvas p-3">
+          <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+            <FileText className="size-3" />
+            Briefing
+          </p>
+          <p className="mt-1 text-[0.8125rem]">Angestellt · verheiratet, zwei Kinder · möchte Überblick über ihre Vorsorge.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function Difference() {
   return (
-    <section id="unterschied" aria-labelledby="unterschied-title" className="py-24 sm:py-36">
+    <section id="unterschied" aria-labelledby="unterschied-title" className="relative bg-canvas py-24 sm:py-40">
       <div className="container-kayco">
         <SectionHeading
           id="unterschied-title"
+          chapter="02"
           eyebrow="Der Unterschied"
           title={
             <>
-              Andere verkaufen Kontakte.
-              <br className="hidden sm:block" /> <span className="serif-accent">Wir vereinbaren Gespräche.</span>
+              Ein Lead ist ein Datensatz. <span className="serif-accent">Ein Termin ist ein Gespräch.</span>
             </>
           }
-          lead="Ein Lead ist ein Name mit Telefonnummer. Ein Termin ist eine verbindliche Verabredung mit einem Menschen, der beraten werden möchte. Genau dort setzen wir an."
+          lead="Andere Agenturen verkaufen Kontaktdaten und überlassen dir die eigentliche Arbeit. Wir gehen den Schritt weiter – bis in deinen Kalender."
         />
 
-        <div className="mt-16 grid gap-4 lg:grid-cols-2">
-          {/* Klassisch */}
-          <Reveal className="flex flex-col rounded-[32px] bg-canvas p-7 sm:p-10">
-            <p className="text-sm font-medium text-muted-foreground">Klassische Leadgenerierung</p>
-            <p className="text-title mt-2 text-ink">Du bekommst Daten.</p>
-
-            <div aria-hidden="true" className="mt-8 rounded-2xl bg-white/70 p-4 ring-1 ring-black/[0.05]">
-              <div className="flex items-center justify-between gap-3">
-                <div className="space-y-2">
-                  <span className="block h-2.5 w-28 rounded-full bg-black/10" />
-                  <span className="block h-2 w-20 rounded-full bg-black/[0.07]" />
-                </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-black/[0.05] px-2.5 py-1 text-[0.6875rem] font-medium text-muted-foreground">
-                  <PhoneMissed className="size-3" />3 Anrufversuche
-                </span>
-              </div>
-              <p className="mt-3 text-xs text-muted-foreground">Status: nicht erreicht · erneut versuchen</p>
+        {/* Artefakte */}
+        <div className="mt-16 grid items-center gap-6 sm:mt-20 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-8">
+          <Reveal>
+            <p className="mb-4 text-sm font-medium text-muted-foreground">Was du bei einem Lead bekommst</p>
+            <div className="opacity-90 grayscale">
+              <LeadArtifact />
             </div>
-
-            <ul className="mt-8 space-y-3.5">
-              {CLASSIC.map((c) => (
-                <li key={c} className="flex items-center gap-3 text-[1.0625rem] text-muted-foreground">
-                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-black/[0.06]" aria-hidden="true">
-                    <Minus className="size-3.5" strokeWidth={2} />
-                  </span>
-                  {c}
-                </li>
-              ))}
-            </ul>
           </Reveal>
-
-          {/* KAYCO */}
-          <Reveal delay={0.12} className="relative flex flex-col overflow-hidden rounded-[32px] bg-ink p-7 text-white sm:p-10">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -top-40 -right-40 size-96 rounded-full bg-[radial-gradient(circle,rgb(47_191_133/0.22),transparent_65%)]"
-            />
-            <p className="relative text-sm font-medium text-white/60">KAYCO</p>
-            <p className="text-title relative mt-2">Du bekommst Gespräche.</p>
-
-            <div aria-hidden="true" className="relative mt-8 rounded-2xl bg-white/[0.07] p-4 ring-1 ring-white/10">
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <span className="flex size-9 items-center justify-center rounded-xl bg-[#2FBF85] text-ink">
-                    <CalendarCheck2 className="size-[18px]" strokeWidth={1.75} />
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold">Beratungstermin bestätigt</p>
-                    <p className="text-xs text-white/60">Dienstag, 14:00 Uhr · Altersvorsorge</p>
-                  </div>
-                </div>
-              </div>
-              <p className="mt-3 flex items-center gap-1.5 text-xs text-white/60">
-                <FileText className="size-3" />
-                Briefing mit Anliegen und Ausgangslage liegt bereit
-              </p>
-            </div>
-
-            <ul className="relative mt-8 space-y-3.5">
-              {KAYCO.map((c) => (
-                <li key={c} className="flex items-center gap-3 text-[1.0625rem]">
-                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#2FBF85] text-ink" aria-hidden="true">
-                    <Check className="size-3.5" strokeWidth={2.5} />
-                  </span>
-                  {c}
-                </li>
-              ))}
-            </ul>
+          <Reveal delay={0.1} className="flex justify-center">
+            <span className="inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold tracking-[0.14em] text-white">
+              KAYCO
+              <ArrowRight className="size-4 rotate-90 lg:rotate-0" aria-hidden="true" />
+            </span>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className="mb-4 text-sm font-medium text-ink">Was du mit KAYCO bekommst</p>
+            <AppointmentArtifact />
           </Reveal>
         </div>
+
+        {/* Gegenüberstellung als Register */}
+        <Reveal className="mt-16 overflow-hidden rounded-[28px] bg-white ring-1 ring-black/[0.05] sm:mt-20">
+          <div className="grid grid-cols-2 border-b border-border text-sm font-semibold">
+            <p className="px-4 py-4 text-muted-foreground sm:px-8 sm:py-5">Klassische Leadgenerierung</p>
+            <p className="border-l border-border px-4 py-4 text-ink sm:px-8 sm:py-5">KAYCO</p>
+          </div>
+          <Stagger as="ul">
+            {ROWS.map(([a, b]) => (
+              <StaggerItem as="li" key={b} className="grid grid-cols-2 border-b border-border last:border-0">
+                <span className="flex items-start gap-2.5 px-4 py-4 text-[0.9375rem] text-muted-foreground sm:px-8 sm:py-5 sm:text-base">
+                  <Minus className="mt-1 size-3.5 shrink-0" aria-hidden="true" />
+                  {a}
+                </span>
+                <span className="flex items-start gap-2.5 border-l border-border px-4 py-4 text-[0.9375rem] font-medium text-ink sm:px-8 sm:py-5 sm:text-base">
+                  <Check className="mt-1 size-3.5 shrink-0 text-signal" strokeWidth={2.5} aria-hidden="true" />
+                  {b}
+                </span>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </Reveal>
       </div>
     </section>
   );

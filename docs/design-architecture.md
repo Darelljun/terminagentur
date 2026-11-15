@@ -1,59 +1,45 @@
-# KAYCO – Designarchitektur
+# KAYCO – Designarchitektur v2 („Der Slot“)
 
-## Leitidee
-„Keine Leads. Termine.“ Jede Sektion führt vom Problem (Kontaktdaten, Nachtelefonieren)
-zum Ergebnis (bestätigter, vorbereiteter Termin im Kalender). Das wiederkehrende visuelle
-Motiv ist der **Kalendereintrag**: Er erscheint im Hero, in der Gegenüberstellung, am Ende des
-Ablaufs und als Terminbriefing.
+## Markenidee
+Das zentrale Markenelement ist der **Slot**: ein abgerundetes Rechteck in Signalgrün, ein
+gebuchter Beratungstermin. Er ist Bildmarke, Interface-Element und erzählerischer Faden.
+Die gesamte Seite ist eine Produktpräsentation in Kapiteln: Aus Rauschen (Leads, Anrufe,
+Mailbox) wird ein Slot im Kalender.
 
-## Gestaltungsprinzipien
-- Hell, ruhig, präzise: Weiß und ein warmes Off-White (`--canvas`) wechseln sich als Sektionsflächen ab.
-- Eine einzige dunkle Fläche (KAYCO-Karte in der Gegenüberstellung, finaler CTA) setzt Kontrast.
-- Ein Akzent: **Signalgrün** (`--signal`) steht ausschließlich für „Termin bestätigt“ und Häkchen.
-- Keine Verläufe als Dekoration, keine Stockfotos, keine erfundenen Zahlen, Logos oder Stimmen.
+## Prinzipien
+- **Produkt statt Dekoration.** Jede Sektion zeigt ein realistisches Interface-Artefakt
+  (Kalender, Anrufliste, Datensatz, Briefing, Monatsraster) statt Icon-Karten.
+- **Kapitel-Dramaturgie.** Nummerierte Kapitel (01–09) mit je eigener Komposition:
+  Bühne, Wort-Enthüllung, Artefakt-Vergleich, Vorher/Nachher-Regler, Sticky-Szene,
+  Explosionsansicht, Nachtbühne, Editorial, Register.
+- **Hell mit einer Nachtbühne.** Helle Flächen, Haarlinien, große weiche Schatten,
+  Glas nur auf Bedienelementen. Die Garantie spielt auf dunkler Bühne – der Höhepunkt.
+- **Ein Akzent.** Signalgrün nur für bestätigte Termine.
+- **Typografie.** Geist (eng, präzise) + Instrument Serif kursiv als Markenstimme.
+  Kleine Labels in Versalien mit Laufweite für den „Software-Präzisions“-Charakter.
 
-## Typografie
-- Geist (Sans, self-hosted über `next/font`) für alles, enge Laufweite in großen Größen.
-- Instrument Serif *kursiv* als Markenstimme für einzelne Schlüsselwörter („Termine.“).
-- Skala: Display `clamp(3rem, 10vw, 8rem)`, Headline `clamp(2.25rem, 5.5vw, 4.25rem)`,
-  Fließtext 17–19 px, Zeilenhöhe 1.5–1.6, maximale Zeilenlänge ca. 65 Zeichen.
-
-## Farben (Kontrast geprüft, WCAG AA)
-| Token | Wert | Einsatz |
+## Kapitel
+| # | Sektion | Visuelle Idee |
 |---|---|---|
-| `--background` | `#FFFFFF` | Seite |
-| `--canvas` | `#F5F5F2` | alternierende Sektionen |
-| `--foreground` / `--ink` | `#0B0B0D` | Text, Primär-Buttons |
-| `--muted-foreground` | `#5B5B62` | Sekundärtext (≥ 6:1 auf Weiß) |
-| `--border` | `#E6E5E0` | Haarlinien |
-| `--signal` | `#0E7A52` | bestätigte Termine, Häkchen |
+| – | Hero | Interaktive Live-Bühne: Anfrage → Qualifizierung → Angaben → Bestätigung → Slot fliegt in den Kalender (Motion `layoutId`). Pausierbar, klickbare Schritte. |
+| 01 | Problem | Scrollgesteuerte Wort-Enthüllung + illustrierte Anrufliste eines Akquise-Tags |
+| 02 | Unterschied | Zwei Artefakte: Datensatz (Lead) vs. Kalender-Slot (Termin) |
+| 03 | Zeit | Vorher/Nachher-Regler über einer Arbeitswoche (Zeitersparnis, als Illustration gekennzeichnet) |
+| 04 | Ablauf | Sticky-Szene: Fünf Schritte steuern eine Geräteansicht (Desktop); mobil gestapelte Szenen |
+| 05 | Qualifizierung | Explosionsansicht des Terminbriefings mit Callouts |
+| 06 | Garantie | Nachtbühne: 30 Slots füllen sich mit dem Scrollen, „30“ zählt mit; Konditionen als Register |
+| 07 | Über uns | Editorial mit großem Zitat und Gründerzeilen |
+| 08 | Für wen | Typografisches Register statt Kartenraster |
+| 09 | FAQ | Accordion |
+| – | Kontakt | Finale Bühne mit Buchung + Anfrage |
 
-## Bewegung (Motion)
-- Einheitliche Kurve `cubic-bezier(0.22, 1, 0.36, 1)`, 0.5–0.9 s für Reveals, 150–250 ms für Hover.
-- Reveal beim Scrollen (einmalig), gestaffelte Karten, Hero-Kalender füllt sich, Pipeline-Puls,
-  Ablauf-Linie wird mit dem Scrollfortschritt gezeichnet, „30“ zählt hoch, Briefing-Wechsel per Tabs.
-- `MotionConfig reducedMotion="user"` + CSS-Fallbacks: Bei `prefers-reduced-motion` entfallen
-  Bewegungen, Inhalte stehen sofort im Endzustand.
+## Mobile
+Eigene Inszenierung: Live-Bühne im ersten Screen, horizontale Schrittleiste, Tagesansicht
+statt Wochenansicht, gestapelte Prozess-Szenen, Monatsraster 5 × 6, schwebende CTA-Leiste
+nach dem Hero (blendet am Kontaktbereich aus). Touch-Ziele ≥ 44 px.
 
-## Informationsarchitektur (Startseite)
-1. Hero – Kernbotschaft, Garantiehinweis, 2 CTAs, animierter Kalender + Pipeline
-2. Problem – sieben typische Hürden der Branche
-3. Unterschied – Leadgenerierung vs. KAYCO
-4. Ablauf – fünf Schritte mit scrollgezeichneter Linie
-5. Qualifizierung – Kategorien + Demo-Terminbriefing (fiktive Daten, gekennzeichnet)
-6. Versprechen – 30-Termine-Garantie, 300 € Einrichtung, Werbebudget, Vergütung
-7. Über KAYCO – Geschichte, Gründer Magdalena Kayser & Darell Kacou
-8. Für wen – Zielgruppen + ehrliche Abgrenzung
-9. FAQ – Accordion (Radix, Stil nach 21st.dev „Ghost Accordion“)
-10. Kontakt – Buchung (vorbereitet über `NEXT_PUBLIC_BOOKING_URL`) + E-Mail-Anfrage
-
-Rechtliches: `/impressum`, `/datenschutz`. Kein Cookie-Banner, da keine einwilligungspflichtigen
-Technologien (kein Tracking, Schriften lokal, keine externen Skripte).
-
-## Komponenten
-- `components/site/*` – Header (nach 21st.dev „Floating Glassmorphic Navbar“), Footer, Logo
-- `components/motion/*` – Reveal, Stagger, CountUp
-- `components/sections/*` – je eine Datei pro Sektion
-- `components/visuals/*` – Hero-Kalender, Briefing-Karte
-- `components/ui/*` – shadcn/ui (Accordion, Tabs), ButtonLink
-- `lib/site.ts` – zentrale Unternehmens- und Navigationsdaten
+## Bewegung
+Kurve `cubic-bezier(0.22, 1, 0.36, 1)`. Federn für Layout-Übergänge. Scroll-Kopplung nur
+dort, wo sie erzählt (Wort-Enthüllung, Ablauf, Garantie). Autoplay der Hero-Bühne
+pausiert außerhalb des Viewports und ist per Button anhaltbar (WCAG 2.2.2).
+`prefers-reduced-motion`: keine Autoplay-, Scroll- oder Transform-Effekte, Endzustände sofort.

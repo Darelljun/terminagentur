@@ -19,7 +19,7 @@ export function LegalPage({ title, updated, children }: { title: string; updated
       <main id="main" className="pt-32 pb-24 sm:pt-40 sm:pb-32">
         <article className="container-kayco max-w-[50rem]">
           <p className="eyebrow">Rechtliches</p>
-          <h1 className="text-headline mt-4 text-ink">{title}</h1>
+          <h1 className="type-headline mt-4 text-ink">{title}</h1>
           <p className="mt-4 text-sm text-muted-foreground">Stand: {updated}</p>
 
           <div role="note" className="mt-10 flex gap-3 rounded-2xl bg-amber-50 p-5 text-[0.9375rem] leading-relaxed text-amber-950 ring-1 ring-amber-200">

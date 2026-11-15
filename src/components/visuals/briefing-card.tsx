@@ -96,7 +96,7 @@ export function BriefingCard() {
               <TabsPrimitive.Trigger
                 key={p.id}
                 value={p.id}
-                className="relative min-h-10 min-w-0 cursor-pointer rounded-full px-2 text-[0.8125rem] font-medium text-muted-foreground transition-colors data-[state=active]:text-ink"
+                className="relative min-h-10 min-w-0 cursor-pointer rounded-full px-1 text-[0.75rem] font-medium sm:px-2 sm:text-[0.8125rem] text-muted-foreground transition-colors data-[state=active]:text-ink"
               >
                 {value === p.id && (
                   <motion.span

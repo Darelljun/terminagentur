@@ -1,113 +1,156 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useSpring } from "motion/react";
-import { CalendarCheck2, Compass, Megaphone, MessagesSquare, UserCheck } from "lucide-react";
-import { useRef } from "react";
-import { EASE } from "@/components/motion/reveal";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring } from "motion/react";
+import { useRef, useState } from "react";
+import { EASE, Reveal } from "@/components/motion/reveal";
+import { PROCESS_VISUALS } from "@/components/visuals/process-visuals";
+import { cn } from "@/lib/utils";
 import { SectionHeading } from "./section-heading";
 
 const STEPS = [
   {
-    icon: Compass,
     title: "Wir verstehen deinen Beratungsfokus",
-    text: "Welche Themen berätst du, welche Menschen passen zu dir, in welcher Region bist du tätig? Daraus leiten wir ab, wen wir ansprechen.",
-    tag: "Zielgruppe & Fokus",
+    text: "Welche Themen berätst du, welche Menschen passen zu dir, wo bist du tätig? Daraus leiten wir ab, wen wir ansprechen.",
   },
   {
-    icon: Megaphone,
     title: "Wir entwickeln und betreuen deine Kampagne",
-    text: "Wir erstellen die passende Kampagne für deine Zielgruppe und kümmern uns um die laufende Betreuung. Das Werbebudget trägst du – getrennt von unserer Vergütung.",
-    tag: "Kampagne",
+    text: "Wir erstellen die passende Kampagne und kümmern uns um die laufende Betreuung. Das Werbebudget trägst du – getrennt von unserer Vergütung.",
   },
   {
-    icon: MessagesSquare,
     title: "Interessenten werden kontaktiert und qualifiziert",
     text: "Wir sprechen mit den Interessenten, klären ihr Anliegen und erfragen, was für ein sinnvolles Beratungsgespräch wichtig ist.",
-    tag: "Qualifizierung",
   },
   {
-    icon: UserCheck,
     title: "Passende Interessenten erhalten einen Termin",
     text: "Nur wer zu deinem Angebot passt und beraten werden möchte, bekommt einen festen Beratungstermin bei dir.",
-    tag: "Terminvereinbarung",
   },
   {
-    icon: CalendarCheck2,
     title: "Der Termin steht in deinem Kalender",
     text: "Mit dem Termin erhältst du ein kurzes Briefing: Anliegen, Ziel und relevante Ausgangslage. Du gehst vorbereitet ins Gespräch.",
-    tag: "Kalender & Briefing",
   },
 ];
 
-export function Process() {
-  const ref = useRef<HTMLOListElement>(null);
-  const reduce = useReducedMotion() ?? false;
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 60%"] });
-  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
+const heading = (id: string) => (
+  <SectionHeading
+    id={id}
+    chapter="04"
+    eyebrow="So funktioniert KAYCO"
+    title={
+      <>
+        Fünf Schritte. <span className="serif-accent">Ein Termin.</span>
+      </>
+    }
+    lead="Wir übernehmen Akquise und Qualifizierung. Du übernimmst die Beratung."
+  />
+);
+
+/** Desktop: Sticky-Szene, gesteuert vom Scrollfortschritt. */
+function DesktopScene() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const bar = useSpring(scrollYProgress, { stiffness: 140, damping: 30 });
+  useMotionValueEvent(scrollYProgress, "change", (v) => setActive(Math.min(STEPS.length - 1, Math.floor(v * STEPS.length))));
+  const Visual = PROCESS_VISUALS[active];
 
   return (
-    <section id="ablauf" aria-labelledby="ablauf-title" className="bg-canvas py-24 sm:py-36">
-      <div className="container-kayco grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-        <div className="lg:sticky lg:top-32 lg:self-start">
-          <SectionHeading
-            id="ablauf-title"
-            eyebrow="So funktioniert KAYCO"
-            title={
-              <>
-                Vom ersten Kontakt <span className="serif-accent">bis in deinen Kalender.</span>
-              </>
-            }
-            lead="Fünf Schritte, eine klare Aufgabenteilung: Wir übernehmen die Akquise und Qualifizierung. Du übernimmst die Beratung."
-          />
-        </div>
-
-        <ol ref={ref} className="relative">
-          {/* Linie */}
-          <span aria-hidden="true" className="absolute top-2 bottom-2 left-[21px] w-px bg-black/10" />
-          <motion.span
-            aria-hidden="true"
-            className="absolute top-2 bottom-2 left-[21px] w-px origin-top bg-ink"
-            style={{ scaleY: reduce ? 1 : progress }}
-          />
-          {STEPS.map(({ icon: Icon, title, text, tag }, i) => {
-            const last = i === STEPS.length - 1;
-            return (
-              <motion.li
-                key={title}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "0px 0px -15% 0px" }}
-                transition={{ duration: 0.8, ease: EASE }}
-                className="relative grid grid-cols-[44px_1fr] gap-5 pb-12 last:pb-0 sm:gap-7"
-              >
-                <span
-                  className={
-                    last
-                      ? "relative z-10 flex size-11 items-center justify-center rounded-full bg-signal text-white ring-8 ring-canvas"
-                      : "relative z-10 flex size-11 items-center justify-center rounded-full bg-white text-ink ring-1 ring-black/10 outline-8 outline-canvas outline-solid"
-                  }
-                >
-                  <Icon className="size-[18px]" strokeWidth={1.7} aria-hidden="true" />
-                </span>
-                <div className="rounded-3xl bg-white p-6 ring-1 ring-black/[0.05] sm:p-8">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="text-xs font-semibold text-muted-foreground tabular-nums">Schritt {i + 1}</span>
-                    <span className="rounded-full bg-canvas px-2.5 py-0.5 text-xs font-medium text-muted-foreground">{tag}</span>
+    <div ref={ref} className="relative hidden h-[420vh] lg:block">
+      <div className="sticky top-0 flex h-screen items-center">
+        <div className="container-kayco grid w-full grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-16">
+          <div>
+            {heading("ablauf-title")}
+            <ol className="relative mt-12 space-y-1 pl-6">
+              <span aria-hidden="true" className="absolute top-2 bottom-2 left-0 w-px bg-black/10" />
+              <motion.span aria-hidden="true" className="absolute top-2 bottom-2 left-0 w-px origin-top bg-ink" style={{ scaleY: bar }} />
+              {STEPS.map((s, i) => (
+                <li key={s.title} className="relative">
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "absolute top-[0.6rem] -left-[1.72rem] size-2.5 rounded-full ring-4 ring-canvas transition-colors duration-300",
+                      i <= active ? (i === STEPS.length - 1 && i === active ? "bg-signal" : "bg-ink") : "bg-black/15",
+                    )}
+                  />
+                  <p className={cn("text-lg font-semibold tracking-[-0.02em] transition-colors duration-300", i === active ? "text-ink" : "text-[#6e6e73]")}>
+                    <span className="mr-3 text-xs tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                    {s.title}
+                  </p>
+                  {/* Höhe per CSS-Grid (0fr → 1fr): keine DOM-Messung, unterbricht kein Scrollen */}
+                  <div
+                    className={cn(
+                      "grid transition-[grid-template-rows,opacity] duration-500 ease-[var(--ease-premium)] motion-reduce:transition-none",
+                      i === active ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                    )}
+                  >
+                    <p className="overflow-hidden pl-8 text-[0.9875rem] leading-relaxed text-muted-foreground">
+                      <span className="block pt-2 pb-3">{s.text}</span>
+                    </p>
                   </div>
-                  <h3 className="text-title mt-3 text-ink">{title}</h3>
-                  <p className="mt-2.5 text-[0.9875rem] leading-relaxed text-muted-foreground">{text}</p>
-                  {last && (
-                    <div className="mt-6 flex items-center gap-3 rounded-2xl bg-signal-soft px-4 py-3" aria-hidden="true">
-                      <CalendarCheck2 className="size-[18px] text-signal" strokeWidth={1.8} />
-                      <p className="text-sm font-medium text-signal">Termin eingetragen · Briefing verfügbar</p>
-                    </div>
-                  )}
-                </div>
-              </motion.li>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="relative flex h-[560px] items-center justify-center overflow-hidden rounded-[40px] bg-white ring-1 ring-black/[0.05]">
+            <div aria-hidden="true" className="hairline-grid absolute inset-0 opacity-60" />
+            <div aria-hidden="true" className="absolute top-6 left-6 text-[7rem] leading-none font-semibold tracking-[-0.06em] text-black/[0.04] tabular-nums">
+              {String(active + 1).padStart(2, "0")}
+            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 24, scale: 0.97, filter: "blur(6px)" }}
+                animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -16, scale: 0.98, filter: "blur(6px)" }}
+                transition={{ duration: 0.5, ease: EASE }}
+                className="relative flex w-full justify-center px-10"
+                aria-hidden="true"
+              >
+                <Visual />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Mobil/Tablet: gestapelte Szenen. */
+function StackedScene() {
+  return (
+    <div className="py-24 sm:py-32 lg:hidden">
+      <div className="container-kayco">
+        {heading("ablauf-title-mobil")}
+        <ol className="mt-14 space-y-14">
+          {STEPS.map((s, i) => {
+            const Visual = PROCESS_VISUALS[i];
+            return (
+              <li key={s.title}>
+                <Reveal>
+                  <p className="text-xs font-semibold text-muted-foreground tabular-nums">Schritt {String(i + 1).padStart(2, "0")}</p>
+                  <h3 className="type-title mt-2 text-ink">{s.title}</h3>
+                  <p className="mt-2 text-[0.9875rem] leading-relaxed text-muted-foreground">{s.text}</p>
+                </Reveal>
+                <Reveal delay={0.08} className="mt-6 flex justify-center rounded-[28px] bg-white px-4 py-8 ring-1 ring-black/[0.05]">
+                  <div aria-hidden="true" className="flex w-full justify-center">
+                    <Visual />
+                  </div>
+                </Reveal>
+              </li>
             );
           })}
         </ol>
       </div>
+    </div>
+  );
+}
+
+export function Process() {
+  return (
+    <section id="ablauf" aria-labelledby="ablauf-title" className="relative bg-canvas">
+      <DesktopScene />
+      <StackedScene />
     </section>
   );
 }
