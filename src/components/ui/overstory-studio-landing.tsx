@@ -2776,7 +2776,8 @@ const OVS_CSS = `
 .ovs-sheet[hidden]{display:none}
 .ovs-sheet a{font-size:clamp(34px,9vw,52px);font-weight:500;letter-spacing:-.04em;display:flex;align-items:baseline;gap:14px;animation:ovs-in .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 60ms)}
 .ovs-sheet a span{font-size:13px;letter-spacing:0;color:var(--ovs-ink2)}
-.ovs-sheet .ovs-btn{font-size:16px;letter-spacing:0;margin-top:24px;align-self:flex-start}
+.ovs-sheet .ovs-btn{display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;width:fit-content;min-height:52px;height:auto;padding:14px 22px;gap:12px;margin-top:24px;font-size:16px;font-weight:600;line-height:1.2;letter-spacing:0;white-space:nowrap}
+.ovs-sheet .ovs-btn .ovs-arrow{width:17px;height:17px;flex-shrink:0}
 @keyframes ovs-in{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
 
 /* buttons */
