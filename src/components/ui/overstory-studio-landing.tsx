@@ -1601,7 +1601,10 @@ export default function OverstoryStudioLanding({
         if (heroReady.current) heroIn.current()
 
         /* 2. rise: scroll lifts you through the layers and out into open sky */
-        const rise = gsap.timeline({ scrollTrigger: { trigger: heroEl, start: "top top", end: "bottom bottom", scrub: 0.9 } })
+        // Touch-Geräte: Szenen folgen dem Finger direkt (scrub: true). Mit 0.9 s Glättung läuft der Zoom nach einem
+        // schnellen Wisch weiter, während sich die Bühne schon löst – das wirkt wie Wackeln.
+        const scrubbed = (smooth: number) => (fine ? smooth : true)
+        const rise = gsap.timeline({ scrollTrigger: { trigger: heroEl, start: "top top", end: "bottom bottom", scrub: scrubbed(0.9) } })
         const zs = [1.55, 1.95, 2.6, 3.6]
         const rs = [2, -3, 5, -9]
         if (photoMode) {
@@ -1748,7 +1751,7 @@ export default function OverstoryStudioLanding({
               trigger: workEl,
               start: "top top",
               end: "bottom bottom",
-              scrub: 0.7,
+              scrub: scrubbed(0.7),
               invalidateOnRefresh: true,
               onUpdate: (s) => {
                 skew(clamp(s.getVelocity() / -260, -6, 6))
@@ -1774,7 +1777,7 @@ export default function OverstoryStudioLanding({
         /* 7. process: the tree grows with the steps */
         const proc = q("[data-process]")[0] as HTMLElement | undefined
         if (proc) {
-          const grow = gsap.timeline({ scrollTrigger: { trigger: proc.querySelector(".ovs-steps"), start: "top 65%", end: "bottom 70%", scrub: 0.8 } })
+          const grow = gsap.timeline({ scrollTrigger: { trigger: proc.querySelector(".ovs-steps"), start: "top 65%", end: "bottom 70%", scrub: scrubbed(0.8) } })
           gsap.set(proc.querySelectorAll("[data-grow]"), { strokeDasharray: 1, strokeDashoffset: 1 })
           gsap.set(proc.querySelectorAll("[data-leaves] > *"), { scale: 0, transformOrigin: "50% 50%" })
           for (let s = 0; s < 4; s++) {
@@ -1789,7 +1792,7 @@ export default function OverstoryStudioLanding({
         /* 8. finale: you drop back down into the trees */
         const fin = q("[data-fin]")[0] as HTMLElement | undefined
         if (fin) {
-          const tl = gsap.timeline({ scrollTrigger: { trigger: fin, start: "top 75%", end: "bottom bottom", scrub: 0.9 } })
+          const tl = gsap.timeline({ scrollTrigger: { trigger: fin, start: "top 75%", end: "bottom bottom", scrub: scrubbed(0.9) } })
           tl.fromTo(fin.querySelector(".ovs-window"), { "--ovs-wi": "9%", "--ovs-wr": "40px" }, { "--ovs-wi": "0%", "--ovs-wr": "0px", ease: "power2.inOut", duration: 0.6 }, 0)
           const fz = fin.querySelectorAll("[data-zoom]")
           if (fin.querySelector("[data-photo]")) {
@@ -2859,6 +2862,7 @@ const OVS_CSS = `
 @media (max-width:1020px){.ovs-links{display:none}.ovs-burger{display:flex}.ovs-nav-in{justify-content:space-between}.ovs-plans{grid-template-columns:1fr;max-width:520px}.ovs-stats{grid-template-columns:repeat(2,1fr);row-gap:40px}.ovs-foot-top{grid-template-columns:1fr}.ovs-svc-time{display:none}.ovs-svc-h button{grid-template-columns:44px 1fr 40px}.ovs-svc-body{grid-template-columns:44px 1fr}}
 @media (max-width:820px){.ovs-proc-grid{grid-template-columns:1fr}.ovs-tree-col{display:none}.ovs-step{opacity:1;min-height:0}.ovs-faq-grid{grid-template-columns:1fr}.ovs-foot-cols{grid-template-columns:repeat(2,1fr);row-gap:36px}.ovs-card-meta{grid-template-columns:1fr}.ovs-card-metric{text-align:left;align-items:flex-start}.ovs-svc-prev{display:none}}
 @media (max-width:560px){.ovs-root[data-photo] .ovs-copy::before{left:-4%;right:-4%;top:-14%;bottom:-14%}.ovs-nav-cta{display:none}.ovs-logo-row{column-gap:20px}.ovs-h1{font-size:clamp(36px,10.4vw,56px)}.ovs-quote figcaption{flex-wrap:wrap}.ovs-mock-phone{width:190px}.ovs-mk-kpis b{font-size:14px}.ovs-acc-item p{padding-right:0}}
+@media (hover:none),(pointer:coarse){.ovs-sway,.ovs-sway-p{animation:none}}
 @media (prefers-reduced-motion:reduce){.ovs-sway,.ovs-sway-p,.ovs-status i,.ovs-clock i,.ovs-dapple i,.ovs-plan-ring,.ovs-cue-line::after,.ovs-sheet a{animation:none}.ovs-dots i{animation:none;transform:scaleX(1)}.ovs-fold,.ovs-svc-art,.ovs-svc-row::after,.ovs-svc-t,.ovs-seg-pill,.ovs-nav,.ovs-mock,.ovs-card-sun{transition:none}}
 `
 
