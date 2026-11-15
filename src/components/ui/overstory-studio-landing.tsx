@@ -146,6 +146,8 @@ export interface OverstoryStudioLandingProps {
   footerClaim?: string
   /** Text, der beim Aufsteigen über die Baumkronen erscheint. */
   above?: string
+  /** Footer-Spalte mit Ort, Uhrzeit und E-Mail anzeigen. */
+  showClock?: boolean
   /** Height of the hero and finale stages. A definite length, so it survives any host layout. */
   height?: string
   className?: string
@@ -1402,6 +1404,7 @@ export default function OverstoryStudioLanding({
   copyright,
   footerClaim = "Du berätst. Wir füllen deinen Kalender.",
   above = "Mehr Zeit für Beratung",
+  showClock = true,
   height = "100svh",
   className = "",
 }: OverstoryStudioLandingProps) {
@@ -2440,18 +2443,20 @@ export default function OverstoryStudioLanding({
                     </ul>
                   </div>
                 ))}
-                <div>
-                  <p>{ft.city}</p>
-                  <ul>
-                    <li className="ovs-clock">
-                      <i />
-                      <Clock timeZone={ft.timeZone} />
-                    </li>
-                    <li>
-                      <a href={"mailto:" + email}>{email}</a>
-                    </li>
-                  </ul>
-                </div>
+                {showClock ? (
+                  <div>
+                    <p>{ft.city}</p>
+                    <ul>
+                      <li className="ovs-clock">
+                        <i />
+                        <Clock timeZone={ft.timeZone} />
+                      </li>
+                      <li>
+                        <a href={"mailto:" + email}>{email}</a>
+                      </li>
+                    </ul>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>

@@ -255,6 +255,7 @@ export const landingProps: OverstoryStudioLandingProps = {
         links: [
           { label: "Impressum", href: "/impressum" },
           { label: "Datenschutz", href: "/datenschutz" },
+          { label: "Kontakt", href: `mailto:${site.email}` },
         ],
       },
     ],
@@ -263,6 +264,7 @@ export const landingProps: OverstoryStudioLandingProps = {
     note: "Keine Leads. Termine.",
   },
   footerClaim: "Du berätst. Wir füllen deinen Kalender.",
+  showClock: false,
   copyright: `© 2026 ${site.legalName} · ${site.address.street}, ${site.address.zip} ${site.address.city}`,
   email: site.email,
   currency: "€",
