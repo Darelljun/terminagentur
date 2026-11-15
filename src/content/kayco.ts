@@ -45,10 +45,10 @@ export const faqItems = [
 export const landingProps: OverstoryStudioLandingProps = {
   brand: "KAYCO",
   links: [
-    { label: "Problem", href: "#problem" },
     { label: "Leistung", href: "#services" },
     { label: "Ablauf", href: "#process" },
     { label: "Ergebnisse", href: "#results" },
+    { label: "Über uns", href: "#team" },
     { label: "Preise", href: "#pricing" },
     { label: "FAQ", href: "#faq" },
   ],
@@ -246,6 +246,7 @@ export const landingProps: OverstoryStudioLandingProps = {
           { label: "Problem", href: "#problem" },
           { label: "Leistung", href: "#services" },
           { label: "Ablauf", href: "#process" },
+          { label: "Über uns", href: "#team" },
           { label: "Preise", href: "#pricing" },
         ],
       },

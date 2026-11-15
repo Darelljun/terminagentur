@@ -34,7 +34,11 @@ import * as React from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger)
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger)
+  // Mobile: das Ein- und Ausblenden der Adressleiste löst keine Neuberechnung aller Szenen aus (verhindert Springen/Wackeln)
+  ScrollTrigger.config({ ignoreMobileResize: true })
+}
 
 const useIso = typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect
 
@@ -1611,7 +1615,8 @@ export default function OverstoryStudioLanding({
           rise.to(q("[data-hero] [data-sky] canvas"), { scale: 1.22, ease: "none", duration: 1 }, 0)
         }
         rise
-          .to(q("[data-hero] .ovs-copy"), { y: () => -window.innerHeight * 0.16, scale: 0.92, autoAlpha: 0, filter: "blur(10px)", ease: "power1.in", duration: 0.5 }, 0.05)
+          // Unschärfe nur mit Maus/Trackpad – auf Touch-Geräten ist der Filter pro Frame zu teuer
+          .to(q("[data-hero] .ovs-copy"), { y: () => -window.innerHeight * 0.16, scale: 0.92, autoAlpha: 0, filter: fine ? "blur(10px)" : "none", ease: "power1.in", duration: 0.5 }, 0.05)
           .to(q("[data-hero] .ovs-cue"), { autoAlpha: 0, duration: 0.1 }, 0)
           .fromTo(q("[data-hero] .ovs-veil"), { yPercent: 50 }, { yPercent: -50, ease: "power1.inOut", duration: 0.55 }, 0.45)
           .fromTo(q("[data-hero] .ovs-above"), { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.25 }, 0.62)

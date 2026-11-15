@@ -4,6 +4,11 @@
 
 // Peak Chart by Louis Studios.
 // 200 more hand-made React components at https://studios.lou15.com/?ref=21st-code
+//
+// KAYCO-Anpassungen für flüssiges Scrollen auf Mobilgeräten (Optik unverändert):
+// - Farbton (accent) wird einmalig in die Ebenen eingerechnet statt per CSS-Filter je Frame
+// - `quality` skaliert die Auflösung des weichen Leuchtfelds (z. B. 0.5 auf Smartphones)
+// - `breathe={false}` beendet die Zeichenschleife nach dem Einblenden
 
 import * as React from "react"
 
@@ -128,6 +133,12 @@ export interface PeakChartProps {
   className?: string
   /** Extra inline styles on the outer element. */
   style?: React.CSSProperties
+  /** Resolution factor of the soft glow field (1 = full). Lower values build faster on phones. */
+  quality?: number
+  /** Keep the slow glow breath running after the reveal. `false` stops redrawing once it settles. */
+  breathe?: boolean
+  /** Upper limit for the canvas pixel ratio (default 2). Lower values draw faster on phones. */
+  maxDpr?: number
 }
 
 /* ---------- maths ---------- */
@@ -195,6 +206,30 @@ function hslOf(color: string): [number, number] | null {
   const sat = d / (1 - Math.abs(2 * l - 1))
   const h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4
   return [(h * 60 + 360) % 360, sat]
+}
+
+/** Applies the CSS hue-rotate() and saturate() matrices to a colour, so tints can be baked in once. */
+function shiftColor(color: string, deg: number, sat: number) {
+  const [r, g, b] = rgbOf(color)
+  const a = (deg * Math.PI) / 180
+  const c = Math.cos(a), s = Math.sin(a)
+  const h = [
+    0.213 + c * 0.787 - s * 0.213, 0.715 - c * 0.715 - s * 0.715, 0.072 - c * 0.072 + s * 0.928,
+    0.213 - c * 0.213 + s * 0.143, 0.715 + c * 0.285 + s * 0.14, 0.072 - c * 0.072 - s * 0.283,
+    0.213 - c * 0.213 - s * 0.787, 0.715 - c * 0.715 + s * 0.715, 0.072 + c * 0.928 + s * 0.072,
+  ]
+  const r1 = h[0] * r + h[1] * g + h[2] * b
+  const g1 = h[3] * r + h[4] * g + h[5] * b
+  const b1 = h[6] * r + h[7] * g + h[8] * b
+  const k = sat
+  const m = [
+    0.213 + 0.787 * k, 0.715 - 0.715 * k, 0.072 - 0.072 * k,
+    0.213 - 0.213 * k, 0.715 + 0.285 * k, 0.072 - 0.072 * k,
+    0.213 - 0.213 * k, 0.715 - 0.715 * k, 0.072 + 0.928 * k,
+  ]
+  const cl = (v: number) => Math.max(0, Math.min(255, Math.round(v)))
+  const out = [m[0] * r1 + m[1] * g1 + m[2] * b1, m[3] * r1 + m[4] * g1 + m[5] * b1, m[6] * r1 + m[7] * g1 + m[8] * b1].map(cl)
+  return "#" + out.map((v) => v.toString(16).padStart(2, "0")).join("")
 }
 
 /* ---------- static layers ---------- */
@@ -463,6 +498,9 @@ export function PeakChart({
   font = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   className,
   style,
+  quality = 1,
+  breathe = true,
+  maxDpr = 2,
 }: PeakChartProps) {
   const [innerPeriod, setInnerPeriod] = React.useState(defaultPeriod)
   const current = period ?? innerPeriod
@@ -501,6 +539,7 @@ export function PeakChart({
     suffix: valueSuffix,
     decimals,
     loop,
+    breathe,
     kick: () => {},
   })
   live.current.labels = pointLabels
@@ -508,6 +547,7 @@ export function PeakChart({
   live.current.suffix = valueSuffix
   live.current.decimals = decimals
   live.current.loop = loop
+  live.current.breathe = breathe
 
   // data changes morph the line
   const key = series.join(",")
@@ -542,6 +582,19 @@ export function PeakChart({
     if (backdrop && !grain) setGrain(grainTile())
   }, [backdrop, grain])
 
+  // Any accent other than the one the artwork is painted in hue-shifts (and re-saturates) the canvas.
+  const tint = (() => {
+    const a = hslOf(accent), b = hslOf(BASE_ACCENT)
+    if (!a || !b) return undefined
+    let d = a[0] - b[0]
+    if (d > 180) d -= 360
+    if (d < -180) d += 360
+    const k = b[1] > 0 ? a[1] / b[1] : 1
+    if (Math.abs(d) < 0.5 && Math.abs(k - 1) < 0.02) return undefined
+    return { css: `hue-rotate(${d.toFixed(1)}deg) saturate(${k.toFixed(3)})`, deg: d, sat: k }
+  })()
+  const tintKey = tint ? tint.css : ""
+
   // the render loop
   React.useEffect(() => {
     const canvas = canvasRef.current
@@ -551,7 +604,7 @@ export function PeakChart({
     if (!ctx) return
     const L = live.current
     const reduce = typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches
-    const dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1))
+    const dpr = Math.min(Math.max(1, maxDpr), Math.max(1, window.devicePixelRatio || 1))
     // whole device pixels for the bleed and the size, so the canvas is never resampled
     const bxc = Math.ceil(BX * u)
     const byc = Math.ceil(BY * u)
@@ -563,10 +616,31 @@ export function PeakChart({
     canvas.style.top = `${-byc}px`
     canvas.style.width = `${canvas.width / dpr}px`
     canvas.style.height = `${canvas.height / dpr}px`
-    const fieldPx = Math.min(width * dpr, Math.max(width, 700))
-    const { rest: field, lift: bright } = buildField(fieldPx, 11)
-    const grid = buildGrid(width * dpr)
-    const halo = buildHalo(width)
+    const fieldPx = Math.max(160, Math.min(width * dpr, Math.max(width, 700)) * Math.min(1, Math.max(0.25, quality)))
+    const built = buildField(fieldPx, 11)
+    let field = built.rest
+    let bright = built.lift
+    let grid = buildGrid(width * dpr)
+    let halo = buildHalo(width)
+    // bake the accent tint into the static layers once (canvas filter), instead of a CSS filter on every frame
+    const probe = makeCanvas(1, 1).getContext("2d") as CanvasRenderingContext2D & { filter?: string }
+    const canBake = !!tint && probe && "filter" in probe
+    const bake = (src: HTMLCanvasElement) => {
+      const c = makeCanvas(src.width, src.height)
+      const cx = c.getContext("2d")!
+      cx.filter = tint!.css
+      cx.drawImage(src, 0, 0)
+      return c
+    }
+    if (canBake) {
+      field = bake(field)
+      bright = bake(bright)
+      grid = bake(grid)
+      halo = bake(halo)
+    }
+    canvas.style.filter = tint && !canBake ? tint.css : ""
+    const col = (c: string) => (canBake ? shiftColor(c, tint!.deg, tint!.sat) : c)
+    const C_LINE = col(LINE_COLOR), C_TOP = col(DOT_TOP), C_MID = col(DOT_MID), C_BOTTOM = col(DOT_BOTTOM), C_GLOW = col(DOT_GLOW), C_PULSE = col(PULSE_COLOR)
     const tLand = (frac: number) => T_DRAW0 + T_DRAW * inverseEase(frac)
 
     let clock = reduce ? T_REST + 0.01 : 0
@@ -596,7 +670,7 @@ export function PeakChart({
       }
       const t = loopS ? clock % loopS : clock
       const F = started ? frameAt(t, loopS) : frameAt(0, 0)
-      if (reduce) { F.breath = 0 }
+      if (reduce || !L.breathe) { F.breath = 0 }
 
       // morph
       if (L.morph < 1) L.morph = reduce ? 1 : Math.min(1, L.morph + dt / T_MORPH)
@@ -668,7 +742,7 @@ export function PeakChart({
           let a = lineAlpha(x - peakX - LINE_CENTER)
           if (head > 0.001 && x <= x1 + 10) a = Math.max(a, head * Math.exp(-Math.max(0, x1 - x) / 70))
           if (F.erase > 0) a *= smooth((x - x0) / 60)
-          g.addColorStop(i / 54, rgba(LINE_COLOR, a))
+          g.addColorStop(i / 54, rgba(C_LINE, a))
         }
         ctx.strokeStyle = g
         ctx.lineWidth = LINE_W
@@ -696,7 +770,7 @@ export function PeakChart({
         const boost = pulse >= 0 ? Math.sin(Math.PI * Math.min(1, pulse * 1.6)) : 0
         // halo
         const hg = ctx.createRadialGradient(0, 0, 0, 0, 0, 30)
-        const ha = (a: number) => rgba(DOT_GLOW, Math.min(1, a * (1 + 0.9 * boost)))
+        const ha = (a: number) => rgba(C_GLOW, Math.min(1, a * (1 + 0.9 * boost)))
         hg.addColorStop(0, ha(0.47)); hg.addColorStop(15 / 30, ha(0.47)); hg.addColorStop(17 / 30, ha(0.41))
         hg.addColorStop(19 / 30, ha(0.31)); hg.addColorStop(21 / 30, ha(0.17)); hg.addColorStop(23 / 30, ha(0.1))
         hg.addColorStop(25 / 30, ha(0.06)); hg.addColorStop(27 / 30, ha(0.03)); hg.addColorStop(1, ha(0))
@@ -704,15 +778,15 @@ export function PeakChart({
         ctx.beginPath(); ctx.arc(0, 0, 30, 0, Math.PI * 2); ctx.fill()
         if (pulse >= 0) {
           const r = DOT_R + 26 * easeOut(pulse)
-          ctx.strokeStyle = rgba(PULSE_COLOR, 0.55 * (1 - pulse) * (1 - pulse))
+          ctx.strokeStyle = rgba(C_PULSE, 0.55 * (1 - pulse) * (1 - pulse))
           ctx.lineWidth = 2.2 * (1 - pulse) + 0.6
           ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke()
         }
         // body
         const bg = ctx.createLinearGradient(0, -DOT_R, 0, DOT_R)
-        bg.addColorStop(0, DOT_TOP)
-        bg.addColorStop(0.45, DOT_MID)
-        bg.addColorStop(1, DOT_BOTTOM)
+        bg.addColorStop(0, C_TOP)
+        bg.addColorStop(0.45, C_MID)
+        bg.addColorStop(1, C_BOTTOM)
         ctx.fillStyle = bg
         ctx.beginPath(); ctx.arc(0, 0, DOT_R, 0, Math.PI * 2); ctx.fill()
         ctx.setTransform(s, 0, 0, s, bx, by)
@@ -741,6 +815,8 @@ export function PeakChart({
     const busy = () => {
       if (!started) return false
       if (reduce) return L.morph < 1 || Math.abs(L.hoverMix - (L.hover !== null ? 1 : 0)) > 0.001
+      // without the breath, stop redrawing once the reveal has settled and nothing is moving
+      if (!L.breathe && L.loop <= 0 && clock > T_REST + 0.4 && L.morph >= 1 && L.valueT >= 1 && L.hover === null && L.hoverMix < 0.001) return false
       return true
     }
     const tick = () => {
@@ -773,7 +849,8 @@ export function PeakChart({
       if (raf) cancelAnimationFrame(raf)
       L.kick = () => {}
     }
-  }, [width, u])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width, u, tintKey, quality, maxDpr])
 
   // close the dropdown on outside press and Escape
   React.useEffect(() => {
@@ -812,18 +889,6 @@ export function PeakChart({
     live.current.kick()
   }
 
-  // Any accent other than the one the artwork is painted in hue-shifts (and re-saturates) the canvas.
-  const tint = (() => {
-    const a = hslOf(accent), b = hslOf(BASE_ACCENT)
-    if (!a || !b) return undefined
-    let d = a[0] - b[0]
-    if (d > 180) d -= 360
-    if (d < -180) d += 360
-    const k = b[1] > 0 ? a[1] / b[1] : 1
-    if (Math.abs(d) < 0.5 && Math.abs(k - 1) < 0.02) return undefined
-    return `hue-rotate(${d.toFixed(1)}deg) saturate(${k.toFixed(3)})`
-  })()
-
   const px = (n: number) => `${(n * u).toFixed(3)}px`
   const textBase: React.CSSProperties = { position: "absolute", whiteSpace: "nowrap", fontFamily: font, fontStretch: "110%", fontWeight: 300, margin: 0, lineHeight: 1 }
   const trendColor = trend === "down" ? "#f08a8a" : "#93cfa2"
@@ -838,7 +903,7 @@ export function PeakChart({
       <canvas
         ref={canvasRef}
         aria-hidden
-        style={{ position: "absolute", left: 0, top: 0, pointerEvents: "none", filter: tint }}
+        style={{ position: "absolute", left: 0, top: 0, pointerEvents: "none" }}
       />
       {/* chart hover surface */}
       <div

@@ -29,8 +29,11 @@ export function ResultsSection() {
   const box = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(400);
   const [period, setPeriod] = useState("12 Monate");
-  // Die Karte malt ihr Leuchtfeld pixelweise – erst rendern, wenn sie in die Nähe des Viewports kommt.
+  // Die Karte malt ihr Leuchtfeld pixelweise. Sie entsteht, sobald der Browser untätig ist
+  // (oder spätestens, wenn sie sich nähert) – nicht mitten in einer Scrollbewegung.
   const [near, setNear] = useState(false);
+  // Touch-Geräte: halbe Auflösung für das weiche Leuchtfeld, kein endloses „Atmen“ nach dem Einblenden.
+  const [coarse, setCoarse] = useState(false);
 
   useEffect(() => {
     const el = box.current;
@@ -41,9 +44,20 @@ export function ResultsSection() {
     ro.observe(el);
     const io = new IntersectionObserver(
       ([e]) => e.isIntersecting && setNear(true),
-      { rootMargin: "600px 0px" },
+      { rootMargin: "1200px 0px" },
     );
     io.observe(el);
+    const mq = window.matchMedia("(pointer: coarse)");
+    const onMq = () => setCoarse(mq.matches);
+    onMq();
+    mq.addEventListener("change", onMq);
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    const idle = w.requestIdleCallback
+      ? w.requestIdleCallback(() => setNear(true), { timeout: 4000 })
+      : window.setTimeout(() => setNear(true), 2500);
     return () => {
       ro.disconnect();
       io.disconnect();
@@ -102,6 +116,9 @@ export function ResultsSection() {
               onPeriodChange={setPeriod}
               formatValue={(v) => (v / 100).toFixed(1).replace(".", ",") + "×"}
               font={FONT}
+              quality={coarse ? 0.5 : 1}
+              breathe={!coarse}
+            maxDpr={coarse ? 1.25 : 2}
             />
           ) : (
             <div

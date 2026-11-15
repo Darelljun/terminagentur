@@ -3,6 +3,7 @@
 import OverstoryStudioLanding from "@/components/ui/overstory-studio-landing"
 import { landingProps } from "@/content/kayco"
 import { site } from "@/lib/site"
+import { AboutSection } from "./about-section"
 import { ProblemCalendar } from "./problem-calendar"
 import { ResultsSection } from "./results-section"
 
@@ -15,7 +16,12 @@ export function KaycoLanding() {
       onBook={site.bookingUrl ? () => window.open(site.bookingUrl as string, "_blank", "noopener") : undefined}
       slots={{
         afterAbout: <ProblemCalendar />,
-        afterProcess: <ResultsSection />,
+        afterProcess: (
+          <>
+            <ResultsSection />
+            <AboutSection />
+          </>
+        ),
       }}
     />
   )
