@@ -42,6 +42,13 @@ export const faqItems = [
   },
 ]
 
+/**
+ * Baumkronen-Foto im Hero und im Abschluss (public/images, AVIF 1600 × 900).
+ * Herkunft laut Vorlage: Adobe Stock #303147850 (Gratis-Sammlung), lizenziert über das Adobe-Konto des
+ * Vorlagen-Autors – vor dem Livegang eigene Lizenz sichern oder ein eigenes Foto verwenden.
+ */
+export const heroPhoto = "/images/canopy.avif"
+
 export const landingProps: OverstoryStudioLandingProps = {
   brand: "KAYCO",
   links: [
@@ -270,6 +277,8 @@ export const landingProps: OverstoryStudioLandingProps = {
   email: site.email,
   currency: "€",
   season: "summer",
+  // Als eigene Datei statt im JavaScript: Das Foto lädt parallel zu den Skripten (Preload in app/page.tsx).
+  photo: heroPhoto,
   theme: "light",
   themeToggle: true,
 }

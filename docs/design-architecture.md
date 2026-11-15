@@ -43,3 +43,17 @@ Kurve `cubic-bezier(0.22, 1, 0.36, 1)`. Federn für Layout-Übergänge. Scroll-K
 dort, wo sie erzählt (Wort-Enthüllung, Ablauf, Garantie). Autoplay der Hero-Bühne
 pausiert außerhalb des Viewports und ist per Button anhaltbar (WCAG 2.2.2).
 `prefers-reduced-motion`: keine Autoplay-, Scroll- oder Transform-Effekte, Endzustände sofort.
+
+## Performance-Regeln (gilt für die aktuelle Vorlagen-Version)
+- **Einstieg ohne JavaScript-Wartezeit.** Navigation, Statuszeile, Überschrift und Hero-Foto blenden per
+  CSS-Animation ein (`ovs-intro-*`, `ovs-photo-in`). Sie laufen im Compositor und starten mit dem ersten Bild.
+- **Foto als Datei, nicht im Bundle.** `public/images/canopy.avif` wird im `<head>` vorgeladen und als `<img>`
+  gezeigt; nur Dämmerung/andere Jahreszeiten färben es in einer Leinwand um.
+- **Kein React-State in Scroll-Handlern.** Aktiver Menüpunkt und Fallbeispiel-Zähler werden direkt im DOM
+  gesetzt – ein State würde bei jedem Abschnittswechsel die ganze Seite neu berechnen.
+- **Dauer-Animationen nur mit `transform`/`opacity`** (fallende Blätter, Puls, Scroll-Hinweis). Keine
+  animierten Filter oder Schatten.
+- **Aufbau in Häppchen.** Alles unter dem Hero liegt in `Suspense`-Grenzen (zeitversetzt hydriert); die
+  Scroll-Animationen dafür werden in kleinen Paketen per `requestIdleCallback` eingerichtet. Texte dürfen
+  erst nach dem Hydrieren umgeschrieben werden (siehe Zähler `data-count`).
+- **Motion wird nicht mehr geladen.** Der Kalender-Wechsel ist ein CSS-Übergang; das Paket bleibt installiert.

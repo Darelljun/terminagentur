@@ -1,5 +1,5 @@
 import { KaycoLanding } from "@/components/kayco/kayco-landing"
-import { faqItems, pricing } from "@/content/kayco"
+import { faqItems, heroPhoto, pricing } from "@/content/kayco"
 import { site } from "@/lib/site"
 
 const jsonLd = {
@@ -48,6 +48,9 @@ const jsonLd = {
 export default function HomePage() {
   return (
     <>
+      {/* Das Hero-Foto ist das größte sichtbare Element: React hebt den Link in den <head>,
+          der Browser lädt das Foto parallel zu den Skripten. */}
+      <link rel="preload" as="image" href={heroPhoto} type="image/avif" fetchPriority="high" />
       <KaycoLanding />
       <script
         type="application/ld+json"

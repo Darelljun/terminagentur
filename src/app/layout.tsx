@@ -1,17 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Instrument_Serif } from "next/font/google";
-import { Providers } from "@/components/site/providers";
+import { Geist } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-  style: "italic",
-  display: "swap",
-});
+// Geist nutzen nur die Rechtsseiten; die Startseite setzt eigene Systemschriften. Kein Preload, damit die
+// Schrift auf der Startseite nicht mit Foto und Skripten um die Bandbreite konkurriert.
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap", preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -46,9 +40,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de" className={`${geistSans.variable} ${instrumentSerif.variable}`}>
+    <html lang="de" className={geistSans.variable}>
       <body className="min-h-dvh">
-        <Providers>{children}</Providers>
+        {children}
       </body>
     </html>
   );

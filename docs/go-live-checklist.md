@@ -19,6 +19,9 @@
 - [ ] Datenschutzerklärung, Abschnitt 5 „Online-Terminbuchung“, für den gewählten Anbieter ergänzen
 - [ ] Prüfen, ob das Buchungstool einwilligungspflichtige Cookies setzt – dann Einwilligungslösung ergänzen
 
+## Bilder
+- [ ] Hero-Foto `public/images/canopy.avif` (Adobe Stock #303147850 aus der Vorlage): eigene Lizenz sichern oder durch eigenes Foto ersetzen (Pfad in `src/content/kayco.ts`, `heroPhoto`)
+
 ## Technik
 - [ ] Domain kayco.de auf das Hosting zeigen lassen, HTTPS aktiv
 - [ ] Postfach hello@kayco.de empfängt E-Mails (Testmail senden)

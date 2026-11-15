@@ -1,8 +1,7 @@
 "use client"
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { ChevronLeft, ChevronRight, Euro, Menu, PhoneMissed, Search } from "lucide-react"
-import { useState } from "react"
+import { useState, type CSSProperties } from "react"
 import { Kicker, Split } from "@/components/ui/overstory-studio-landing"
 
 type Kind = "anrufen" | "mailbox" | "nachfassen" | "noshow" | "unpassend" | "beratung"
@@ -73,6 +72,10 @@ const WITH: Ev[] = [
   { d: 4, s: 13.5, e: 14.5, k: "beratung", t: "Beratung · Vermögensaufbau" },
 ]
 
+const SETS = [
+  { id: "o", withKayco: false, evs: WITHOUT },
+  { id: "w", withKayco: true, evs: WITH },
+]
 const hours = (evs: Ev[], money: boolean) => evs.filter((e) => !!KIND[e.k].money === money).reduce((a, e) => a + (e.e - e.s), 0)
 const fmt = (h: number) => (Number.isInteger(h) ? String(h) : h.toFixed(1).replace(".", ",")) + " Std."
 const pct = (h: number) => ((h - START) / (END - START)) * 100
@@ -80,7 +83,6 @@ const time = (h: number) => `${String(Math.floor(h)).padStart(2, "0")}:${String(
 
 export function ProblemCalendar() {
   const [withKayco, setWithKayco] = useState(false)
-  const reduce = useReducedMotion() ?? false
   const evs = withKayco ? WITH : WITHOUT
   const paid = hours(evs, true)
   const lost = hours(evs, false)
@@ -153,11 +155,7 @@ export function ProblemCalendar() {
                 <b>{fmt(lost)}</b>
               </div>
               <div className="kay-side-meter" aria-hidden="true">
-                <motion.i
-                  style={{ background: "#0b8043" }}
-                  animate={{ width: `${(paid / Math.max(1, paid + lost)) * 100}%` }}
-                  transition={{ duration: reduce ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-                />
+                <i style={{ background: "#0b8043", width: `${(paid / Math.max(1, paid + lost)) * 100}%` }} />
               </div>
               <p className="kay-side-big">
                 <b>{count}</b> {count === 1 ? "Beratung" : "Beratungen"}
@@ -201,20 +199,28 @@ export function ProblemCalendar() {
                     {Array.from({ length: END - START }, (_, i) => START + i).map((h) => (
                       <span key={h} className="kay-hline" style={{ top: `${pct(h)}%` }} aria-hidden="true" />
                     ))}
-                    <AnimatePresence initial={false}>
-                      {evs
+                    {/* Beide Wochen liegen übereinander; der Wechsel ist ein reiner CSS-Übergang (opacity + transform). */}
+                    {SETS.map((set) =>
+                      set.evs
                         .filter((e) => e.d === di)
                         .map((e) => {
                           const c = KIND[e.k]
+                          const on = set.withKayco === withKayco
                           return (
-                            <motion.div
-                              key={(withKayco ? "w" : "o") + e.d + "-" + e.s}
+                            <div
+                              key={set.id + e.d + "-" + e.s}
                               className="kay-ev"
-                              initial={reduce ? false : { opacity: 0, scale: 0.92, y: 6 }}
-                              animate={{ opacity: 1, scale: 1, y: 0 }}
-                              exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.94 }}
-                              transition={{ duration: 0.35, delay: reduce ? 0 : di * 0.04 + (e.s - START) * 0.012 }}
-                              style={{ top: `${pct(e.s)}%`, height: `calc(${((e.e - e.s) / (END - START)) * 100}% - 2px)`, background: c.bg, color: c.fg }}
+                              data-on={on ? "" : undefined}
+                              aria-hidden={on ? undefined : true}
+                              style={
+                                {
+                                  top: `${pct(e.s)}%`,
+                                  height: `calc(${((e.e - e.s) / (END - START)) * 100}% - 2px)`,
+                                  background: c.bg,
+                                  color: c.fg,
+                                  "--dl": `${(di * 0.04 + (e.s - START) * 0.012).toFixed(3)}s`,
+                                } as CSSProperties
+                              }
                             >
                               <p className="kay-ev-t">
                                 {c.money ? <Euro size={11} strokeWidth={2.5} aria-hidden="true" /> : e.k === "mailbox" ? <PhoneMissed size={11} aria-hidden="true" /> : null}
@@ -225,10 +231,10 @@ export function ProblemCalendar() {
                                   {time(e.s)} – {time(e.e)}
                                 </p>
                               ) : null}
-                            </motion.div>
+                            </div>
                           )
-                        })}
-                    </AnimatePresence>
+                        }),
+                    )}
                   </div>
                 ))}
               </div>
@@ -271,7 +277,7 @@ const CSS = `
 .kay-side-row b{font-variant-numeric:tabular-nums}
 .kay-dot{width:10px;height:10px;border-radius:3px;display:inline-block;flex:none}
 .kay-side-meter{height:8px;border-radius:999px;background:#616161;overflow:hidden}
-.kay-side-meter i{display:block;height:100%;border-radius:999px}
+.kay-side-meter i{display:block;height:100%;border-radius:999px;transition:width .7s cubic-bezier(.22,1,.36,1)}
 .kay-side-big{font-size:15px;color:#5f6368;margin-top:8px}
 .kay-side-big b{font-size:44px;line-height:1;letter-spacing:-.04em;color:#0b8043;font-weight:600;margin-right:4px;font-variant-numeric:tabular-nums}
 .kay-side-note{font-size:13.5px;line-height:1.5;color:#5f6368}
@@ -289,7 +295,9 @@ const CSS = `
 .kay-day{position:relative;border-left:1px solid rgba(0,0,0,.08)}
 .ovs-root[data-scheme="dark"] .kay-day,.ovs-root[data-scheme="dark"] .kay-hline{border-color:rgba(255,255,255,.08)}
 .kay-hline{position:absolute;left:0;right:0;border-top:1px solid rgba(0,0,0,.07)}
-.kay-ev{position:absolute;left:3px;right:6px;border-radius:6px;padding:3px 7px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.kay-ev{position:absolute;left:3px;right:6px;border-radius:6px;padding:3px 7px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.12);opacity:0;visibility:hidden;transform:scale(.93) translateY(4px);transition:opacity .3s ease,transform .3s ease,visibility 0s linear .3s}
+.kay-ev[data-on]{opacity:1;visibility:visible;transform:none;transition:opacity .35s ease var(--dl),transform .35s cubic-bezier(.22,1,.36,1) var(--dl),visibility 0s}
+@media (prefers-reduced-motion:reduce){.kay-ev,.kay-ev[data-on],.kay-side-meter i{transition:none}}
 .kay-ev-t{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:500;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .kay-ev-s{font-size:11px;opacity:.85;margin-top:1px;font-variant-numeric:tabular-nums}
 .kay-cal-foot{margin-top:14px;font-size:12.5px;color:var(--ovs-ink2)}

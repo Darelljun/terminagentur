@@ -29,10 +29,11 @@ export function ResultsSection() {
   const box = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(400);
   const [period, setPeriod] = useState("12 Monate");
-  // Die Karte malt ihr Leuchtfeld pixelweise. Sie entsteht, sobald der Browser untätig ist
-  // (oder spätestens, wenn sie sich nähert) – nicht mitten in einer Scrollbewegung.
+  // Die Karte malt ihr Leuchtfeld pixelweise. Sie entsteht erst, wenn die Seite geladen und die
+  // Einstiegsanimation vorbei ist und der Browser untätig ist (oder früher, wenn sie sich nähert) –
+  // nicht mitten in der Hero-Animation oder einer Scrollbewegung.
   const [near, setNear] = useState(false);
-  // Touch-Geräte: halbe Auflösung für das weiche Leuchtfeld, kein endloses „Atmen“ nach dem Einblenden.
+  // Touch-Geräte: halbe Auflösung für das weiche Leuchtfeld.
   const [coarse, setCoarse] = useState(false);
 
   useEffect(() => {
@@ -55,13 +56,24 @@ export function ResultsSection() {
       requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
       cancelIdleCallback?: (id: number) => void;
     };
-    const idle = w.requestIdleCallback
-      ? w.requestIdleCallback(() => setNear(true), { timeout: 4000 })
-      : window.setTimeout(() => setNear(true), 2500);
+    let idle = 0;
+    let wait = 0;
+    const later = () => {
+      // Hero-Einblendung dauert knapp 3 s ab dem Laden des Fotos
+      wait = window.setTimeout(() => {
+        idle = w.requestIdleCallback
+          ? w.requestIdleCallback(() => setNear(true), { timeout: 3000 })
+          : window.setTimeout(() => setNear(true), 0);
+      }, 3500);
+    };
+    if (document.readyState === "complete") later();
+    else window.addEventListener("load", later, { once: true });
     return () => {
       ro.disconnect();
       io.disconnect();
       mq.removeEventListener("change", onMq);
+      window.removeEventListener("load", later);
+      window.clearTimeout(wait);
       if (w.cancelIdleCallback) w.cancelIdleCallback(idle);
       else window.clearTimeout(idle);
     };
@@ -120,8 +132,8 @@ export function ResultsSection() {
               formatValue={(v) => (v / 100).toFixed(1).replace(".", ",") + "×"}
               font={FONT}
               quality={coarse ? 0.5 : 1}
-              breathe={!coarse}
-            maxDpr={coarse ? 1.25 : 2}
+              breathe={false}
+              maxDpr={coarse ? 1.25 : 2}
             />
           ) : (
             <div

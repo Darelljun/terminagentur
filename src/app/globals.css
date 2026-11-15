@@ -12,7 +12,7 @@
   --color-signal: var(--signal);
   --color-signal-soft: var(--signal-soft);
   --font-sans: var(--font-geist-sans);
-  --font-serif: var(--font-instrument-serif);
+  --font-serif: ui-serif, Georgia, serif;
   --font-heading: var(--font-geist-sans);
   --color-ring: var(--ring);
   --color-input: var(--input);
@@ -180,7 +180,7 @@
     @apply text-[0.8125rem] font-medium tracking-[0.02em] text-muted-foreground;
   }
   .serif-accent {
-    font-family: var(--font-instrument-serif), ui-serif, Georgia, serif;
+    font-family: ui-serif, Georgia, serif;
     font-style: italic;
     font-weight: 400;
     letter-spacing: -0.02em;

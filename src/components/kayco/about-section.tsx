@@ -7,7 +7,8 @@ import { pricing } from "@/content/kayco"
  * darunter ein Raster mit sechs Punkten) – in KAYCO-Farben.
  * Poppins wird über next/font lokal ausgeliefert statt von Google Fonts geladen (DSGVO).
  */
-const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500", "600"], display: "swap" })
+// Liegt weit unten auf der Seite: kein Preload, nur die tatsächlich genutzten Schnitte.
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"], display: "swap", preload: false })
 
 const POINTS = [
   { icon: Users, title: "Aus der Finanzbranche", text: "Wir kommen selbst aus der Finanzdienstleistung und kennen deinen Alltag aus eigener Erfahrung." },
