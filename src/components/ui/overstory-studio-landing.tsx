@@ -1589,38 +1589,41 @@ export default function OverstoryStudioLanding({
   React.useEffect(() => {
     const r = root.current
     if (!r) return
-    let lastY = window.scrollY
+    const pageTop = r.getBoundingClientRect().top + window.scrollY
+    let previousY = Math.max(0, window.scrollY)
     let direction = 0
-    let distance = 0
+    let directionStart = previousY
     let raf = 0
     const onScroll = () => {
       if (raf) return
       raf = requestAnimationFrame(() => {
         raf = 0
-        const y = window.scrollY
-        const delta = y - lastY
-        lastY = y
-        const top = r.getBoundingClientRect().top + y
-        r.toggleAttribute("data-solid", y > top + 40)
+        const y = Math.max(0, window.scrollY)
+        const delta = y - previousY
+        previousY = y
+        r.toggleAttribute("data-solid", y > pageTop + 40)
 
-        // Keep the header visible near the top and ignore tiny scroll jitter.
-        if (y <= top + 400) {
+        // Keep the fixed header visible at the top and while the mobile menu is open.
+        if (y <= pageTop + 100 || r.hasAttribute("data-menu")) {
           r.removeAttribute("data-navhide")
           direction = 0
-          distance = 0
+          directionStart = y
           return
         }
-        if (Math.abs(delta) < 2) return
 
-        // Change visibility only after sustained movement in one direction.
-        const nextDirection = Math.sign(delta)
-        if (nextDirection !== direction) {
+        // Only react to a deliberate change in scroll direction, not momentum jitter.
+        if (Math.abs(delta) < 1) return
+        const nextDirection = delta > 0 ? 1 : -1
+        if (direction !== nextDirection) {
           direction = nextDirection
-          distance = 0
+          directionStart = y
         }
-        distance += Math.abs(delta)
-        if (direction > 0 && distance >= 32) r.setAttribute("data-navhide", "")
-        if (direction < 0 && distance >= 20) r.removeAttribute("data-navhide")
+
+        if (direction > 0 && y - directionStart > 16) {
+          r.setAttribute("data-navhide", "")
+        } else if (direction < 0 && directionStart - y > 16) {
+          r.removeAttribute("data-navhide")
+        }
       })
     }
     window.addEventListener("scroll", onScroll, { passive: true })
@@ -2708,8 +2711,8 @@ const OVS_CSS = `
 .ovs-wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
 
 /* nav */
-.ovs-nav{position:sticky;top:0;z-index:60;height:84px;margin-bottom:-84px;display:flex;align-items:center;padding:0 clamp(12px,2.4vw,28px);transition:transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:none}
-.ovs-root[data-navhide] .ovs-nav{transform:translateY(-110%)}
+.ovs-nav{position:fixed;top:0;left:0;right:0;z-index:60;height:84px;display:flex;align-items:center;padding:0 clamp(12px,2.4vw,28px);transform:translate3d(0,0,0);will-change:transform;transition:transform .28s cubic-bezier(.22,1,.36,1);pointer-events:none}
+.ovs-root[data-navhide]:not([data-menu]) .ovs-nav{transform:translate3d(0,-110%,0)}
 .ovs-nav-in{pointer-events:auto;width:100%;max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:20px;height:60px;padding:0 10px 0 18px;border-radius:999px;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.3);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);transition:background .5s,border-color .5s,box-shadow .5s;color:var(--ovs-hero-ink)}
 .ovs-root[data-scheme="dark"] .ovs-nav-in{background:rgba(8,14,30,.34);border-color:rgba(255,255,255,.12)}
 .ovs-root[data-solid] .ovs-nav-in{background:color-mix(in oklab,var(--ovs-paper) 72%,transparent);border-color:var(--ovs-line);box-shadow:0 10px 40px -18px rgba(10,20,8,.35);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);color:var(--ovs-ink)}
