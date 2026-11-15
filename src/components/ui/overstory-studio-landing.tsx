@@ -1604,10 +1604,19 @@ export default function OverstoryStudioLanding({
         // Touch-Geräte: Szenen folgen dem Finger direkt (scrub: true). Mit 0.9 s Glättung läuft der Zoom nach einem
         // schnellen Wisch weiter, während sich die Bühne schon löst – das wirkt wie Wackeln.
         const scrubbed = (smooth: number) => (fine ? smooth : true)
-        const rise = gsap.timeline({ scrollTrigger: { trigger: heroEl, start: "top top", end: "bottom bottom", scrub: scrubbed(0.9) } })
+        // Touch-Geräte mit Unterstützung für CSS-Scroll-Animationen: Die Aufstiegs-Szene läuft komplett in CSS
+        // (siehe .ovs-root[data-cssrise]) – synchron mit dem Scrollen, ohne JavaScript-Verzögerung von einem Frame.
+        const cssRise = !fine && photoMode && typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()")
+        if (cssRise) {
+          r.setAttribute("data-cssrise", "")
+          undo.push(() => r.removeAttribute("data-cssrise"))
+        }
+        const rise = gsap.timeline({ paused: cssRise, scrollTrigger: cssRise ? undefined : { trigger: heroEl, start: "top top", end: "bottom bottom", scrub: scrubbed(0.9) } })
         const zs = [1.55, 1.95, 2.6, 3.6]
         const rs = [2, -3, 5, -9]
-        if (photoMode) {
+        if (cssRise) {
+          // nichts zu tun: CSS übernimmt Zoom, Unschärfe-Ebene, Text, Nebel und „über den Baumkronen“
+        } else if (photoMode) {
           // into the gap in the trees, with the near leaves rushing past out of focus
           rise
             .to(heroZoom[0], { scale: 2.5, rotate: 6, ease: "power2.in", duration: 1 }, 0)
@@ -1617,7 +1626,7 @@ export default function OverstoryStudioLanding({
           heroZoom.forEach((z, i) => rise.to(z, { scale: zs[i], rotate: rs[i], ease: "power2.in", duration: 1 }, 0))
           rise.to(q("[data-hero] [data-sky] canvas"), { scale: 1.22, ease: "none", duration: 1 }, 0)
         }
-        rise
+        if (!cssRise) rise
           // Unschärfe nur mit Maus/Trackpad – auf Touch-Geräten ist der Filter pro Frame zu teuer
           .to(q("[data-hero] .ovs-copy"), { y: () => -window.innerHeight * 0.16, scale: 0.92, autoAlpha: 0, filter: fine ? "blur(10px)" : "none", ease: "power1.in", duration: 0.5 }, 0.05)
           .to(q("[data-hero] .ovs-cue"), { autoAlpha: 0, duration: 0.1 }, 0)
@@ -2863,6 +2872,22 @@ const OVS_CSS = `
 @media (max-width:820px){.ovs-proc-grid{grid-template-columns:1fr}.ovs-tree-col{display:none}.ovs-step{opacity:1;min-height:0}.ovs-faq-grid{grid-template-columns:1fr}.ovs-foot-cols{grid-template-columns:repeat(2,1fr);row-gap:36px}.ovs-card-meta{grid-template-columns:1fr}.ovs-card-metric{text-align:left;align-items:flex-start}.ovs-svc-prev{display:none}}
 @media (max-width:560px){.ovs-root[data-photo] .ovs-copy::before{left:-4%;right:-4%;top:-14%;bottom:-14%}.ovs-nav-cta{display:none}.ovs-logo-row{column-gap:20px}.ovs-h1{font-size:clamp(36px,10.4vw,56px)}.ovs-quote figcaption{flex-wrap:wrap}.ovs-mock-phone{width:190px}.ovs-mk-kpis b{font-size:14px}.ovs-acc-item p{padding-right:0}}
 @media (hover:none),(pointer:coarse){.ovs-sway,.ovs-sway-p{animation:none}}
+/* Aufstieg als CSS-Scroll-Animation (Touch-Geräte): exakt die Kurven der GSAP-Timeline, aber auf dem Scroll-Pfad des Browsers */
+.ovs-root[data-cssrise] .ovs-hero{view-timeline-name:--ovs-rise;view-timeline-axis:block;view-timeline-inset:0px}
+.ovs-root[data-cssrise] [data-hero] [data-zoom],.ovs-root[data-cssrise] [data-hero] .ovs-copy,.ovs-root[data-cssrise] [data-hero] .ovs-cue,.ovs-root[data-cssrise] [data-hero] .ovs-veil,.ovs-root[data-cssrise] [data-hero] .ovs-above{animation-duration:1ms;animation-timing-function:linear;animation-fill-mode:both;animation-timeline:--ovs-rise;animation-range:contain 0% contain 100%}
+.ovs-root[data-cssrise] [data-hero] [data-zoom="0"]{animation-name:ovs-rise-z0}
+.ovs-root[data-cssrise] [data-hero] [data-zoom="1"]{animation-name:ovs-rise-z1}
+.ovs-root[data-cssrise] [data-hero] .ovs-copy{animation-name:ovs-rise-copy}
+.ovs-root[data-cssrise] [data-hero] .ovs-cue{animation-name:ovs-rise-cue}
+.ovs-root[data-cssrise] [data-hero] .ovs-veil{animation-name:ovs-rise-veil}
+.ovs-root[data-cssrise] [data-hero] .ovs-above{animation-name:ovs-rise-above}
+@keyframes ovs-rise-z0{0%{transform:rotate(0deg) scale(1);animation-timing-function:linear(0.0000 0%, 0.0001 5%, 0.0010 10%, 0.0034 15%, 0.0080 20%, 0.0156 25%, 0.0270 30%, 0.0429 35%, 0.0640 40%, 0.0911 45%, 0.1250 50%, 0.1664 55%, 0.2160 60%, 0.2746 65%, 0.3430 70%, 0.4219 75%, 0.5120 80%, 0.6141 85%, 0.7290 90%, 0.8574 95%, 1.0000 100%)}100%{transform:rotate(6deg) scale(2.5)}}
+@keyframes ovs-rise-z1{0%,4%{transform:scale(1.04);opacity:0;animation-timing-function:linear(0.0000 0%, 0.0001 5%, 0.0010 10%, 0.0034 15%, 0.0080 20%, 0.0156 25%, 0.0270 30%, 0.0429 35%, 0.0640 40%, 0.0911 45%, 0.1250 50%, 0.1664 55%, 0.2160 60%, 0.2746 65%, 0.3430 70%, 0.4219 75%, 0.5120 80%, 0.6141 85%, 0.7290 90%, 0.8574 95%, 1.0000 100%)}74%{transform:scale(3.6);opacity:1;animation-timing-function:linear}99%,100%{transform:scale(3.6);opacity:0}}
+@keyframes ovs-rise-copy{0%,5%{transform:none;opacity:1;visibility:visible;animation-timing-function:linear(0.0000 0%, 0.0025 5%, 0.0100 10%, 0.0225 15%, 0.0400 20%, 0.0625 25%, 0.0900 30%, 0.1225 35%, 0.1600 40%, 0.2025 45%, 0.2500 50%, 0.3025 55%, 0.3600 60%, 0.4225 65%, 0.4900 70%, 0.5625 75%, 0.6400 80%, 0.7225 85%, 0.8100 90%, 0.9025 95%, 1.0000 100%)}55%,100%{transform:translateY(-16svh) scale(.92);opacity:0;visibility:hidden}}
+@keyframes ovs-rise-cue{0%{opacity:1;visibility:visible;animation-timing-function:linear(0.0000 0%, 0.0975 5%, 0.1900 10%, 0.2775 15%, 0.3600 20%, 0.4375 25%, 0.5100 30%, 0.5775 35%, 0.6400 40%, 0.6975 45%, 0.7500 50%, 0.7975 55%, 0.8400 60%, 0.8775 65%, 0.9100 70%, 0.9375 75%, 0.9600 80%, 0.9775 85%, 0.9900 90%, 0.9975 95%, 1.0000 100%)}10%,100%{opacity:0;visibility:hidden}}
+@keyframes ovs-rise-veil{0%,45%{transform:translateY(100%);animation-timing-function:linear(0.0000 0%, 0.0050 5%, 0.0200 10%, 0.0450 15%, 0.0800 20%, 0.1250 25%, 0.1800 30%, 0.2450 35%, 0.3200 40%, 0.4050 45%, 0.5000 50%, 0.5950 55%, 0.6800 60%, 0.7550 65%, 0.8200 70%, 0.8750 75%, 0.9200 80%, 0.9550 85%, 0.9800 90%, 0.9950 95%, 1.0000 100%)}100%{transform:translateY(0)}}
+@keyframes ovs-rise-above{0%,62%{opacity:0;transform:translateY(40px);animation-timing-function:linear(0.0000 0%, 0.0975 5%, 0.1900 10%, 0.2775 15%, 0.3600 20%, 0.4375 25%, 0.5100 30%, 0.5775 35%, 0.6400 40%, 0.6975 45%, 0.7500 50%, 0.7975 55%, 0.8400 60%, 0.8775 65%, 0.9100 70%, 0.9375 75%, 0.9600 80%, 0.9775 85%, 0.9900 90%, 0.9975 95%, 1.0000 100%)}87%,100%{opacity:1;transform:none}}
+
 @media (prefers-reduced-motion:reduce){.ovs-sway,.ovs-sway-p,.ovs-status i,.ovs-clock i,.ovs-dapple i,.ovs-plan-ring,.ovs-cue-line::after,.ovs-sheet a{animation:none}.ovs-dots i{animation:none;transform:scaleX(1)}.ovs-fold,.ovs-svc-art,.ovs-svc-row::after,.ovs-svc-t,.ovs-seg-pill,.ovs-nav,.ovs-mock,.ovs-card-sun{transition:none}}
 `
 
