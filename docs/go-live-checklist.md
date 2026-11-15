@@ -20,7 +20,7 @@
 - [ ] Prüfen, ob das Buchungstool einwilligungspflichtige Cookies setzt – dann Einwilligungslösung ergänzen
 
 ## Bilder
-- [ ] Hero-Foto `public/images/canopy.avif` (Adobe Stock #303147850 aus der Vorlage): eigene Lizenz sichern oder durch eigenes Foto ersetzen (Pfad in `src/content/kayco.ts`, `heroPhoto`)
+- [x] Hero-Foto `public/images/canopy.avif` (Adobe Stock #303147850): Lizenz liegt bei KAYCO vor (bestätigt am 15.11.2026)
 
 ## Technik
 - [ ] Domain kayco.de auf das Hosting zeigen lassen, HTTPS aktiv

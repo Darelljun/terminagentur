@@ -44,8 +44,7 @@ export const faqItems = [
 
 /**
  * Baumkronen-Foto im Hero und im Abschluss (public/images, AVIF 1600 × 900).
- * Herkunft laut Vorlage: Adobe Stock #303147850 (Gratis-Sammlung), lizenziert über das Adobe-Konto des
- * Vorlagen-Autors – vor dem Livegang eigene Lizenz sichern oder ein eigenes Foto verwenden.
+ * Adobe Stock #303147850 – Lizenz liegt bei KAYCO vor (bestätigt am 15.11.2026).
  */
 export const heroPhoto = "/images/canopy.avif"
 
