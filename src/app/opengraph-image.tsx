@@ -30,7 +30,7 @@ export default function OpengraphImage() {
           <div style={{ fontSize: 120, fontWeight: 700, letterSpacing: -5, color: "#0b0b0d", lineHeight: 1 }}>Keine Leads.</div>
           <div style={{ fontSize: 120, fontWeight: 700, letterSpacing: -5, color: "#0e7a52", lineHeight: 1.05 }}>Termine.</div>
         </div>
-        <div style={{ fontSize: 30, color: "#5b5b62" }}>Qualifizierte Beratungstermine für Finanzdienstleister · kayco.de</div>
+        <div style={{ fontSize: 30, color: "#5b5b62" }}>Qualifizierte Beratungstermine für Finanzdienstleister · kayco.io</div>
       </div>
     ),
     size,
