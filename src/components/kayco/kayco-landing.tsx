@@ -12,7 +12,7 @@ export function KaycoLanding() {
     <OverstoryStudioLanding
       {...landingProps}
       // Ist ein Buchungstool verbunden (NEXT_PUBLIC_BOOKING_URL), öffnen alle Buchungs-Buttons es direkt.
-      // Ohne Buchungstool führen sie zum Abschluss mit E-Mail-Anfrage an hello@kayco.de.
+      // Ohne Buchungstool führen sie zum Abschluss mit E-Mail-Anfrage an hello@kayco.io.
       onBook={site.bookingUrl ? () => window.open(site.bookingUrl as string, "_blank", "noopener") : undefined}
       slots={{
         afterAbout: <ProblemCalendar />,
