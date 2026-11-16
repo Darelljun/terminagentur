@@ -7,7 +7,7 @@
 - [ ] Impressum: Registereintrag nur falls vorhanden, sonst Abschnitt entfernen
 - [ ] Gewerberecht prüfen: Erlaubnis-/Registerpflichten (z. B. §§ 34d, 34f GewO) für die Terminvermittlung
 - [ ] Datenschutz: Hosting-Anbieter, Logfile-Speicherdauer, AV-Vertrag, ggf. Drittlandübermittlung
-- [ ] Datenschutz: E-Mail-Anbieter für hello@kayco.de
+- [ ] Datenschutz: E-Mail-Anbieter für hello@kayco.io
 - [ ] Datenschutz: Datenschutzbeauftragter erforderlich?
 - [ ] Datenschutz: Rechtsgrundlage und Rollen (AV / gemeinsame / getrennte Verantwortlichkeit) bei der Weitergabe von Interessentendaten an Finanzdienstleister festlegen und vertraglich regeln
 - [ ] Datenschutzhinweise für Interessenten an der Erhebungsstelle (Kampagnen-/Formularseiten) bereitstellen
@@ -23,6 +23,6 @@
 - [x] Hero-Foto `public/images/canopy.avif` (Adobe Stock #303147850): Lizenz liegt bei KAYCO vor (bestätigt am 15.11.2026)
 
 ## Technik
-- [ ] Domain kayco.de auf das Hosting zeigen lassen, HTTPS aktiv
-- [ ] Postfach hello@kayco.de empfängt E-Mails (Testmail senden)
-- [ ] Google Search Console: Sitemap `https://kayco.de/sitemap.xml` einreichen
+- [ ] Domain kayco.io auf das Hosting zeigen lassen, HTTPS aktiv
+- [ ] Postfach hello@kayco.io empfängt E-Mails (Testmail senden)
+- [ ] Google Search Console: Sitemap `https://www.kayco.io/sitemap.xml` einreichen
