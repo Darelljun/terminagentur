@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
-  description: "Informationen zur Verarbeitung personenbezogener Daten auf kayco.de.",
+  description: "Informationen zur Verarbeitung personenbezogener Daten auf kayco.io.",
   alternates: { canonical: "/datenschutz" },
   robots: { index: true, follow: true },
 };
