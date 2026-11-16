@@ -1,9 +1,9 @@
 export const site = {
   name: "KAYCO",
   legalName: "Kacou North",
-  domain: "kayco.de",
-  url: "https://kayco.de",
-  email: "hello@kayco.de",
+  domain: "kayco.io",
+  url: "https://www.kayco.io",
+  email: "hello@kayco.io",
   address: {
     street: "Albertus-Magnus-Straße 4",
     zip: "41470",
