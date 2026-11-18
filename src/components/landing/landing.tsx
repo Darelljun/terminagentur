@@ -1,3 +1,5 @@
+import { FxController } from "@/components/effects/fx-controller"
+import { Marquee } from "@/components/effects/fx"
 import { AboutSection } from "@/components/kayco/about-section"
 import { ProblemCalendar } from "@/components/kayco/problem-calendar"
 import { ResultsSection } from "@/components/kayco/results-section"
@@ -25,9 +27,13 @@ export function Landing({ c }: { c: LandingContent }) {
       <a className="k-skip" href="#main">
         Zum Inhalt springen
       </a>
+      <FxController />
+      <div className="k-progress" aria-hidden="true" />
+      <div className="k-grain" aria-hidden="true" />
       <SiteHeader brand={c.brand} links={c.links} />
       <main id="main">
         <Hero c={c} />
+        <Marquee items={c.marquee} />
         <Manifesto c={c} />
         <ProblemCalendar />
         <section id="services" className="k-sec k-services" data-sec="services" aria-labelledby="k-services-title">
@@ -42,6 +48,7 @@ export function Landing({ c }: { c: LandingContent }) {
         <AboutSection />
         <Pricing c={c} />
         <Faq c={c} />
+        <Marquee items={c.marquee} reverse />
         <Contact c={c} />
       </main>
       <SiteFooter c={c} />

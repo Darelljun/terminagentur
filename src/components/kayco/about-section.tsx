@@ -1,6 +1,8 @@
 import { BadgeEuro, CalendarCheck2, ClipboardList, PhoneOff, ShieldCheck, Users } from "lucide-react"
 import { pricing } from "@/content/kayco"
 
+import type { CSSProperties } from "react"
+import { SplitWords } from "@/components/effects/fx"
 import { Arrow } from "@/components/landing/primitives"
 
 /*
@@ -27,7 +29,7 @@ export function AboutSection() {
         {/* Bild-Fläche + Text */}
         <div className="kay-about-top">
           <div className="kay-about-visual k-reveal" aria-hidden="true">
-            <div className="kay-about-panel">
+            <div className="kay-about-panel" data-tilt="" data-glow="">
               <p className="kay-about-panel-k">Dein Monat mit KAYCO</p>
               <div className="kay-about-grid">
                 {["Mo", "Di", "Mi", "Do", "Fr"].map((d) => (
@@ -36,7 +38,7 @@ export function AboutSection() {
                   </span>
                 ))}
                 {SLOTS.map((on, i) => (
-                  <span key={i} className={on ? "kay-about-slot is-on" : "kay-about-slot"} />
+                  <span key={i} className={on ? "kay-about-slot is-on" : "kay-about-slot"} style={{ "--i": i } as CSSProperties} />
                 ))}
               </div>
             </div>
@@ -59,7 +61,7 @@ export function AboutSection() {
           <div className="kay-about-copy k-reveal">
             <span className="kay-about-bar" aria-hidden="true" />
             <h2 id="kay-about-title" className="k-h2">
-              Über uns
+              <SplitWords text="Über uns" />
             </h2>
             <p className="kay-about-lead">
               KAYCO ist ein junges Unternehmen, gegründet in Koblenz von Magdalena Kayser und Darell Kacou. Wir kommen selbst aus
@@ -73,7 +75,7 @@ export function AboutSection() {
               Deshalb konzentrieren wir uns auf eine einzige Sache: qualifizierte Beratungstermine. Du setzt dich hin und berätst –
               den Rest machen wir.
             </p>
-            <a href="#contact" className="k-btn k-btn--primary kay-about-btn">
+            <a href="#contact" className="k-btn k-btn--primary kay-about-btn" data-magnetic="">
               <span>Strategiegespräch anfragen</span>
               <Arrow />
             </a>
@@ -88,7 +90,7 @@ export function AboutSection() {
           </p>
           <div className="kay-about-points">
             {POINTS.map(({ icon: Icon, title, text }) => (
-              <div key={title} className="kay-about-point k-reveal">
+              <div key={title} className="kay-about-point k-reveal" data-glow="">
                 <div className="kay-about-icon">
                   <Icon size={20} strokeWidth={1.8} aria-hidden="true" />
                 </div>

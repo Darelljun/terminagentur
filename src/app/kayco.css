@@ -19,8 +19,7 @@
 }
 
 /* Farben der Kalendereinträge (Problem-Abschnitt) */
-:root,
-[data-theme="dark"] {
+:root {
   --kc-call: #2a3140;
   --kc-call-fg: #d3dae5;
   --kc-mail: #2d3358;
@@ -31,18 +30,6 @@
   --kc-noshow-fg: #ffc7c2;
   --kc-none: #3a3532;
   --kc-none-fg: #e0d8d0;
-}
-[data-theme="light"] {
-  --kc-call: #e2e6ed;
-  --kc-call-fg: #29313f;
-  --kc-mail: #e1e4fa;
-  --kc-mail-fg: #2c3577;
-  --kc-follow: #fbefc9;
-  --kc-follow-fg: #574206;
-  --kc-noshow: #fcdedb;
-  --kc-noshow-fg: #86221e;
-  --kc-none: #ece7e2;
-  --kc-none-fg: #463d37;
 }
 
 /* ---------------------------------------------------------------- Grundlagen */
@@ -96,9 +83,9 @@
   font-weight: 600;
 }
 .k-h1 {
-  font-size: clamp(46px, 6.4vw, 100px);
-  line-height: 0.98;
-  letter-spacing: -0.04em;
+  font-size: clamp(50px, 8vw, 122px);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
 }
 .k-line {
   display: block;
@@ -107,7 +94,7 @@
   color: var(--k-accent-text);
 }
 .k-h2 {
-  font-size: clamp(36px, 4.8vw, 68px);
+  font-size: clamp(38px, 5.4vw, 80px);
   line-height: 1.02;
   letter-spacing: -0.035em;
   max-width: 20ch;
@@ -585,7 +572,7 @@ html[data-menu] {
     linear-gradient(var(--k-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--k-line) 1px, transparent 1px);
   background-size: 88px 64px;
-  background-position: center -1px;
+  background-position: 0 0;
   -webkit-mask-image: radial-gradient(70% 62% at 64% 40%, #000, transparent 78%);
   mask-image: radial-gradient(70% 62% at 64% 40%, #000, transparent 78%);
 }
@@ -693,28 +680,7 @@ html[data-menu] {
 .k-morph {
   display: inline-block;
   vertical-align: top;
-  overflow: hidden;
-  padding: 0 0.06em 0.14em;
-  margin: 0 -0.06em -0.14em;
-}
-.k-morph-word {
-  display: inline-block;
   white-space: nowrap;
-}
-.k-ch {
-  display: inline-block;
-}
-@keyframes k-ch-in {
-  from {
-    opacity: 0;
-    transform: translateY(105%);
-  }
-}
-@keyframes k-ch-out {
-  to {
-    opacity: 0;
-    transform: translateY(-105%);
-  }
 }
 
 /* Slot-Board */
@@ -825,14 +791,6 @@ html[data-menu] {
   }
   .k-cue-line::after {
     animation: k-drip 2.2s cubic-bezier(0.6, 0, 0.2, 1) infinite;
-  }
-  .k-ch {
-    animation: k-ch-in 0.7s var(--k-ease) backwards;
-    animation-delay: calc(var(--k) * 32ms);
-  }
-  .k-morph[data-out] .k-ch {
-    animation: k-ch-out 0.42s cubic-bezier(0.6, 0, 0.8, 0.4) forwards;
-    animation-delay: calc(var(--k) * 22ms);
   }
   .k-slot.is-on {
     animation: k-slot-in 0.6s var(--k-ease) backwards;
@@ -1750,7 +1708,6 @@ html[data-menu] {
 @media (hover: hover) {
   .k-case:hover {
     border-color: var(--k-line-2);
-    transform: translateY(-3px);
   }
   .k-case:hover .k-mock {
     transform: translateY(-6px);
@@ -2144,7 +2101,6 @@ html[data-menu] {
 @media (hover: hover) {
   .kay-about-point:hover {
     border-color: var(--k-line-2);
-    transform: translateY(-3px);
   }
 }
 @media (max-width: 1024px) {
@@ -2353,7 +2309,7 @@ html[data-menu] {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  padding: clamp(56px, 8vw, 116px) clamp(22px, 6vw, 96px);
+  padding: clamp(96px, 11vw, 160px) clamp(22px, 6vw, 96px) clamp(64px, 8vw, 116px);
   border: 1px solid var(--k-line-2);
   border-radius: 36px;
   background: var(--k-surface);
@@ -2382,10 +2338,16 @@ html[data-menu] {
   -webkit-mask-image: radial-gradient(60% 60% at 50% 40%, #000, transparent 80%);
   mask-image: radial-gradient(60% 60% at 50% 40%, #000, transparent 80%);
 }
+.k-final-h,
+.k-final-text,
+.k-final-actions {
+  position: relative;
+  z-index: 1;
+}
 .k-final-h {
   max-width: 14ch;
   margin-inline: auto;
-  font-size: clamp(40px, 6vw, 88px);
+  font-size: clamp(42px, 6.8vw, 104px);
   line-height: 1;
   letter-spacing: -0.04em;
   text-wrap: balance;
@@ -2457,23 +2419,6 @@ html[data-menu] {
   font-size: 16px;
   color: var(--k-text-2);
   transition: color 0.2s;
-}
-.k-wordmark {
-  display: flex;
-  justify-content: space-between;
-  max-width: calc(var(--k-wrap) + 2 * var(--k-gutter));
-  margin: clamp(64px, 8vw, 112px) auto 0;
-  padding-inline: var(--k-gutter);
-  font-size: clamp(64px, 20vw, 330px);
-  font-weight: 700;
-  line-height: 0.78;
-  letter-spacing: -0.04em;
-  color: transparent;
-  background: linear-gradient(180deg, var(--k-text-3), transparent 92%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  opacity: 0.32;
-  user-select: none;
 }
 .k-foot-bottom {
   position: relative;

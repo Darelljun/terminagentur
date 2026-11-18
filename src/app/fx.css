@@ -1,0 +1,769 @@
+/*
+ * KAYCO – Effekt-Ebene (Black Edition). Animationen nach 21st.dev-Vorbildern, an das Designsystem angepasst:
+ * Grid Beam (cult-ui), Spotlight, Kinetic Typography, Chromatic Text Reveal (honestui), Text Shimmer,
+ * Shiny Button (hyperiux), Glowing Effect (Aceternity), Tilt (motion-primitives), Border Beam (Magic UI),
+ * Number Ticker (Magic UI), Infinite Marquee, Text Scroll Reveal, Animated Beam, Lamp (Aceternity),
+ * Sparkles, Text Hover Effect (Aceternity), Scroll Progress.
+ * Regeln: nur transform/translate/opacity im Dauerbetrieb, Zeigereffekte nur mit Maus (html[data-fx]),
+ * „Bewegung reduzieren“ schaltet alles ab.
+ */
+
+@property --k-sweep {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 114%;
+}
+@property --k-ang {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --g-a {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+/* ---------------------------------------------------------- Scroll Progress */
+.k-progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 70;
+  display: none;
+  height: 2px;
+  background: linear-gradient(90deg, var(--k-accent), var(--k-accent-2));
+  box-shadow: 0 0 14px rgb(61 220 151 / 0.7);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+@keyframes k-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .k-progress {
+      display: block;
+      animation: k-progress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+/* ------------------------------------------------------------------- Korn */
+.k-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------ Hero-Licht */
+.k-beams {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-mask-image: radial-gradient(80% 70% at 62% 42%, #000, transparent 82%);
+  mask-image: radial-gradient(80% 70% at 62% 42%, #000, transparent 82%);
+}
+.k-hero-spot {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(560px circle at var(--mx, -999px) var(--my, -999px), rgb(61 220 151 / 0.1), transparent 45%);
+}
+.k-hero-orb {
+  position: absolute;
+  border-radius: 50%;
+}
+.k-hero-orb--a {
+  left: 48%;
+  top: -18%;
+  width: 760px;
+  height: 760px;
+  background: radial-gradient(closest-side, rgb(61 220 151 / 0.16), transparent);
+}
+.k-hero-orb--b {
+  left: -14%;
+  top: 46%;
+  width: 640px;
+  height: 640px;
+  background: radial-gradient(closest-side, rgb(34 211 238 / 0.1), transparent);
+}
+@keyframes k-orb {
+  to {
+    transform: translate(-90px, 70px) scale(1.18);
+  }
+}
+
+/* --------------------------------------------------- Kinetic Typography */
+.k-kw {
+  display: inline-block;
+}
+/* Startet schwach sichtbar statt unsichtbar: Die Schrift ist ab dem ersten Bild da (schneller LCP) und wird scharf */
+@keyframes k-kw {
+  from {
+    opacity: 0.14;
+    filter: blur(14px);
+    translate: 0 0.28em;
+  }
+}
+
+/* --------------------------------------------- Chromatic Text Reveal */
+.k-chroma {
+  --k-sweep: 114%;
+  display: inline-block;
+  padding-bottom: 0.08em;
+  background-image: linear-gradient(
+    90deg,
+    var(--k-accent-text) 0%,
+    var(--k-accent-text) calc(var(--k-sweep) - 14%),
+    #a7f3d0 calc(var(--k-sweep) - 7%),
+    #ffffff var(--k-sweep),
+    #22d3ee calc(var(--k-sweep) + 7%),
+    transparent calc(var(--k-sweep) + 14%),
+    transparent 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@keyframes k-chroma {
+  from {
+    --k-sweep: -14%;
+  }
+  to {
+    --k-sweep: 114%;
+  }
+}
+@keyframes k-chroma-in {
+  from {
+    opacity: 0.4;
+    filter: blur(8px);
+    translate: 0 0.12em;
+  }
+}
+@keyframes k-chroma-out {
+  to {
+    opacity: 0;
+    filter: blur(10px);
+    translate: 0 -0.16em;
+  }
+}
+
+/* ------------------------------------------------------------ Text Shimmer */
+.k-shimmer {
+  background: linear-gradient(110deg, var(--k-text-2) 40%, #ffffff 50%, var(--k-text-2) 60%);
+  background-size: 260% 100%;
+  background-position: 0 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@keyframes k-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  55%,
+  100% {
+    background-position: -160% 0;
+  }
+}
+
+/* ------------------------------------------------------------- Shiny Button */
+.k-btn--shiny {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1.5px solid transparent;
+  color: var(--k-accent-ink);
+  background:
+    linear-gradient(var(--k-accent), var(--k-accent)) padding-box,
+    conic-gradient(from var(--k-ang), transparent 0deg, transparent 250deg, #ffffff 300deg, #b8ffe0 330deg, transparent 360deg) border-box,
+    linear-gradient(#22b877, #22b877) border-box;
+  box-shadow: 0 0 0 0 rgb(61 220 151 / 0), 0 10px 40px -14px rgb(61 220 151 / 0.7);
+}
+.k-btn--shiny > * {
+  position: relative;
+  z-index: 1;
+}
+.k-btn--shiny::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.55) 50%, transparent 70%);
+  transform: translateX(-130%);
+}
+@keyframes k-ang {
+  to {
+    --k-ang: 360deg;
+  }
+}
+@keyframes k-sheen {
+  0% {
+    transform: translateX(-130%);
+  }
+  38%,
+  100% {
+    transform: translateX(130%);
+  }
+}
+@media (hover: hover) {
+  .k-btn--shiny:hover {
+    background:
+      linear-gradient(#5be6a9, #5be6a9) padding-box,
+      conic-gradient(from var(--k-ang), transparent 0deg, transparent 200deg, #ffffff 290deg, #b8ffe0 330deg, transparent 360deg) border-box,
+      linear-gradient(#22b877, #22b877) border-box;
+    box-shadow:
+      0 0 0 6px rgb(61 220 151 / 0.14),
+      0 18px 50px -12px rgb(61 220 151 / 0.85);
+  }
+}
+
+/* Magnetischer Button (Wert kommt vom FxController) */
+html[data-fx] [data-magnetic] {
+  translate: var(--tx, 0px) var(--ty, 0px);
+  transition:
+    translate 0.35s var(--k-ease),
+    background-color 0.2s,
+    box-shadow 0.3s var(--k-ease),
+    transform 0.2s var(--k-ease);
+}
+
+/* --------------------------------------------------------- Glowing Effect */
+[data-glow] {
+  position: relative;
+  isolation: isolate;
+}
+html[data-fx] [data-glow]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from calc((var(--g-a) - 32) * 1deg),
+    transparent 0deg,
+    var(--k-accent) 16deg,
+    #22d3ee 32deg,
+    #b8ffe0 48deg,
+    transparent 64deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  opacity: var(--g-on, 0);
+  pointer-events: none;
+  transition:
+    opacity 0.4s,
+    --g-a 0.55s var(--k-ease);
+}
+/* Spotlight innerhalb der Karte */
+html[data-fx] .k-case::before,
+html[data-fx] .k-plan::before,
+html[data-fx] .kay-about-point::before,
+html[data-fx] .k-faq-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgb(61 220 151 / 0.08), transparent 45%);
+  opacity: var(--g-on, 0);
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+/* ----------------------------------------------------------------- Tilt */
+html[data-fx] [data-tilt] {
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.5s var(--k-ease);
+}
+html[data-fx] .k-board[data-tilt] {
+  transform: perspective(1600px) rotateY(calc(-9deg + var(--ry, 0deg))) rotateX(calc(4deg + var(--rx, 0deg)));
+}
+@media (max-width: 1020px) {
+  html[data-fx] .k-board[data-tilt] {
+    transform: perspective(1600px) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg));
+  }
+}
+
+/* --------------------------------------------------- Spotlight (Leistungen) */
+.k-svc-row {
+  position: relative;
+}
+html[data-fx] .k-svc-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(380px circle at var(--mx, -999px) var(--my, -999px), rgb(61 220 151 / 0.08), transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+html[data-fx] .k-svc-row:hover::before {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------ Border Beam */
+.k-beam {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border: 1.5px solid transparent;
+  border-radius: inherit;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(transparent, transparent) padding-box,
+    linear-gradient(#fff, #fff) border-box;
+  -webkit-mask-composite: source-in;
+  mask:
+    linear-gradient(transparent, transparent) padding-box intersect,
+    linear-gradient(#fff, #fff) border-box;
+}
+.k-beam::after {
+  content: "";
+  position: absolute;
+  width: var(--b-size);
+  aspect-ratio: 1;
+  background: linear-gradient(to left, #e6fff4, var(--k-accent), var(--k-accent-2), transparent);
+  offset-path: rect(0 auto auto 0 round var(--b-size));
+  offset-anchor: 90% 50%;
+}
+@keyframes k-beam {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+/* --------------------------------------------------------------- Marquee */
+.k-marquee {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(18px, 2.4vw, 28px);
+  border-block: 1px solid var(--k-line);
+  background: var(--k-bg);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.k-marquee-track {
+  display: flex;
+  width: max-content;
+}
+.k-marquee-row {
+  display: flex;
+  flex-shrink: 0;
+}
+.k-marquee-row li {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.4vw, 36px);
+  padding-right: clamp(20px, 2.4vw, 36px);
+  font-size: clamp(24px, 3vw, 46px);
+  font-stretch: 84%;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  color: var(--k-text);
+}
+.k-marquee-row li:nth-child(even) {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.38);
+}
+.k-marquee-row li i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--k-accent);
+  box-shadow: 0 0 16px rgb(61 220 151 / 0.8);
+  flex: none;
+}
+@keyframes k-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* --------------------------------------------- Text Scroll Reveal (Wörter) */
+.k-w {
+  display: inline-block;
+}
+.k-h2 .k-w,
+.k-final-h .k-w {
+  padding-bottom: 0.06em;
+  background: linear-gradient(180deg, #ffffff 25%, #9aa3b0 130%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@keyframes k-w {
+  from {
+    opacity: 0;
+    translate: 0 0.42em;
+  }
+}
+@keyframes k-w-blur {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    translate: 0 0.42em;
+  }
+}
+
+/* --------------------------------------------- Animated Beam (Ablauf) */
+.k-rail-pulse {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 22%;
+  background: linear-gradient(90deg, transparent, #e6fff4, transparent);
+  transform: translateX(-110%);
+}
+@keyframes k-pulse-x {
+  to {
+    transform: translateX(470%);
+  }
+}
+@keyframes k-pulse-y {
+  to {
+    transform: translateY(470%);
+  }
+}
+.k-step-node::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 8px;
+  border: 2px solid var(--k-accent);
+  opacity: 0;
+}
+@keyframes k-node {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  60%,
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+
+/* ------------------------------------------------------------------- Lamp */
+.k-lamp {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 0;
+  width: min(980px, 140%);
+  height: 420px;
+  translate: -50% 0;
+  pointer-events: none;
+}
+.k-lamp-cone {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg at 50% 0%, transparent 128deg, rgb(61 220 151 / 0.34) 160deg, rgb(34 211 238 / 0.2) 180deg, rgb(61 220 151 / 0.34) 200deg, transparent 232deg);
+  -webkit-mask-image: radial-gradient(55% 100% at 50% 0%, #000 10%, transparent 75%);
+  mask-image: radial-gradient(55% 100% at 50% 0%, #000 10%, transparent 75%);
+}
+.k-lamp-cone--r {
+  display: none;
+}
+.k-lamp-glow {
+  position: absolute;
+  left: 50%;
+  top: -90px;
+  width: 56%;
+  height: 200px;
+  translate: -50% 0;
+  background: radial-gradient(closest-side, rgb(61 220 151 / 0.5), transparent);
+}
+.k-lamp-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 58%;
+  height: 2px;
+  translate: -50% 0;
+  background: linear-gradient(90deg, transparent, #b8ffe0, #ffffff, #b8ffe0, transparent);
+  box-shadow: 0 0 24px 3px rgb(61 220 151 / 0.65);
+}
+@keyframes k-lamp {
+  from {
+    opacity: 0.25;
+    transform: scaleX(0.35);
+  }
+}
+
+/* ---------------------------------------------------------------- Sparkles */
+.k-sparkles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 35%, #000, transparent 80%);
+  mask-image: radial-gradient(70% 70% at 50% 35%, #000, transparent 80%);
+}
+.k-sparkles-drift {
+  position: absolute;
+  inset: 0;
+}
+.k-sparkles i {
+  position: absolute;
+  border-radius: 50%;
+  background: #d1fae5;
+  box-shadow: 0 0 6px 1px rgb(61 220 151 / 0.8);
+  opacity: 0.5;
+}
+@keyframes k-twinkle {
+  0%,
+  100% {
+    opacity: 0.08;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes k-drift {
+  to {
+    transform: translateY(-46px);
+  }
+}
+
+/* --------------------------------------------- Text Hover Effect (Footer) */
+.k-wordmark {
+  position: relative;
+  max-width: calc(var(--k-wrap) + 2 * var(--k-gutter));
+  margin: clamp(48px, 6vw, 96px) auto 0;
+  padding-inline: var(--k-gutter);
+  user-select: none;
+}
+.k-wordmark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.k-wordmark text {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 270px;
+  font-stretch: 84%;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.k-wm-fill {
+  fill: rgb(255 255 255 / 0.025);
+}
+.k-wm-stroke {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.22);
+  stroke-width: 1.2;
+}
+.k-wm-top {
+  position: absolute;
+  top: 0;
+  left: var(--k-gutter);
+  width: calc(100% - 2 * var(--k-gutter)) !important;
+  -webkit-mask-image: radial-gradient(240px circle at calc(var(--mx, -999px) - var(--k-gutter)) var(--my, -999px), #000 0%, transparent 75%);
+  mask-image: radial-gradient(240px circle at calc(var(--mx, -999px) - var(--k-gutter)) var(--my, -999px), #000 0%, transparent 75%);
+}
+.k-wm-glow {
+  fill: url(#k-wm-grad);
+  fill-opacity: 0.85;
+  stroke: url(#k-wm-grad);
+  stroke-width: 1.5;
+}
+/* Ohne Maus (Touch): Verlauf wandert langsam von selbst über den Schriftzug */
+html:not([data-fx]) .k-wm-top {
+  -webkit-mask-image: linear-gradient(90deg, transparent 30%, #000 50%, transparent 70%);
+  mask-image: linear-gradient(90deg, transparent 30%, #000 50%, transparent 70%);
+  -webkit-mask-size: 300% 100%;
+  mask-size: 300% 100%;
+  -webkit-mask-position: 100% 0;
+  mask-position: 100% 0;
+}
+@keyframes k-wm-sweep {
+  0% {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+  60%,
+  100% {
+    -webkit-mask-position: 0% 0;
+    mask-position: 0% 0;
+  }
+}
+@keyframes k-draw {
+  from {
+    stroke-dashoffset: 1600;
+  }
+}
+
+/* ----------------------------------------- Leuchtende Abschnittskanten */
+.kay-problem::before,
+.k-work::before,
+.kay-results::before,
+.k-pricing::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -1px;
+  width: min(760px, 80%);
+  height: 1px;
+  translate: -50% 0;
+  background: linear-gradient(90deg, transparent, rgb(61 220 151 / 0.75), transparent);
+  box-shadow: 0 0 22px 2px rgb(61 220 151 / 0.35);
+  pointer-events: none;
+}
+
+/* ===================================================== Animationen aktiv */
+@media (prefers-reduced-motion: no-preference) {
+  .k-hero-orb--a {
+    animation: k-orb 18s ease-in-out infinite alternate;
+  }
+  .k-hero-orb--b {
+    animation: k-orb 23s ease-in-out infinite alternate-reverse;
+  }
+  .k-kw {
+    animation: k-kw 1.05s var(--k-ease) backwards;
+    animation-delay: var(--d);
+  }
+  .k-chroma {
+    animation:
+      k-chroma 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.15s backwards,
+      k-chroma-in 0.55s var(--k-ease) backwards;
+  }
+  .k-morph[data-out] .k-chroma {
+    animation: k-chroma-out 0.4s cubic-bezier(0.6, 0, 0.8, 0.4) forwards;
+  }
+  .k-shimmer {
+    animation: k-shimmer 4.2s ease-in-out infinite;
+  }
+  .k-btn--shiny {
+    animation: k-ang 3.4s linear infinite;
+  }
+  .k-btn--shiny::after {
+    animation: k-sheen 3.6s ease-in-out 1.2s infinite;
+  }
+  .k-beam::after {
+    animation: k-beam var(--b-dur) linear infinite;
+    animation-delay: var(--b-delay);
+  }
+  .k-marquee-track {
+    animation: k-marquee 46s linear infinite;
+  }
+  .k-marquee[data-reverse] .k-marquee-track {
+    animation-direction: reverse;
+  }
+  .k-rail-pulse {
+    animation: k-pulse-x 2.8s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+  }
+  .k-step-node::before {
+    animation: k-node 2.8s ease-out infinite;
+    animation-delay: calc(var(--i, 0) * 0.7s);
+  }
+  .k-sparkles i {
+    animation: k-twinkle 3s ease-in-out infinite;
+  }
+  .k-sparkles-drift {
+    animation: k-drift 14s ease-in-out infinite alternate;
+  }
+  .k-board-wrap {
+    animation: k-float 7s ease-in-out infinite alternate;
+  }
+  html:not([data-fx]) .k-wm-top {
+    animation: k-wm-sweep 7s ease-in-out infinite;
+  }
+}
+@keyframes k-float {
+  to {
+    transform: translateY(-12px);
+  }
+}
+/* Abschnitt außerhalb des Bildschirms (FxController setzt data-idle): Endlos-Animationen anhalten */
+[data-idle] :is(.k-hero-orb, .k-shimmer, .k-btn--shiny, .k-board-wrap, .k-rail-pulse, .k-marquee-track, .k-sparkles i, .k-sparkles-drift, .k-wm-top),
+[data-idle] :is(.k-btn--shiny, .k-beam, .k-status i, .k-cue-line)::after,
+[data-idle] .k-step-node::before {
+  animation-play-state: paused !important;
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 900px) {
+  .k-rail-pulse {
+    width: auto;
+    height: 22%;
+    right: 0;
+    bottom: auto;
+    transform: translateY(-110%);
+    background: linear-gradient(180deg, transparent, #e6fff4, transparent);
+    animation-name: k-pulse-y;
+  }
+}
+
+/* Scroll-gekoppelte Effekte (ohne JavaScript, im Compositor) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .k-w {
+      animation: k-w linear both;
+      animation-timeline: view();
+      animation-range: entry calc(4% + var(--i) * 4%) entry calc(62% + var(--i) * 4%);
+    }
+    .k-lamp-cone,
+    .k-lamp-line,
+    .k-lamp-glow {
+      animation: k-lamp linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 45%;
+    }
+    .k-wm-stroke {
+      stroke-dasharray: 1600;
+      animation: k-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 60%;
+    }
+    .kay-about-slot.is-on {
+      animation: k-slot-in linear both;
+      animation-timeline: view();
+      animation-range: entry calc(20% + var(--i) * 1.2%) entry calc(70% + var(--i) * 1.2%);
+    }
+  }
+  /* Unschärfe nur mit Maus/Trackpad – auf Handys zu teuer pro Frame */
+  @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+    .k-w {
+      animation-name: k-w-blur;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .k-beam,
+  .k-rail-pulse,
+  .k-sparkles,
+  .k-btn--shiny::after {
+    display: none;
+  }
+}
+@media print {
+  .k-w,
+  .k-kw,
+  .k-chroma {
+    animation: none !important;
+  }
+  .k-progress,
+  .k-grain {
+    display: none;
+  }
+}

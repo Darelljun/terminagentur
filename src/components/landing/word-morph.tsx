@@ -1,11 +1,12 @@
 "use client"
 
-import { useEffect, useState, type CSSProperties } from "react"
+import { useEffect, useState } from "react"
 
 /**
- * Wechselwort in der Hero-Headline. Die Buchstaben steigen per CSS-Animation ein und aus
- * (transform + opacity). Mit „Bewegung reduzieren“ bleibt das erste Wort stehen.
- * Das Wort steht in einer eigenen Zeile – ein Wechsel verschiebt nichts im Layout.
+ * Wechselwort in der Hero-Headline – nach „Chromatic Text Reveal“ (honestui, 21st.dev):
+ * Jedes neue Wort taucht aus der Unschärfe auf, ein farbiger Verlauf (Grün → Cyan) streicht darüber.
+ * Umsetzung in CSS (registrierte Eigenschaft --sweep), ohne Motion. Mit „Bewegung reduzieren“ bleibt
+ * das erste Wort stehen. Das Wort steht in einer eigenen Zeile – ein Wechsel verschiebt nichts im Layout.
  */
 export function WordMorph({ words }: { words: string[] }) {
   const [i, setI] = useState(0)
@@ -21,23 +22,18 @@ export function WordMorph({ words }: { words: string[] }) {
       swap = window.setTimeout(() => {
         setI((v) => (v + 1) % words.length)
         setOut(false)
-      }, 460)
-    }, 3400)
+      }, 420)
+    }, 3600)
     return () => {
       window.clearInterval(t)
       window.clearTimeout(swap)
     }
   }, [words.length])
 
-  const word = words[i] || ""
   return (
     <span className="k-morph" data-out={out ? "" : undefined}>
-      <span className="k-morph-word" key={i}>
-        {Array.from(word).map((ch, k) => (
-          <span key={k} className="k-ch" style={{ "--k": k } as CSSProperties}>
-            {ch}
-          </span>
-        ))}
+      <span className="k-chroma" key={i}>
+        {words[i] || ""}
       </span>
     </span>
   )

@@ -1,4 +1,5 @@
 import type { CaseMock, LandingContent } from "@/content/types"
+import { SplitWords } from "@/components/effects/fx"
 import { BookLink } from "./actions"
 import { Arrow, BrandMark, Kicker } from "./primitives"
 
@@ -89,13 +90,13 @@ export function Work({ c }: { c: LandingContent }) {
           <div className="k-head-main k-reveal">
             <Kicker n="03" text={wk.kicker} />
             <h2 id="k-work-title" className="k-h2">
-              {wk.title}
+              <SplitWords text={wk.title} />
             </h2>
           </div>
         </div>
         <div className="k-cases">
           {wk.items.map((item) => (
-            <article key={item.client} className="k-case k-reveal">
+            <article key={item.client} className="k-case k-reveal" data-glow="" data-tilt="">
               <a href="#contact" className="k-case-link" aria-label={item.client + ": " + item.title}>
                 <div className="k-case-art">
                   <Mock mock={item.mock} name={item.client} />
@@ -116,12 +117,12 @@ export function Work({ c }: { c: LandingContent }) {
               </a>
             </article>
           ))}
-          <article className="k-case k-case--next k-reveal">
+          <article className="k-case k-case--next k-reveal" data-glow="">
             <BookLink className="k-case-link">
               <BrandMark className="k-case-next-mark" />
               <span className="k-case-next-t">{wk.next}</span>
-              <span className="k-btn k-btn--primary">
-                Gespräch anfragen <Arrow />
+              <span className="k-btn k-btn--shiny">
+                <span>Gespräch anfragen</span> <Arrow />
               </span>
             </BookLink>
           </article>

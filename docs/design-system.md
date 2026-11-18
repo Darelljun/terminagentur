@@ -61,31 +61,33 @@ kein Fintech-SaaS-Template (keine Verlaufs-Blobs in Lila, keine Icon-Kachel-Rast
 
 ## 3. Designsystem
 
-### 3.1 Farben (Tokens, `src/app/kayco.css`)
+### 3.1 Farben (Tokens, `src/app/globals.css`) – „Black Edition“
 
-Dunkel ist das Standard-Design. Hell bleibt über den bestehenden Umschalter erreichbar.
+Nur noch ein Design: tiefschwarz. Der frühere Hell/Dunkel-Umschalter ist entfernt (Wunsch: Agentur-Look,
+konsequent dunkel). `color-scheme: dark`, `theme-color #000000`.
 
-| Token | Dunkel | Hell | Verwendung |
-|---|---|---|---|
-| `--k-bg` | `#07090D` | `#F5F6F8` | Seitenhintergrund |
-| `--k-bg-2` | `#0B0E14` | `#ECEEF2` | Wechsel-Abschnitte |
-| `--k-surface` | `#10141C` | `#FFFFFF` | Karten |
-| `--k-surface-2` | `#161B25` | `#F3F5F8` | Karten-Hover, Eingebettetes |
-| `--k-line` | `rgb(226 232 240 / .08)` | `rgb(15 23 42 / .09)` | Haarlinien |
-| `--k-line-2` | `rgb(226 232 240 / .16)` | `rgb(15 23 42 / .16)` | Betonte Linien |
-| `--k-text` | `#EEF1F5` | `#0A0E15` | Text |
-| `--k-text-2` | `#A7B0BD` | `#475162` | Fließtext, sekundär |
-| `--k-text-3` | `#7D8797` | `#5F6979` | Labels, Metadaten |
-| `--k-accent` | `#3DDC97` | `#3DDC97` | Primär-Button, Slots, Fokus |
-| `--k-accent-ink` | `#03140C` | `#03140C` | Text auf Akzent |
-| `--k-accent-text` | `#56E4A6` | `#0B7A4B` | Akzent als Textfarbe (AA) |
-| `--k-glow` | `rgb(46 84 190 / .28)` | `rgb(46 84 190 / .10)` | Mitternachtsblaues Licht |
-| `--k-warn` | `#F07C7C` | `#C2410C` | Verlust/Problem (Kalender) |
+| Token | Wert | Verwendung |
+|---|---|---|
+| `--k-bg` | `#000000` | Seitenhintergrund |
+| `--k-bg-2` | `#050607` | Wechsel-Abschnitte |
+| `--k-surface` | `#0B0D10` | Karten |
+| `--k-surface-2` | `#12151A` | Karten-Hover, Eingebettetes |
+| `--k-line` | `rgb(255 255 255 / .08)` | Haarlinien |
+| `--k-line-2` | `rgb(255 255 255 / .15)` | Betonte Linien |
+| `--k-text` | `#F4F6F8` | Text |
+| `--k-text-2` | `#A3ABB8` | Fließtext, sekundär |
+| `--k-text-3` | `#7B8493` | Labels, Metadaten |
+| `--k-accent` | `#3DDC97` | Signalgrün: Buttons, Slots, Fokus, Lichteffekte |
+| `--k-accent-2` | `#22D3EE` | Cyan – nur als zweite Farbe in Licht-Verläufen |
+| `--k-accent-ink` | `#02130B` | Text auf Akzent |
+| `--k-accent-text` | `#5AE6A8` | Akzent als Textfarbe |
+| `--k-glow` | `rgb(34 120 255 / .22)` | Blaues Hintergrundlicht |
+| `--k-warn` | `#F07C7C` | Verlust/Problem (Kalender) |
 
-Kontraste (WCAG, gemessen auf der jeweils dunkelsten Fläche): dunkel – Text 16,3:1 · Text-2 8,4:1 ·
-Text-3 5,1:1 · Akzent-Text 11,5:1 · Button-Text auf Akzent 10,7:1; hell – Text 16,6:1 · Text-2 6,9:1 ·
-Text-3 4,8:1 · Akzent-Text 4,6:1 → alle ≥ AA. Der Lese-Effekt im Statement startet bei 42 % (dunkel)
-bzw. 50 % (hell) Deckkraft und hält damit ≥ 3:1 für große Schrift ein.
+Kontraste (WCAG, auf Schwarz / auf der hellsten Kartenfläche `#12151A`): Text 19,4 / 16,9 ·
+Text-2 9,1 / 7,9 · Text-3 5,6 / 4,8 · Akzent-Text 13,3 / 11,6 · Button-Text auf Akzent 10,8 → alle ≥ AA.
+Der Lese-Effekt im Statement startet bei 42 % Deckkraft und hält damit ≥ 3:1 für große Schrift ein.
+Überschriften mit Verlauf (Weiß → Grau) bleiben auch am dunkelsten Punkt über 7:1.
 
 ### 3.2 Typografie
 
@@ -96,8 +98,8 @@ bzw. 50 % (hell) Deckkraft und hält damit ≥ 3:1 für große Schrift ein.
 
 | Stufe | Größe | Einsatz |
 |---|---|---|
-| `display-xl` | clamp(46px, 7.4vw, 108px) | H1 |
-| `display-l` | clamp(36px, 4.8vw, 68px) | H2 |
+| `display-xl` | clamp(50px, 8vw, 122px) | H1 |
+| `display-l` | clamp(38px, 5.4vw, 80px) | H2 (Abschluss: clamp(42px, 6.8vw, 104px)) |
 | `display-m` | clamp(22px, 2vw, 28px) | Karten-/Schritt-Titel |
 | `body-l` | clamp(17px, 1.3vw, 20px) / 1,55 | Lead-Texte |
 | `body` | 16px / 1,6 | Fließtext |
@@ -120,9 +122,9 @@ bzw. 50 % (hell) Deckkraft und hält damit ≥ 3:1 für große Schrift ein.
 | Mobile-Menü | Vollflächiges Panel unter dem Header, nummerierte Links (Mono), CTA, Fokusfalle, Escape, Hintergrund-Scroll gesperrt, schließt beim Wechsel auf Desktop. |
 | Kicker | Akzent-Slot (8 × 8, Radius 2) + Mono-Nummer + Label, z. B. `▪ 02 — WAS WIR ÜBERNEHMEN` |
 | Abschnittskopf | Kicker + H2 links, Lead rechts (ab 960 px), sonst untereinander |
-| Primär-Button | Akzentfläche, Pille, 48 px (mobil 52 px), 15 px/600, Pfeil verschiebt sich bei Hover um 3 px |
+| Primär-Button | Akzentfläche, Pille, 48 px (mobil 52 px), 15 px/600, Pfeil verschiebt sich bei Hover um 3 px. Haupt-CTAs als „Shiny Button“: umlaufender Lichtrand, Glanz-Streifen, Leuchten bei Hover, magnetisch (Maus) |
 | Sekundär-Button | Transparent, Rand `--k-line-2`, Hover Fläche `--k-surface-2` |
-| Karte | `--k-surface`, Rand `--k-line`, Radius 22, Hover (nur Maus): Rand `--k-line-2`, −2 px |
+| Karte | `--k-surface`, Rand `--k-line`, Radius 22, Hover (nur Maus): Lichtkante folgt dem Zeiger, Spotlight, leichte 3D-Neigung |
 | Chip | Mono 12 px, Rand `--k-line-2`, Radius 8 |
 | Akkordeon | Haarlinien-Liste, Plus-Symbol in Kreis dreht zu ×, Höhe per CSS-Grid animiert |
 | Kennzahl | Zahl `display-l` in Tabellenziffern, Haarlinie oben, Label `small` |
@@ -130,12 +132,44 @@ bzw. 50 % (hell) Deckkraft und hält damit ≥ 3:1 für große Schrift ein.
 ### 3.5 Bewegung
 
 - Kurven: `--k-ease: cubic-bezier(.2,.7,.2,1)`; Dauer 160 ms (Mikro), 320 ms (UI), 700 ms (Einblenden).
-- Einstieg Hero: CSS-Animation ab dem ersten Bild (kein Warten auf JavaScript).
-- Abschnitte: dezentes Einblenden (Opazität + 20 px) gekoppelt an die Scrollposition
-  (`animation-timeline: view()`), läuft im Compositor; ohne Browser-Unterstützung sofort sichtbar.
-- Nur `transform` und `opacity` werden animiert. Keine Scroll-Übernahme, kein Pinning.
-- `prefers-reduced-motion: reduce`: alle Animationen aus, Inhalte sofort sichtbar,
-  `scroll-behavior` auf `auto`.
+- Einstieg Hero: CSS-Animation ab dem ersten Bild (kein Warten auf JavaScript). Die Headline ist ab dem
+  ersten Bild schwach sichtbar und wird scharf (kein unsichtbarer Text → schneller LCP).
+- Abschnitte: Einblenden gekoppelt an die Scrollposition (`animation-timeline: view()`); ohne
+  Browser-Unterstützung sofort sichtbar. Keine Scroll-Übernahme, kein Pinning.
+- `prefers-reduced-motion: reduce`: alle Animationen, Lichtstrahlen, Funkeln und Zähler aus, Inhalte
+  sofort sichtbar, `scroll-behavior: auto`.
+
+### 3.5.1 Effekt-Bibliothek (nach 21st.dev-Vorbildern, ohne neue Abhängigkeiten)
+
+Alle Effekte sind selbst in CSS bzw. kleinem React-Code umgesetzt (`src/app/fx.css`,
+`src/components/effects/`). Kein Motion/GSAP/Three.js.
+
+| Effekt (Vorbild) | Wo | Umsetzung |
+|---|---|---|
+| Grid Beam (cult-ui) | Hero-Hintergrund | Canvas, Lichtstrahlen auf den Rasterlinien; startet erst nach dem Laden, pausiert außerhalb des Bildes und im Hintergrund-Tab |
+| Spotlight | Hero, Leistungsliste, Footer-Schriftzug | Radialer Lichtkegel an der Zeigerposition (nur Maus) |
+| Kinetic Typography | H1 | Wörter steigen gestaffelt aus der Unschärfe |
+| Chromatic Text / Word Rotate | Wechselwort „Termine“ | Farbverlauf läuft über das Wort, Wechsel mit Unschärfe |
+| Text Shimmer | Status-Zeile im Hero | Glanz läuft über den Text |
+| Shiny Button + Magnetic Button | Haupt-CTAs | Rotierender Lichtrand, Glanzstreifen, folgt dem Zeiger um wenige Pixel |
+| Border Beam (Magic UI) | Slot-Board, Preis „Jetzt starten“, Abschluss-Panel | Lichtpunkt umläuft den Rand (`offset-path`) |
+| Tilt / 3D Card | Slot-Board, Einblick-Karten, Preiskarten, Über-uns-Panel | Leichte Neigung zum Zeiger (max. 6°/8°) |
+| Glowing Effect (Aceternity) | Karten, Kalender, FAQ | Leuchtende Kante folgt dem Zeiger um die Karte |
+| Infinite Marquee | Unter dem Hero, vor dem Kontakt | Laufband aus wörtlichen Aussagen der Seite, dekorativ (für Screenreader ausgeblendet) |
+| Text Scroll Reveal | Alle H2 | Wörter erscheinen beim Scrollen gestaffelt |
+| Number Ticker (Magic UI) | Kennzahlen, Ergebnisse, Preise | Zählt beim Hineinscrollen hoch; Server liefert den Endwert |
+| Animated Beam | Ablauf | Lichtimpuls läuft die Pipeline entlang, Knoten pulsieren nacheinander |
+| Lamp (Aceternity) | Abschluss-Panel | Lichtkegel öffnet sich beim Scrollen |
+| Sparkles | Abschluss-Panel | Funkelnde Lichtpunkte |
+| Text Hover Effect (Aceternity) | Footer-Schriftzug „KAYCO“ | Kontur zeichnet sich, Verlauf folgt dem Zeiger (Touch: wandert von selbst) |
+| Scroll Progress | Oberkante | Fortschrittsbalken gekoppelt an die Scrollposition |
+
+Regeln, damit das flüssig bleibt:
+- Zeiger-Effekte nur mit Maus/Trackpad (`hover: hover` + `pointer: fine`), ein einziger Listener
+  (`FxController`), pro Frame erst lesen, dann schreiben, nur sichtbare Elemente.
+- Endlos-Animationen laufen nur, solange ihr Abschnitt im Bild ist (`data-idle` hält sie an).
+- Unschärfe bei der Wort-Einblendung nur auf Desktop; auf Handys nur Deckkraft + Versatz.
+- Canvas mit begrenzter Pixeldichte (1,5 bzw. 1,25 auf Touch).
 
 ### 3.6 Responsiv
 

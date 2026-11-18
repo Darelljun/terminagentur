@@ -1,4 +1,5 @@
 import { Fragment } from "react"
+import { NumberTicker } from "@/components/effects/number-ticker"
 import type { LandingContent } from "@/content/types"
 import { BrandMark, Kicker } from "./primitives"
 
@@ -37,11 +38,6 @@ function Pic({ kind }: { kind: string }) {
   )
 }
 
-/** Zahl im deutschen Format mit Präfix/Suffix, z. B. „75 €“, „30+“. */
-function statValue(value: number, decimals = 0) {
-  return new Intl.NumberFormat("de-DE", { minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(value)
-}
-
 export function Manifesto({ c }: { c: LandingContent }) {
   return (
     <section id="about" className="k-sec k-manifesto" data-sec="about" aria-label="Über KAYCO">
@@ -65,7 +61,9 @@ export function Manifesto({ c }: { c: LandingContent }) {
         <dl className="k-stats">
           {c.stats.map((s) => (
             <div key={s.label} className="k-stat k-reveal">
-              <dd>{(s.prefix || "") + statValue(s.value, s.decimals) + (s.suffix || "")}</dd>
+              <dd>
+                <NumberTicker value={s.value} decimals={s.decimals} prefix={s.prefix} suffix={s.suffix} />
+              </dd>
               <dt>{s.label}</dt>
             </div>
           ))}

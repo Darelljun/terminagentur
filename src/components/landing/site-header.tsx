@@ -19,7 +19,6 @@ export function SiteHeader({ brand, links }: { brand: string; links: Link[] }) {
   const menuBtn = useRef<HTMLButtonElement>(null)
   const sheet = useRef<HTMLDivElement>(null)
   const [menu, setMenu] = useState(false)
-  const [dark, setDark] = useState(true)
 
   // Scroll-Verhalten
   useEffect(() => {
@@ -145,11 +144,6 @@ export function SiteHeader({ brand, links }: { brand: string; links: Link[] }) {
     }
   }, [menu])
 
-  // Dunkel/Hell
-  useEffect(() => {
-    document.documentElement.dataset.theme = dark ? "dark" : "light"
-  }, [dark])
-
   // Beim Antippen eines Menülinks: Sperre sofort lösen, damit der Browser zum Ziel scrollen kann
   const closeForNav = () => {
     document.documentElement.removeAttribute("data-menu")
@@ -172,19 +166,7 @@ export function SiteHeader({ brand, links }: { brand: string; links: Link[] }) {
             ))}
           </nav>
           <div className="k-nav-end">
-            <button type="button" className="k-icon-btn" onClick={() => setDark((d) => !d)} aria-label={dark ? "Zu Tageslicht wechseln" : "Zur Abenddämmerung wechseln"}>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                {dark ? (
-                  <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
-                    <circle cx="12" cy="12" r="4.2" />
-                    <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" />
-                  </g>
-                ) : (
-                  <path d="M20 14.6A8.4 8.4 0 0 1 9.4 4a8.4 8.4 0 1 0 10.6 10.6z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-                )}
-              </svg>
-            </button>
-            <BookLink className="k-btn k-btn--primary k-btn--sm k-nav-cta">
+            <BookLink className="k-btn k-btn--primary k-btn--sm k-nav-cta" data-magnetic="">
               <span>Gespräch buchen</span>
               <Arrow />
             </BookLink>

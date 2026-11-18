@@ -1,4 +1,5 @@
 import type { ReactNode } from "react"
+import { SplitWords } from "@/components/effects/fx"
 
 /*
  * Gemeinsame Bausteine des KAYCO-Designsystems (docs/design-system.md).
@@ -22,7 +23,7 @@ export function SectionHead({ n, kicker, title, titleId, lede, side }: { n: stri
       <div className="k-head-main k-reveal">
         <Kicker n={n} text={kicker} />
         <h2 id={titleId} className="k-h2">
-          {title}
+          <SplitWords text={title} />
         </h2>
       </div>
       {lede || side ? (

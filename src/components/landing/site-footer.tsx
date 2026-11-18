@@ -1,3 +1,4 @@
+import { Wordmark } from "@/components/effects/fx"
 import type { LandingContent } from "@/content/types"
 import { BackToTop, BookLink } from "./actions"
 import { Arrow } from "./primitives"
@@ -10,7 +11,7 @@ export function SiteFooter({ c }: { c: LandingContent }) {
         <div className="k-foot-top">
           <div className="k-foot-claim">
             <p>{ft.claim}</p>
-            <BookLink className="k-btn k-btn--primary">
+            <BookLink className="k-btn k-btn--primary" data-magnetic="">
               Strategiegespräch anfragen <Arrow />
             </BookLink>
           </div>
@@ -30,11 +31,7 @@ export function SiteFooter({ c }: { c: LandingContent }) {
           </div>
         </div>
       </div>
-      <div className="k-wordmark" aria-hidden="true">
-        {Array.from(c.brand).map((ch, i) => (
-          <span key={i}>{ch}</span>
-        ))}
-      </div>
+      <Wordmark text={c.brand} />
       <div className="k-wrap k-foot-bottom">
         <span>{ft.copyright}</span>
         <span>{ft.note}</span>

@@ -3,6 +3,7 @@ import { Geist_Mono, Instrument_Sans } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
 import "./kayco.css";
+import "./fx.css";
 
 // Schriften lokal über next/font (keine Anfragen an Google beim Seitenaufruf).
 // Instrument Sans mit Breitenachse: halbschmal für Headlines, normal für Fließtext.
@@ -37,8 +38,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07090d",
-  colorScheme: "dark light",
+  themeColor: "#000000",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

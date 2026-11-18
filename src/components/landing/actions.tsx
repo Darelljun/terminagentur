@@ -7,9 +7,16 @@ import { site } from "@/lib/site"
  * Buchungs-Link. Ist ein Buchungstool verbunden (NEXT_PUBLIC_BOOKING_URL), öffnet jeder Klick es direkt.
  * Ohne Buchungstool bleibt es ein normaler Link – standardmäßig zum Kontaktbereich (#contact).
  */
-export function BookLink({ href = "#contact", className, children, onNavigate }: { href?: string; className?: string; children: ReactNode; onNavigate?: () => void }) {
+export function BookLink({
+  href = "#contact",
+  className,
+  children,
+  onNavigate,
+  ...rest
+}: { href?: string; className?: string; children: ReactNode; onNavigate?: () => void } & Record<`data-${string}`, string>) {
   return (
     <a
+      {...rest}
       href={href}
       className={className}
       onClick={(e) => {

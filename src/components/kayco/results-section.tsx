@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { SplitWords } from "@/components/effects/fx";
+import { NumberTicker } from "@/components/effects/number-ticker";
 import { Kicker } from "@/components/landing/primitives";
 import { PeakChart } from "@/components/ui/peak-chart";
 
@@ -91,16 +93,20 @@ export function ResultsSection() {
           <div className="k-reveal">
             <Kicker n="✦" text="Ergebnisse" />
             <h2 id="kay-results-title" className="k-h2">
-              Wenn der Kalender voll ist, wächst der Umsatz.
+              <SplitWords text="Wenn der Kalender voll ist, wächst der Umsatz." />
             </h2>
           </div>
           <dl className="kay-results-stats">
             <div className="k-reveal">
-              <dd>80</dd>
+              <dd>
+                <NumberTicker value={80} />
+              </dd>
               <dt>Neukunden haben wir bereits gewonnen.</dt>
             </div>
             <div className="k-reveal">
-              <dd>3×</dd>
+              <dd>
+                <NumberTicker value={3} suffix="×" duration={1200} />
+              </dd>
               <dt>So stark steigern wir den Umsatz unserer Kunden.</dt>
             </div>
           </dl>

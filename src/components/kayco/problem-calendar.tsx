@@ -1,7 +1,7 @@
 "use client"
 
 import { ChevronLeft, ChevronRight, Euro, Menu, PhoneMissed, Search } from "lucide-react"
-import { useState, type CSSProperties } from "react"
+import { useEffect, useRef, useState, type CSSProperties } from "react"
 import { SectionHead } from "@/components/landing/primitives"
 
 type Kind = "anrufen" | "mailbox" | "nachfassen" | "noshow" | "unpassend" | "beratung"
@@ -84,6 +84,37 @@ const time = (h: number) => `${String(Math.floor(h)).padStart(2, "0")}:${String(
 
 export function ProblemCalendar() {
   const [withKayco, setWithKayco] = useState(false)
+  // Einmaliger Aha-Moment: Sobald der Kalender gut sichtbar ist, wechselt er von selbst auf „Mit KAYCO“ –
+  // aber nur, solange niemand selbst umgeschaltet hat.
+  const cal = useRef<HTMLDivElement>(null)
+  const touched = useRef(false)
+  useEffect(() => {
+    const el = cal.current
+    if (!el) return
+    let t = 0
+    // Sichtbar heißt: Oberkante des Kalenders liegt in den oberen 55 % des Fensters. Wer nur durchscrollt,
+    // bricht den Zeitgeber wieder ab – der Wechsel passiert nur, wenn man wirklich hinschaut.
+    const io = new IntersectionObserver(
+      ([e]) => {
+        window.clearTimeout(t)
+        if (!e.isIntersecting || touched.current) return
+        t = window.setTimeout(() => {
+          io.disconnect()
+          if (!touched.current) setWithKayco(true)
+        }, 1400)
+      },
+      { rootMargin: "0px 0px -45% 0px" },
+    )
+    io.observe(el)
+    return () => {
+      io.disconnect()
+      window.clearTimeout(t)
+    }
+  }, [])
+  const choose = (v: boolean) => {
+    touched.current = true
+    setWithKayco(v)
+  }
   const evs = withKayco ? WITH : WITHOUT
   const paid = hours(evs, true)
   const lost = hours(evs, false)
@@ -100,7 +131,7 @@ export function ProblemCalendar() {
           lede="So sieht der Kalender vieler Finanzberater aus: Leads abtelefonieren, Mailbox, Nachfassen, No-Shows. Du weißt nie, ob ein Lead gut oder schlecht ist – bis du ihn angerufen hast. Zeit, die Geld kostet, statt Geld zu bringen."
         />
 
-        <div className="kay-cal k-reveal">
+        <div className="kay-cal k-reveal" ref={cal} data-glow="">
           {/* Werkzeugleiste im Kalender-Stil */}
           <div className="kay-cal-bar">
             <div className="kay-cal-left">
@@ -126,10 +157,10 @@ export function ProblemCalendar() {
                 <Search size={18} />
               </span>
               <div className="kay-switch" role="group" aria-label="Kalenderansicht">
-                <button type="button" aria-pressed={!withKayco} onClick={() => setWithKayco(false)}>
+                <button type="button" aria-pressed={!withKayco} onClick={() => choose(false)}>
                   Mit Leads
                 </button>
-                <button type="button" aria-pressed={withKayco} onClick={() => setWithKayco(true)}>
+                <button type="button" aria-pressed={withKayco} onClick={() => choose(true)}>
                   Mit KAYCO
                 </button>
               </div>

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import type { LandingContent } from "@/content/types"
 import { CopyEmail } from "./actions"
+import { SplitWords } from "@/components/effects/fx"
 import { Kicker } from "./primitives"
 
 export function Faq({ c }: { c: LandingContent }) {
@@ -15,10 +16,10 @@ export function Faq({ c }: { c: LandingContent }) {
           <div className="k-reveal">
             <Kicker n="06" text={fq.kicker} />
             <h2 id="k-faq-title" className="k-h2">
-              {fq.title}
+              <SplitWords text={fq.title} />
             </h2>
           </div>
-          <div className="k-faq-card k-reveal">
+          <div className="k-faq-card k-reveal" data-glow="">
             <p>{fq.text}</p>
             <CopyEmail email={c.email} className="k-btn k-btn--ghost" copiedLabel="In die Zwischenablage kopiert" />
           </div>
