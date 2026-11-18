@@ -20,7 +20,8 @@
 - [ ] Prüfen, ob das Buchungstool einwilligungspflichtige Cookies setzt – dann Einwilligungslösung ergänzen
 
 ## Bilder
-- [x] Hero-Foto `public/images/canopy.avif` (Adobe Stock #303147850): Lizenz liegt bei KAYCO vor (bestätigt am 15.11.2026)
+- [x] Hero-Foto `canopy.avif` (Adobe Stock #303147850, Lizenz liegt bei KAYCO vor) wird seit dem Design-Relaunch nicht mehr verwendet
+- [ ] Optional: echte Fotos der Gründer für „Über uns“ (derzeit Initialen MK/DK)
 
 ## Technik
 - [ ] Domain kayco.io auf das Hosting zeigen lassen, HTTPS aktiv

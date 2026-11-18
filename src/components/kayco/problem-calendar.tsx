@@ -2,7 +2,7 @@
 
 import { ChevronLeft, ChevronRight, Euro, Menu, PhoneMissed, Search } from "lucide-react"
 import { useState, type CSSProperties } from "react"
-import { Kicker, Split } from "@/components/ui/overstory-studio-landing"
+import { SectionHead } from "@/components/landing/primitives"
 
 type Kind = "anrufen" | "mailbox" | "nachfassen" | "noshow" | "unpassend" | "beratung"
 type Ev = { d: number; s: number; e: number; k: Kind; t?: string }
@@ -19,12 +19,13 @@ const END = 19
 
 /** Farben angelehnt an klassische Kalender-Farbpaletten. */
 const KIND: Record<Kind, { label: string; bg: string; fg: string; money?: boolean }> = {
-  anrufen: { label: "Leads abtelefonieren", bg: "#616161", fg: "#fff" },
-  mailbox: { label: "Mailbox – erneut anrufen", bg: "#7986cb", fg: "#fff" },
-  nachfassen: { label: "Nachfassen", bg: "#f6bf26", fg: "#3c2a00" },
-  noshow: { label: "No-Show", bg: "#e67c73", fg: "#fff" },
-  unpassend: { label: "Kein Bedarf", bg: "#a79b8e", fg: "#fff" },
-  beratung: { label: "Beratung", bg: "#0b8043", fg: "#fff", money: true },
+  // Farben als Design-Tokens (src/app/kayco.css): Akquise in gedämpften Tönen, Beratung im Signalgrün
+  anrufen: { label: "Leads abtelefonieren", bg: "var(--kc-call)", fg: "var(--kc-call-fg)" },
+  mailbox: { label: "Mailbox – erneut anrufen", bg: "var(--kc-mail)", fg: "var(--kc-mail-fg)" },
+  nachfassen: { label: "Nachfassen", bg: "var(--kc-follow)", fg: "var(--kc-follow-fg)" },
+  noshow: { label: "No-Show", bg: "var(--kc-noshow)", fg: "var(--kc-noshow-fg)" },
+  unpassend: { label: "Kein Bedarf", bg: "var(--kc-none)", fg: "var(--kc-none-fg)" },
+  beratung: { label: "Beratung", bg: "var(--k-accent)", fg: "var(--k-accent-ink)", money: true },
 }
 
 const WITHOUT: Ev[] = [
@@ -89,22 +90,17 @@ export function ProblemCalendar() {
   const count = evs.filter((e) => KIND[e.k].money).length
 
   return (
-    <section className="ovs-sec kay-problem" data-sec="problem" aria-labelledby="kay-problem-title">
-      <div className="ovs-wrap">
-        <div className="ovs-head">
-          <div>
-            <Kicker n="✦" text="Das Problem" />
-            <span id="kay-problem-title">
-              <Split text="Volle Woche. Kaum Umsatz." className="ovs-h2" />
-            </span>
-          </div>
-          <p className="ovs-lede" data-rv>
-            So sieht der Kalender vieler Finanzberater aus: Leads abtelefonieren, Mailbox, Nachfassen, No-Shows. Du weißt nie, ob
-            ein Lead gut oder schlecht ist – bis du ihn angerufen hast. Zeit, die Geld kostet, statt Geld zu bringen.
-          </p>
-        </div>
+    <section id="problem" className="k-sec kay-problem" data-sec="problem" aria-labelledby="kay-problem-title">
+      <div className="k-wrap">
+        <SectionHead
+          n="✦"
+          kicker="Das Problem"
+          title="Volle Woche. Kaum Umsatz."
+          titleId="kay-problem-title"
+          lede="So sieht der Kalender vieler Finanzberater aus: Leads abtelefonieren, Mailbox, Nachfassen, No-Shows. Du weißt nie, ob ein Lead gut oder schlecht ist – bis du ihn angerufen hast. Zeit, die Geld kostet, statt Geld zu bringen."
+        />
 
-        <div className="kay-cal" data-rv>
+        <div className="kay-cal k-reveal">
           {/* Werkzeugleiste im Kalender-Stil */}
           <div className="kay-cal-bar">
             <div className="kay-cal-left">
@@ -145,17 +141,17 @@ export function ProblemCalendar() {
             <aside className="kay-cal-side" aria-live="polite">
               <p className="kay-side-k">Bilanz dieser Woche</p>
               <div className="kay-side-row">
-                <span className="kay-dot" style={{ background: "#0b8043" }} />
+                <span className="kay-dot" style={{ background: "var(--k-accent)" }} />
                 <span>Beratung, die Geld bringt</span>
                 <b>{fmt(paid)}</b>
               </div>
               <div className="kay-side-row">
-                <span className="kay-dot" style={{ background: "#616161" }} />
+                <span className="kay-dot" style={{ background: "var(--kc-call)" }} />
                 <span>Akquise, die Zeit frisst</span>
                 <b>{fmt(lost)}</b>
               </div>
               <div className="kay-side-meter" aria-hidden="true">
-                <i style={{ background: "#0b8043", width: `${(paid / Math.max(1, paid + lost)) * 100}%` }} />
+                <i style={{ background: "var(--k-accent)", width: `${(paid / Math.max(1, paid + lost)) * 100}%` }} />
               </div>
               <p className="kay-side-big">
                 <b>{count}</b> {count === 1 ? "Beratung" : "Beratungen"}
@@ -243,65 +239,7 @@ export function ProblemCalendar() {
         </div>
         <p className="kay-cal-foot">Beispielwoche zur Veranschaulichung – keine Messwerte.</p>
       </div>
-      <style>{CSS}</style>
     </section>
   )
 }
 
-const CSS = `
-.kay-problem{background:var(--ovs-paper)}
-.kay-cal{background:#fff;color:#1f1f1f;border-radius:28px;box-shadow:0 1px 2px rgba(16,21,13,.06),0 40px 80px -40px rgba(16,21,13,.35);border:1px solid var(--ovs-line);overflow:hidden;font-family:"Google Sans","Product Sans",var(--ovs-sans)}
-.ovs-root[data-scheme="dark"] .kay-cal{background:#1b1f1c;color:#e8eae6}
-.kay-cal-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(0,0,0,.08)}
-.ovs-root[data-scheme="dark"] .kay-cal-bar{border-color:rgba(255,255,255,.1)}
-.kay-cal-left,.kay-cal-right{display:flex;align-items:center;gap:12px;min-width:0}
-.kay-cal-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;color:#5f6368}
-.kay-cal-logo{position:relative;width:34px;height:36px;border-radius:6px;background:#fff;border:1px solid #dadce0;display:grid;place-items:center;overflow:hidden;flex:none}
-.kay-cal-logo i{position:absolute;left:0;right:0;top:0;height:8px;background:#1a73e8}
-.kay-cal-logo b{font-size:14px;font-weight:600;color:#1a73e8;margin-top:6px}
-.kay-cal-name{font-size:20px;color:#3c4043;letter-spacing:0}
-.ovs-root[data-scheme="dark"] .kay-cal-name{color:#e8eae6}
-.kay-cal-today{border:1px solid #dadce0;border-radius:999px;padding:6px 16px;font-size:14px;color:#3c4043}
-.kay-cal-nav{display:flex;gap:6px;color:#5f6368}
-.kay-cal-month{font-size:18px;color:#3c4043;white-space:nowrap}
-.ovs-root[data-scheme="dark"] .kay-cal-month,.ovs-root[data-scheme="dark"] .kay-cal-today{color:#e8eae6}
-.kay-switch{display:flex;background:#f1f3f4;border-radius:999px;padding:4px}
-.kay-switch button{height:36px;padding:0 16px;border-radius:999px;font-size:14px;font-weight:550;color:#5f6368;transition:background .25s,color .25s;cursor:pointer;white-space:nowrap}
-.kay-switch button[aria-pressed="true"]{background:#fff;color:#1f1f1f;box-shadow:0 1px 3px rgba(0,0,0,.15)}
-.kay-switch button:last-child[aria-pressed="true"]{background:#0b8043;color:#fff}
-.kay-cal-body{display:grid;grid-template-columns:270px minmax(0,1fr)}
-.kay-cal-side{padding:22px 20px;border-right:1px solid rgba(0,0,0,.08);display:flex;flex-direction:column;gap:12px}
-.ovs-root[data-scheme="dark"] .kay-cal-side{border-color:rgba(255,255,255,.1)}
-.kay-side-k{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5f6368}
-.kay-side-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;font-size:14px}
-.kay-side-row b{font-variant-numeric:tabular-nums}
-.kay-dot{width:10px;height:10px;border-radius:3px;display:inline-block;flex:none}
-.kay-side-meter{height:8px;border-radius:999px;background:#616161;overflow:hidden}
-.kay-side-meter i{display:block;height:100%;border-radius:999px;transition:width .7s cubic-bezier(.22,1,.36,1)}
-.kay-side-big{font-size:15px;color:#5f6368;margin-top:8px}
-.kay-side-big b{font-size:44px;line-height:1;letter-spacing:-.04em;color:#0b8043;font-weight:600;margin-right:4px;font-variant-numeric:tabular-nums}
-.kay-side-note{font-size:13.5px;line-height:1.5;color:#5f6368}
-.kay-legend{display:grid;gap:6px;margin-top:auto;padding-top:14px;border-top:1px solid rgba(0,0,0,.08);font-size:12.5px;color:#5f6368}
-.kay-legend li{display:flex;align-items:center;gap:8px}
-.kay-week{min-width:0;padding:8px 12px 16px 0}
-.kay-week-head{display:grid;grid-template-columns:52px repeat(5,minmax(0,1fr));padding-bottom:8px}
-.kay-week-head span{display:flex;flex-direction:column;align-items:center;gap:2px}
-.kay-week-head em{font-style:normal;font-size:11px;font-weight:600;letter-spacing:.06em;color:#5f6368;text-transform:uppercase}
-.kay-week-head b{font-size:24px;font-weight:400;color:#3c4043}
-.ovs-root[data-scheme="dark"] .kay-week-head b{color:#e8eae6}
-.kay-week-grid{position:relative;display:grid;grid-template-columns:52px repeat(5,minmax(0,1fr));height:560px}
-.kay-times{position:relative}
-.kay-times span{position:absolute;right:8px;transform:translateY(-50%);font-size:11px;color:#70757a;font-variant-numeric:tabular-nums}
-.kay-day{position:relative;border-left:1px solid rgba(0,0,0,.08)}
-.ovs-root[data-scheme="dark"] .kay-day,.ovs-root[data-scheme="dark"] .kay-hline{border-color:rgba(255,255,255,.08)}
-.kay-hline{position:absolute;left:0;right:0;border-top:1px solid rgba(0,0,0,.07)}
-.kay-ev{position:absolute;left:3px;right:6px;border-radius:6px;padding:3px 7px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.12);opacity:0;visibility:hidden;transform:scale(.93) translateY(4px);transition:opacity .3s ease,transform .3s ease,visibility 0s linear .3s}
-.kay-ev[data-on]{opacity:1;visibility:visible;transform:none;transition:opacity .35s ease var(--dl),transform .35s cubic-bezier(.22,1,.36,1) var(--dl),visibility 0s}
-@media (prefers-reduced-motion:reduce){.kay-ev,.kay-ev[data-on],.kay-side-meter i{transition:none}}
-.kay-ev-t{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:500;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.kay-ev-s{font-size:11px;opacity:.85;margin-top:1px;font-variant-numeric:tabular-nums}
-.kay-cal-foot{margin-top:14px;font-size:12.5px;color:var(--ovs-ink2)}
-@media (max-width:960px){.kay-cal-body{grid-template-columns:1fr}.kay-cal-side{border-right:0;border-bottom:1px solid rgba(0,0,0,.08)}.kay-legend{display:none}.kay-cal-today,.kay-cal-nav{display:none}}
-@media (max-width:640px){.kay-hide-sm{display:none!important}.kay-week-head,.kay-week-grid{grid-template-columns:44px repeat(3,minmax(0,1fr))}.kay-week-grid{height:500px}.kay-cal-month{display:none}.kay-cal-bar{padding:10px 12px}.kay-cal-name{font-size:17px}.kay-switch button{padding:0 12px;font-size:13px}.kay-cal-logo{display:none}.kay-cal{border-radius:22px}}
-@media (max-width:400px){.kay-cal-name{display:none}}
-`

@@ -1,3 +1,7 @@
+> **Historisch.** Dieses Dokument beschreibt eine frühere Version (v2). Gültig ist das Designsystem in
+> [`docs/design-system.md`](design-system.md); Änderungen und Prüfprotokoll des Relaunchs in
+> [`docs/relaunch-changelog.md`](relaunch-changelog.md).
+
 # KAYCO – Designarchitektur v2 („Der Slot“)
 
 ## Markenidee

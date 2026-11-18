@@ -1,11 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Geist_Mono, Instrument_Sans } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
+import "./kayco.css";
 
-// Geist nutzen nur die Rechtsseiten; die Startseite setzt eigene Systemschriften. Kein Preload, damit die
-// Schrift auf der Startseite nicht mit Foto und Skripten um die Bandbreite konkurriert.
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap", preload: false });
+// Schriften lokal über next/font (keine Anfragen an Google beim Seitenaufruf).
+// Instrument Sans mit Breitenachse: halbschmal für Headlines, normal für Fließtext.
+const sans = Instrument_Sans({ variable: "--font-sans", subsets: ["latin"], axes: ["wdth"], display: "swap" });
+// Geist Mono für Labels, Nummern und Zeiten – nur der eine genutzte Schnitt.
+const mono = Geist_Mono({ variable: "--font-mono", subsets: ["latin"], weight: "500", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -34,16 +37,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
-  colorScheme: "light",
+  themeColor: "#07090d",
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de" className={geistSans.variable}>
-      <body className="min-h-dvh">
-        {children}
-      </body>
+    <html lang="de" data-theme="dark" className={`${sans.variable} ${mono.variable}`}>
+      <body className="min-h-dvh">{children}</body>
     </html>
   );
 }

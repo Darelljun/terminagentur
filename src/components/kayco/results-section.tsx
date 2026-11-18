@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Split } from "@/components/ui/overstory-studio-landing";
+import { Kicker } from "@/components/landing/primitives";
 import { PeakChart } from "@/components/ui/peak-chart";
 
 const MONTHS = [
@@ -81,43 +81,40 @@ export function ResultsSection() {
 
   return (
     <section
-      className="ovs-sec kay-results"
+      id="results"
+      className="k-sec kay-results"
       data-sec="results"
       aria-labelledby="kay-results-title"
     >
-      <div className="ovs-wrap kay-results-grid">
+      <div className="k-wrap kay-results-grid">
         <div>
-          <p className="ovs-kicker ovs-kicker-light" data-rv>
-            <span className="ovs-kicker-n">( ✦ )</span>
-            <span>Ergebnisse</span>
-          </p>
-          <span id="kay-results-title">
-            <Split
-              text="Wenn der Kalender voll ist, wächst der Umsatz."
-              className="ovs-h2"
-            />
-          </span>
+          <div className="k-reveal">
+            <Kicker n="✦" text="Ergebnisse" />
+            <h2 id="kay-results-title" className="k-h2">
+              Wenn der Kalender voll ist, wächst der Umsatz.
+            </h2>
+          </div>
           <dl className="kay-results-stats">
-            <div data-rv>
+            <div className="k-reveal">
               <dd>80</dd>
               <dt>Neukunden haben wir bereits gewonnen.</dt>
             </div>
-            <div data-rv>
+            <div className="k-reveal">
               <dd>3×</dd>
               <dt>So stark steigern wir den Umsatz unserer Kunden.</dt>
             </div>
           </dl>
-          <p className="kay-results-text" data-rv>
+          <p className="kay-results-text k-reveal">
             Mehr Beratungen statt mehr Akquise: Wer seine Zeit nicht mehr mit
             Leads verbringt, sondern mit vorbereiteten Gesprächen, verdient pro
             Woche mehr – bei gleichem Aufwand.
           </p>
         </div>
-        <div className="kay-results-chart" ref={box} data-rv>
+        <div className="kay-results-chart k-reveal" ref={box}>
           {near ? (
             <PeakChart
               width={width}
-              accent="#56d364"
+              accent="#3ddc97"
               data={SERIES[period]}
               labels={MONTHS}
               value={3}
@@ -143,20 +140,7 @@ export function ResultsSection() {
           )}
         </div>
       </div>
-      <style>{CSS}</style>
     </section>
   );
 }
 
-const CSS = `
-.kay-results{background:var(--ovs-forest);color:#edf1e6;overflow:hidden}
-.kay-results .ovs-h2{color:#edf1e6}
-.kay-results-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(40px,6vw,96px);align-items:center}
-.kay-results-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:clamp(40px,5vw,64px)}
-.kay-results-stats div{position:relative;padding-top:20px;border-top:1px solid rgba(237,241,230,.2);display:flex;flex-direction:column;gap:8px}
-.kay-results-stats dd{font-size:clamp(56px,7vw,104px);line-height:.9;letter-spacing:-.06em;font-weight:500;color:var(--ovs-soft);font-variant-numeric:tabular-nums}
-.kay-results-stats dt{font-size:15px;line-height:1.45;color:rgba(237,241,230,.72);max-width:16em}
-.kay-results-text{margin-top:32px;font-size:clamp(16px,1.25vw,18.5px);line-height:1.55;color:rgba(237,241,230,.72);max-width:30em}
-.kay-results-chart{display:flex;justify-content:center;min-width:0}
-@media (max-width:900px){.kay-results-grid{grid-template-columns:1fr}}
-`;

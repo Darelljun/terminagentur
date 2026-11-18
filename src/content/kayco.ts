@@ -1,4 +1,4 @@
-import type { OverstoryStudioLandingProps } from "@/components/ui/overstory-studio-landing"
+import type { LandingContent } from "@/content/types"
 import { site } from "@/lib/site"
 
 /** Preismodell – zentral, damit Website, FAQ und strukturierte Daten übereinstimmen. */
@@ -42,13 +42,7 @@ export const faqItems = [
   },
 ]
 
-/**
- * Baumkronen-Foto im Hero und im Abschluss (public/images, AVIF 1600 × 900).
- * Adobe Stock #303147850 – Lizenz liegt bei KAYCO vor (bestätigt am 15.11.2026).
- */
-export const heroPhoto = "/images/canopy.avif"
-
-export const landingProps: OverstoryStudioLandingProps = {
+export const landingProps: LandingContent = {
   brand: "KAYCO",
   links: [
     { label: "Leistung", href: "#services" },
@@ -64,9 +58,8 @@ export const landingProps: OverstoryStudioLandingProps = {
     words: ["Termine", "Beratungen", "Gespräche"],
     tail: "im Kalender.",
     cue: "Scrollen und mehr erfahren",
+    sub: "Du berätst. Wir machen den Rest.",
   },
-  logos: [],
-  above: "Du berätst. Wir machen den Rest.",
   manifesto: {
     kicker: "Über KAYCO",
     text: "Wir kommen selbst aus der Finanzbranche [team] und wissen, wie viel Zeit Leads kosten. Deshalb rufen wir deine Interessenten an, qualifizieren sie und legen fertige Termine in deinen Kalender. [chart] Du setzt dich hin und berätst. Mehr musst du nicht tun. [leaf]",
@@ -84,35 +77,30 @@ export const landingProps: OverstoryStudioLandingProps = {
     items: [
       {
         title: "Kampagne",
-        art: "site",
         time: "Start",
         text: "Wir entwickeln und betreuen Kampagnen, die genau deine Zielgruppe ansprechen. Das Werbebudget zahlst du direkt – transparent und getrennt von uns.",
         tags: ["Zielgruppe", "Anzeigen", "Anfrageseite", "Optimierung"],
       },
       {
         title: "Erstkontakt",
-        art: "product",
         time: "Wir rufen an",
         text: "Jeder Interessent wird von uns angerufen. Keine Lead-Listen mehr, die bei dir liegen bleiben, keine Mailbox-Schleifen für dich.",
         tags: ["Anrufe", "Nachfassen", "Erreichbarkeit"],
       },
       {
         title: "Qualifizierung",
-        art: "system",
         time: "Im Gespräch",
         text: "Wir klären Bedarf und Ausgangslage – Beruf, Familie, Wohnsituation, Beratungsanliegen. Nur wer wirklich passt, bekommt einen Termin.",
         tags: ["Bedarf", "Ausgangslage", "Passung"],
       },
       {
         title: "Terminvereinbarung",
-        art: "brand",
         time: `${pricing.perAppointment} € / Termin`,
         text: "Passende Interessenten bekommen einen festen Beratungstermin bei dir. Bezahlt wird nur, was wir wirklich in deinen Kalender legen.",
         tags: ["Fester Termin", "Bestätigung", "Kalendereintrag"],
       },
       {
         title: "Briefing",
-        art: "code",
         time: "Vor jedem Termin",
         text: "Zu jedem Termin bekommst du ein kurzes Briefing. Du weißt, wer dir gegenübersitzt und warum – und gehst vorbereitet ins Gespräch.",
         tags: ["Anliegen", "Ziel", "Vorbereitung"],
@@ -126,47 +114,39 @@ export const landingProps: OverstoryStudioLandingProps = {
     items: [
       {
         client: "Kampagne",
-        mark: "leaf",
         kind: "Wir bringen Interessenten",
         title: "Anzeigen für deine Zielgruppe – aufgesetzt und betreut von uns.",
         metric: "0 €",
         metricLabel: "monatliche Agenturkosten",
         year: "Schritt 1",
         mock: "dashboard",
-        tint: ["#dfe8d6", "#9fbf7a"],
       },
       {
         client: "Qualifizierung",
-        mark: "leaf",
         kind: "Wir rufen an",
         title: "Jeder Interessent wird persönlich angerufen und qualifiziert.",
         metric: "0",
         metricLabel: "Leads, die du selbst anrufen musst",
         year: "Schritt 2",
         mock: "chat",
-        tint: ["#e9e2cf", "#c9a865"],
       },
       {
         client: "Briefing",
-        mark: "leaf",
         kind: "Du bist vorbereitet",
         title: "Zu jedem Termin weißt du, wer kommt und worum es geht.",
         metric: "1",
         metricLabel: "Briefing pro Termin",
         year: "Schritt 3",
         mock: "doc",
-        tint: ["#d4e0ee", "#7d9cc4"],
       },
       {
         client: "Kalender",
-        mark: "leaf",
         kind: "Du berätst",
         title: "Fertige Beratungstermine – direkt in deinem Kalender.",
         metric: `${pricing.perAppointment} €`,
         metricLabel: "pro Termin – und sonst nichts",
         year: "Schritt 4",
         mock: "mobile",
-        tint: ["#e6d9e4", "#b48aa8"],
       },
     ],
   },
@@ -200,7 +180,6 @@ export const landingProps: OverstoryStudioLandingProps = {
       },
     ],
   },
-  quotes: null,
   pricing: {
     kicker: "Preise",
     title: "Du zahlst nur für Termine. Sonst für nichts.",
@@ -245,6 +224,8 @@ export const landingProps: OverstoryStudioLandingProps = {
     button: "Strategiegespräch anfragen",
   },
   footer: {
+    claim: "Du berätst. Wir füllen deinen Kalender.",
+    copyright: `© 2026 ${site.legalName} · ${site.address.street}, ${site.address.zip} ${site.address.city}`,
     columns: [
       {
         title: "KAYCO",
@@ -265,19 +246,7 @@ export const landingProps: OverstoryStudioLandingProps = {
         ],
       },
     ],
-    city: site.address.city,
-    timeZone: "Europe/Berlin",
     note: "Keine Leads. Termine.",
   },
-  footerClaim: "Du berätst. Wir füllen deinen Kalender.",
-  showClock: false,
-  servicePreview: false,
-  copyright: `© 2026 ${site.legalName} · ${site.address.street}, ${site.address.zip} ${site.address.city}`,
   email: site.email,
-  currency: "€",
-  season: "summer",
-  // Als eigene Datei statt im JavaScript: Das Foto lädt parallel zu den Skripten (Preload in app/page.tsx).
-  photo: heroPhoto,
-  theme: "light",
-  themeToggle: true,
 }
