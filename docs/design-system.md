@@ -98,14 +98,15 @@ Kontraste (WCAG, auf `#0C0C0C` / auf `#1D1D1F`): Text 19,6 / 16,9 · Text-2 12,8
 Text-3 5,7 / 4,9 · Orange als Text 8,6 / 7,4 · Schrift auf Orange 8,3 · alle Kalendereinträge ≥ 9:1 → alle ≥ AA.
 Der Lese-Effekt im Statement startet bei 42 % Deckkraft und hält damit ≥ 3:1 für große Schrift ein.
 
-### 3.1.1 Logo (Update 8)
+### 3.1.1 Logo (Update 8, Variante 3)
 
-- **Bildzeichen:** blaue Kachel (Radius 25 %, Verlauf `#0067FF` → `#023E97`, feine helle Innenkante), weißes
-  geometrisches „K“, oranger Punkt oben rechts – der gerade eingegangene Termin.
-- **Schriftzug:** „KAYCO“ aus gleich starken Strichen (Strichstärke 20 % der Versalhöhe), flache Enden; der
-  Querbalken des „A“ ist ein oranger, abgerundeter Slot („der bestätigte Slot“).
+- **Bildzeichen:** dunkle Kachel `#141416` (Radius 25 %, feine helle Innenkante), weißes geometrisches „K“,
+  rechts unten ein oranger, abgerundeter Slot – der bestätigte Termin.
+- **Schriftzug:** „KAYCO“ aus gleich starken Strichen (Strichstärke 20 % der Versalhöhe), flache Enden; im
+  „O“ ein oranger Punkt – der Termin im Kalender.
 - Dateien: `BrandMark`, `LogoWord`, `Logo` in `src/components/landing/primitives.tsx`; Favicon `src/app/icon.svg`;
-  Social-Vorschaubild `src/app/opengraph-image.tsx`. Mindestgröße Bildzeichen 16 px, Schriftzug 12 px hoch.
+  Social-Vorschaubild `src/app/opengraph-image.tsx`. Hover: Slot und Punkt pulsieren kurz.
+  Mindestgröße Bildzeichen 16 px, Schriftzug 12 px hoch.
 
 ### 3.2 Typografie
 

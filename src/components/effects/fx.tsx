@@ -7,7 +7,7 @@ import { LogoWord } from "@/components/landing/primitives"
 export function Wordmark() {
   return (
     <div className="k-wordmark" aria-hidden="true">
-      <LogoWord className="k-wordmark-svg" height={78} />
+      <LogoWord className="k-wordmark-svg" height={90} />
     </div>
   )
 }

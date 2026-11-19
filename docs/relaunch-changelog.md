@@ -5,11 +5,11 @@ Konzept und Designsystem: [`docs/design-system.md`](design-system.md)
 
 ## Update 8: Neues Logo, Handy-Hero mit Termin-Benachrichtigungen (19.11.2026)
 
-- **Logo** neu als Vektor (SVG, `BrandMark`/`LogoWord` in `src/components/landing/primitives.tsx`):
-  Bildzeichen = blaue App-Kachel (Verlauf `#0067FF` → `#023E97`) mit weißem „K“ und orangem Punkt (der neue
-  Termin); Schriftzug = geometrische Versalien, der Querbalken im „A“ ist ein orangener Termin-Slot.
+- **Logo** neu als Vektor (SVG, `BrandMark`/`LogoWord` in `src/components/landing/primitives.tsx`), drei
+  Varianten vorgelegt, gewählt: **Variante 3** – dunkle Kachel mit weißem „K“ und orangem Slot; Schriftzug aus
+  geometrischen Versalien mit orangem Punkt im „O“.
   Eingesetzt in Header, Rechtsseiten, Footer-Schriftzug (groß, dezent, angeschnitten), Favicon und
-  Social-Vorschaubild. Hover: der Punkt pulsiert kurz.
+  Social-Vorschaubild. Hover: Slot und Punkt pulsieren kurz.
 - **Handy-Hero:** statt der Kalender-Woche unter dem Intro drei Benachrichtigungen „Neuer Termin“
   (Thema, Tag, Uhrzeit, „mit Briefing“), die nacheinander erscheinen. Laptop unverändert mit Kalender;
   ein eingetragenes Hero-Video ersetzt beides.
