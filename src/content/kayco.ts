@@ -248,13 +248,5 @@ export const landingProps: LandingContent = {
     ],
     note: "Keine Leads. Termine.",
   },
-  marquee: [
-    "Keine Leads. Termine.",
-    `${pricing.perAppointment} € pro Termin · keine monatlichen Agenturkosten`,
-    "Du berätst. Wir machen den Rest.",
-    "Qualifizierte Beratungstermine",
-    "Du berätst. Wir füllen deinen Kalender.",
-    "Termine, die stattfinden.",
-  ],
   email: site.email,
 }

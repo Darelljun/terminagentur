@@ -1,8 +1,8 @@
 /*
- * KAYCO – Effekt-Ebene (Black Edition). Animationen nach 21st.dev-Vorbildern, an das Designsystem angepasst:
+ * KAYCO – Effekt-Ebene (Farben nach om-vantage: Orange für Handlungen, Navy/Blau für Licht). Animationen nach 21st.dev-Vorbildern, an das Designsystem angepasst:
  * Grid Beam (cult-ui), Spotlight, Kinetic Typography, Chromatic Text Reveal (honestui), Text Shimmer,
  * Shiny Button (hyperiux), Glowing Effect (Aceternity), Tilt (motion-primitives), Border Beam (Magic UI),
- * Number Ticker (Magic UI), Infinite Marquee, Text Scroll Reveal, Animated Beam, Lamp (Aceternity),
+ * Number Ticker (Magic UI), Text Scroll Reveal, Animated Beam, Lamp (Aceternity),
  * Sparkles, Text Hover Effect (Aceternity), Scroll Progress.
  * Regeln: nur transform/translate/opacity im Dauerbetrieb, Zeigereffekte nur mit Maus (html[data-fx]),
  * „Bewegung reduzieren“ schaltet alles ab.
@@ -34,7 +34,7 @@
   display: none;
   height: 2px;
   background: linear-gradient(90deg, var(--k-accent), var(--k-accent-2));
-  box-shadow: 0 0 14px rgb(61 220 151 / 0.7);
+  box-shadow: 0 0 14px rgb(var(--k-accent-rgb) / 0.7);
   transform: scaleX(0);
   transform-origin: 0 50%;
   pointer-events: none;
@@ -76,7 +76,7 @@
 .k-hero-spot {
   position: absolute;
   inset: 0;
-  background: radial-gradient(560px circle at var(--mx, -999px) var(--my, -999px), rgb(61 220 151 / 0.1), transparent 45%);
+  background: radial-gradient(560px circle at var(--mx, -999px) var(--my, -999px), rgb(var(--k-blue-rgb) / 0.12), transparent 45%);
 }
 .k-hero-orb {
   position: absolute;
@@ -87,14 +87,14 @@
   top: -18%;
   width: 760px;
   height: 760px;
-  background: radial-gradient(closest-side, rgb(61 220 151 / 0.16), transparent);
+  background: radial-gradient(closest-side, rgb(var(--k-accent-rgb) / 0.16), transparent);
 }
 .k-hero-orb--b {
   left: -14%;
   top: 46%;
   width: 640px;
   height: 640px;
-  background: radial-gradient(closest-side, rgb(34 211 238 / 0.1), transparent);
+  background: radial-gradient(closest-side, rgb(var(--k-navy-rgb) / 0.4), transparent);
 }
 @keyframes k-orb {
   to {
@@ -124,9 +124,9 @@
     90deg,
     var(--k-accent-text) 0%,
     var(--k-accent-text) calc(var(--k-sweep) - 14%),
-    #a7f3d0 calc(var(--k-sweep) - 7%),
+    #ffd199 calc(var(--k-sweep) - 7%),
     #ffffff var(--k-sweep),
-    #22d3ee calc(var(--k-sweep) + 7%),
+    var(--k-link) calc(var(--k-sweep) + 7%),
     transparent calc(var(--k-sweep) + 14%),
     transparent 100%
   );
@@ -185,9 +185,9 @@
   color: var(--k-accent-ink);
   background:
     linear-gradient(var(--k-accent), var(--k-accent)) padding-box,
-    conic-gradient(from var(--k-ang), transparent 0deg, transparent 250deg, #ffffff 300deg, #b8ffe0 330deg, transparent 360deg) border-box,
-    linear-gradient(#22b877, #22b877) border-box;
-  box-shadow: 0 0 0 0 rgb(61 220 151 / 0), 0 10px 40px -14px rgb(61 220 151 / 0.7);
+    conic-gradient(from var(--k-ang), transparent 0deg, transparent 250deg, #ffffff 300deg, #ffe2b8 330deg, transparent 360deg) border-box,
+    linear-gradient(var(--k-accent-lo), var(--k-accent-lo)) border-box;
+  box-shadow: 0 0 0 0 rgb(var(--k-accent-rgb) / 0), 0 10px 40px -14px rgb(var(--k-accent-rgb) / 0.7);
 }
 .k-btn--shiny > * {
   position: relative;
@@ -218,12 +218,12 @@
 @media (hover: hover) {
   .k-btn--shiny:hover {
     background:
-      linear-gradient(#5be6a9, #5be6a9) padding-box,
-      conic-gradient(from var(--k-ang), transparent 0deg, transparent 200deg, #ffffff 290deg, #b8ffe0 330deg, transparent 360deg) border-box,
-      linear-gradient(#22b877, #22b877) border-box;
+      linear-gradient(var(--k-accent-hi), var(--k-accent-hi)) padding-box,
+      conic-gradient(from var(--k-ang), transparent 0deg, transparent 200deg, #ffffff 290deg, #ffe2b8 330deg, transparent 360deg) border-box,
+      linear-gradient(var(--k-accent-lo), var(--k-accent-lo)) border-box;
     box-shadow:
-      0 0 0 6px rgb(61 220 151 / 0.14),
-      0 18px 50px -12px rgb(61 220 151 / 0.85);
+      0 0 0 6px rgb(var(--k-accent-rgb) / 0.14),
+      0 18px 50px -12px rgb(var(--k-accent-rgb) / 0.85);
   }
 }
 
@@ -253,8 +253,8 @@ html[data-fx] [data-glow]::after {
     from calc((var(--g-a) - 32) * 1deg),
     transparent 0deg,
     var(--k-accent) 16deg,
-    #22d3ee 32deg,
-    #b8ffe0 48deg,
+    var(--k-accent-2) 32deg,
+    var(--k-link) 48deg,
     transparent 64deg
   );
   -webkit-mask:
@@ -280,7 +280,7 @@ html[data-fx] .k-faq-card::before {
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  background: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgb(61 220 151 / 0.08), transparent 45%);
+  background: radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgb(var(--k-blue-rgb) / 0.1), transparent 45%);
   opacity: var(--g-on, 0);
   pointer-events: none;
   transition: opacity 0.4s;
@@ -308,7 +308,7 @@ html[data-fx] .k-svc-row::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(380px circle at var(--mx, -999px) var(--my, -999px), rgb(61 220 151 / 0.08), transparent 60%);
+  background: radial-gradient(380px circle at var(--mx, -999px) var(--my, -999px), rgb(var(--k-blue-rgb) / 0.1), transparent 60%);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s;
@@ -338,62 +338,13 @@ html[data-fx] .k-svc-row:hover::before {
   position: absolute;
   width: var(--b-size);
   aspect-ratio: 1;
-  background: linear-gradient(to left, #e6fff4, var(--k-accent), var(--k-accent-2), transparent);
+  background: linear-gradient(to left, #fff3e0, var(--k-accent), var(--k-accent-2), transparent);
   offset-path: rect(0 auto auto 0 round var(--b-size));
   offset-anchor: 90% 50%;
 }
 @keyframes k-beam {
   to {
     offset-distance: 100%;
-  }
-}
-
-/* --------------------------------------------------------------- Marquee */
-.k-marquee {
-  position: relative;
-  overflow: hidden;
-  padding-block: clamp(18px, 2.4vw, 28px);
-  border-block: 1px solid var(--k-line);
-  background: var(--k-bg);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-}
-.k-marquee-track {
-  display: flex;
-  width: max-content;
-}
-.k-marquee-row {
-  display: flex;
-  flex-shrink: 0;
-}
-.k-marquee-row li {
-  display: flex;
-  align-items: center;
-  gap: clamp(20px, 2.4vw, 36px);
-  padding-right: clamp(20px, 2.4vw, 36px);
-  font-size: clamp(24px, 3vw, 46px);
-  font-stretch: 84%;
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  white-space: nowrap;
-  color: var(--k-text);
-}
-.k-marquee-row li:nth-child(even) {
-  color: transparent;
-  -webkit-text-stroke: 1px rgb(255 255 255 / 0.38);
-}
-.k-marquee-row li i {
-  width: 12px;
-  height: 12px;
-  border-radius: 3px;
-  background: var(--k-accent);
-  box-shadow: 0 0 16px rgb(61 220 151 / 0.8);
-  flex: none;
-}
-@keyframes k-marquee {
-  to {
-    transform: translateX(-50%);
   }
 }
 
@@ -404,7 +355,7 @@ html[data-fx] .k-svc-row:hover::before {
 .k-h2 .k-w,
 .k-final-h .k-w {
   padding-bottom: 0.06em;
-  background: linear-gradient(180deg, #ffffff 25%, #9aa3b0 130%);
+  background: linear-gradient(180deg, #ffffff 25%, #a4a4a4 130%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -430,7 +381,7 @@ html[data-fx] .k-svc-row:hover::before {
   top: 0;
   bottom: 0;
   width: 22%;
-  background: linear-gradient(90deg, transparent, #e6fff4, transparent);
+  background: linear-gradient(90deg, transparent, #fff3e0, transparent);
   transform: translateX(-110%);
 }
 @keyframes k-pulse-x {
@@ -477,7 +428,7 @@ html[data-fx] .k-svc-row:hover::before {
 .k-lamp-cone {
   position: absolute;
   inset: 0;
-  background: conic-gradient(from 0deg at 50% 0%, transparent 128deg, rgb(61 220 151 / 0.34) 160deg, rgb(34 211 238 / 0.2) 180deg, rgb(61 220 151 / 0.34) 200deg, transparent 232deg);
+  background: conic-gradient(from 0deg at 50% 0%, transparent 128deg, rgb(var(--k-blue-rgb) / 0.34) 160deg, rgb(122 179 255 / 0.24) 180deg, rgb(var(--k-blue-rgb) / 0.34) 200deg, transparent 232deg);
   -webkit-mask-image: radial-gradient(55% 100% at 50% 0%, #000 10%, transparent 75%);
   mask-image: radial-gradient(55% 100% at 50% 0%, #000 10%, transparent 75%);
 }
@@ -491,7 +442,7 @@ html[data-fx] .k-svc-row:hover::before {
   width: 56%;
   height: 200px;
   translate: -50% 0;
-  background: radial-gradient(closest-side, rgb(61 220 151 / 0.5), transparent);
+  background: radial-gradient(closest-side, rgb(var(--k-blue-rgb) / 0.5), transparent);
 }
 .k-lamp-line {
   position: absolute;
@@ -500,8 +451,8 @@ html[data-fx] .k-svc-row:hover::before {
   width: 58%;
   height: 2px;
   translate: -50% 0;
-  background: linear-gradient(90deg, transparent, #b8ffe0, #ffffff, #b8ffe0, transparent);
-  box-shadow: 0 0 24px 3px rgb(61 220 151 / 0.65);
+  background: linear-gradient(90deg, transparent, var(--k-link), #ffffff, var(--k-link), transparent);
+  box-shadow: 0 0 24px 3px rgb(var(--k-blue-rgb) / 0.65);
 }
 @keyframes k-lamp {
   from {
@@ -526,8 +477,8 @@ html[data-fx] .k-svc-row:hover::before {
 .k-sparkles i {
   position: absolute;
   border-radius: 50%;
-  background: #d1fae5;
-  box-shadow: 0 0 6px 1px rgb(61 220 151 / 0.8);
+  background: #dbe9ff;
+  box-shadow: 0 0 6px 1px rgb(var(--k-blue-rgb) / 0.8);
   opacity: 0.5;
 }
 @keyframes k-twinkle {
@@ -626,8 +577,8 @@ html:not([data-fx]) .k-wm-top {
   width: min(760px, 80%);
   height: 1px;
   translate: -50% 0;
-  background: linear-gradient(90deg, transparent, rgb(61 220 151 / 0.75), transparent);
-  box-shadow: 0 0 22px 2px rgb(61 220 151 / 0.35);
+  background: linear-gradient(90deg, transparent, rgb(var(--k-blue-rgb) / 0.75), transparent);
+  box-shadow: 0 0 22px 2px rgb(var(--k-blue-rgb) / 0.35);
   pointer-events: none;
 }
 
@@ -664,12 +615,6 @@ html:not([data-fx]) .k-wm-top {
     animation: k-beam var(--b-dur) linear infinite;
     animation-delay: var(--b-delay);
   }
-  .k-marquee-track {
-    animation: k-marquee 46s linear infinite;
-  }
-  .k-marquee[data-reverse] .k-marquee-track {
-    animation-direction: reverse;
-  }
   .k-rail-pulse {
     animation: k-pulse-x 2.8s cubic-bezier(0.6, 0, 0.4, 1) infinite;
   }
@@ -696,7 +641,7 @@ html:not([data-fx]) .k-wm-top {
   }
 }
 /* Abschnitt außerhalb des Bildschirms (FxController setzt data-idle): Endlos-Animationen anhalten */
-[data-idle] :is(.k-hero-orb, .k-shimmer, .k-btn--shiny, .k-board-wrap, .k-rail-pulse, .k-marquee-track, .k-sparkles i, .k-sparkles-drift, .k-wm-top),
+[data-idle] :is(.k-hero-orb, .k-shimmer, .k-btn--shiny, .k-board-wrap, .k-rail-pulse, .k-sparkles i, .k-sparkles-drift, .k-wm-top),
 [data-idle] :is(.k-btn--shiny, .k-beam, .k-status i, .k-cue-line)::after,
 [data-idle] .k-step-node::before {
   animation-play-state: paused !important;
@@ -708,7 +653,7 @@ html:not([data-fx]) .k-wm-top {
     right: 0;
     bottom: auto;
     transform: translateY(-110%);
-    background: linear-gradient(180deg, transparent, #e6fff4, transparent);
+    background: linear-gradient(180deg, transparent, #fff3e0, transparent);
     animation-name: k-pulse-y;
   }
 }

@@ -19,7 +19,7 @@ const END = 19
 
 /** Farben angelehnt an klassische Kalender-Farbpaletten. */
 const KIND: Record<Kind, { label: string; bg: string; fg: string; money?: boolean }> = {
-  // Farben als Design-Tokens (src/app/kayco.css): Akquise in gedämpften Tönen, Beratung im Signalgrün
+  // Farben als Design-Tokens (src/app/kayco.css): Akquise in gedämpften Tönen, Beratung im Akzent-Orange
   anrufen: { label: "Leads abtelefonieren", bg: "var(--kc-call)", fg: "var(--kc-call-fg)" },
   mailbox: { label: "Mailbox – erneut anrufen", bg: "var(--kc-mail)", fg: "var(--kc-mail-fg)" },
   nachfassen: { label: "Nachfassen", bg: "var(--kc-follow)", fg: "var(--kc-follow-fg)" },
@@ -189,7 +189,7 @@ export function ProblemCalendar() {
               </p>
               <p className="kay-side-note">
                 {withKayco
-                  ? "Jeder grüne Slot ist ein fertiger Termin mit Briefing. Akquise: null Stunden – die übernehmen wir."
+                  ? "Jeder orangefarbene Slot ist ein fertiger Termin mit Briefing. Akquise: null Stunden – die übernehmen wir."
                   : "Der Rest der Woche geht für Leads drauf, von denen du vorher nicht weißt, ob sie gut oder schlecht sind."}
               </p>
               <ul className="kay-legend">

@@ -20,16 +20,16 @@
 
 /* Farben der Kalendereinträge (Problem-Abschnitt) */
 :root {
-  --kc-call: #2a3140;
-  --kc-call-fg: #d3dae5;
-  --kc-mail: #2d3358;
-  --kc-mail-fg: #cfd4fb;
-  --kc-follow: #4a3d17;
-  --kc-follow-fg: #f3dd9a;
-  --kc-noshow: #4c2326;
-  --kc-noshow-fg: #ffc7c2;
-  --kc-none: #3a3532;
-  --kc-none-fg: #e0d8d0;
+  --kc-call: #313131;
+  --kc-call-fg: #e0e0e0;
+  --kc-mail: #0c1733;
+  --kc-mail-fg: #b9c0d4;
+  --kc-follow: #1b2c52;
+  --kc-follow-fg: #cfe0ff;
+  --kc-noshow: #3a1010;
+  --kc-noshow-fg: #ffb4ad;
+  --kc-none: #3a302a;
+  --kc-none-fg: #e3d6cc;
 }
 
 /* ---------------------------------------------------------------- Grundlagen */
@@ -137,7 +137,7 @@
   height: 8px;
   border-radius: 2px;
   background: var(--k-accent);
-  box-shadow: 0 0 14px rgb(61 220 151 / 0.6);
+  box-shadow: 0 0 14px rgb(var(--k-accent-rgb) / 0.6);
   flex: none;
 }
 .k-kicker-n {
@@ -226,10 +226,10 @@
 }
 @media (hover: hover) {
   .k-btn--primary:hover {
-    background: #5be6a9;
+    background: var(--k-accent-hi);
     box-shadow:
       0 0 0 6px var(--k-accent-soft),
-      0 14px 34px -14px rgb(61 220 151 / 0.6);
+      0 14px 34px -14px rgb(var(--k-accent-rgb) / 0.6);
   }
   .k-btn--ghost:hover {
     background: var(--k-surface-2);
@@ -562,7 +562,7 @@ html[data-menu] {
   pointer-events: none;
   background:
     radial-gradient(55% 55% at 78% 34%, var(--k-glow), transparent 72%),
-    radial-gradient(40% 45% at 8% 100%, rgb(61 220 151 / 0.07), transparent 70%);
+    radial-gradient(40% 45% at 8% 100%, rgb(var(--k-accent-rgb) / 0.08), transparent 70%);
 }
 .k-hero-bg::before {
   content: "";
@@ -749,9 +749,9 @@ html[data-menu] {
 .k-slot.is-on {
   position: relative;
   border: 0;
-  background: linear-gradient(180deg, #4fe3a3, #2bc883);
+  background: linear-gradient(180deg, var(--k-accent-hi), var(--k-accent-lo));
   box-shadow:
-    0 10px 24px -14px rgb(61 220 151 / 0.7),
+    0 10px 24px -14px rgb(var(--k-accent-rgb) / 0.7),
     inset 0 1px 0 rgb(255 255 255 / 0.3);
 }
 /* angedeutete Textzeilen im Termin */
@@ -762,7 +762,7 @@ html[data-menu] {
   left: 12%;
   height: 3px;
   border-radius: 2px;
-  background: rgb(3 20 12 / 0.38);
+  background: rgb(26 14 0 / 0.38);
 }
 .k-slot.is-on::before {
   top: 30%;
@@ -771,7 +771,7 @@ html[data-menu] {
 .k-slot.is-on::after {
   top: 56%;
   width: 34%;
-  background: rgb(3 20 12 / 0.22);
+  background: rgb(26 14 0 / 0.22);
 }
 @keyframes k-slot-in {
   from {
@@ -783,7 +783,7 @@ html[data-menu] {
   position: absolute;
   inset: 18% 8% -12%;
   z-index: -1;
-  background: radial-gradient(closest-side, rgb(61 220 151 / 0.16), transparent);
+  background: radial-gradient(closest-side, rgb(var(--k-navy-rgb) / 0.55), transparent);
 }
 @media (prefers-reduced-motion: no-preference) {
   .k-status i::after {
@@ -1631,10 +1631,10 @@ html[data-menu] {
   background: var(--k-accent);
 }
 .k-mk-row i[data-tone="1"] {
-  background: #7c93c9;
+  background: var(--k-link);
 }
 .k-mk-row i[data-tone="2"] {
-  background: #c9a865;
+  background: #4d6fae;
 }
 .k-case-meta {
   display: flex;
@@ -1680,7 +1680,7 @@ html[data-menu] {
 .k-case--next {
   grid-column: 1 / -1;
   background:
-    radial-gradient(60% 140% at 100% 0%, rgb(61 220 151 / 0.12), transparent 62%),
+    radial-gradient(60% 140% at 100% 0%, rgb(var(--k-navy-rgb) / 0.5), transparent 62%),
     var(--k-surface);
 }
 .k-case--next .k-case-link {
@@ -1744,7 +1744,7 @@ html[data-menu] {
 .k-steps-rail span {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, var(--k-accent), #8cf2c4);
+  background: linear-gradient(90deg, var(--k-accent), #ffd199);
   transform-origin: left center;
 }
 @keyframes k-rail {
@@ -1838,7 +1838,7 @@ html[data-menu] {
     height: auto;
   }
   .k-steps-rail span {
-    background: linear-gradient(180deg, var(--k-accent), #8cf2c4);
+    background: linear-gradient(180deg, var(--k-accent), #ffd199);
     transform-origin: center top;
   }
   @supports (animation-timeline: view()) {
@@ -1933,7 +1933,7 @@ html[data-menu] {
   border: 1px solid var(--k-line-2);
   border-radius: 28px;
   background:
-    radial-gradient(120% 80% at 80% 0%, rgb(61 220 151 / 0.14), transparent 60%),
+    radial-gradient(120% 80% at 80% 0%, rgb(var(--k-navy-rgb) / 0.45), transparent 60%),
     var(--k-surface);
   box-shadow:
     var(--k-edge),
@@ -1967,8 +1967,8 @@ html[data-menu] {
 }
 .kay-about-slot.is-on {
   border: 0;
-  background: linear-gradient(180deg, #52e6a6, #2ccd86);
-  box-shadow: 0 8px 20px -12px rgb(61 220 151 / 0.8);
+  background: linear-gradient(180deg, var(--k-accent-hi), var(--k-accent-lo));
+  box-shadow: 0 8px 20px -12px rgb(var(--k-accent-rgb) / 0.8);
 }
 .kay-about-badge {
   position: absolute;
@@ -2009,8 +2009,8 @@ html[data-menu] {
   margin-left: -8px;
 }
 .kay-av[data-tone="2"] {
-  background: #2b3b63;
-  color: #d6e2ff;
+  background: var(--k-navy-deep);
+  color: #b9c0d4;
 }
 .kay-av[data-tone="3"] {
   background: var(--k-accent);
@@ -2026,7 +2026,7 @@ html[data-menu] {
   margin-bottom: 26px;
   border-radius: 2px;
   background: var(--k-accent);
-  box-shadow: 0 0 14px rgb(61 220 151 / 0.5);
+  box-shadow: 0 0 14px rgb(var(--k-accent-rgb) / 0.5);
 }
 .kay-about-copy p {
   margin-top: 18px;
@@ -2148,13 +2148,14 @@ html[data-menu] {
   box-shadow: var(--k-edge);
 }
 .k-plan[data-featured] {
-  border-color: color-mix(in oklab, var(--k-accent) 55%, transparent);
+  border-color: var(--k-navy);
   background:
-    radial-gradient(90% 60% at 50% 0%, rgb(61 220 151 / 0.13), transparent 70%),
+    radial-gradient(90% 60% at 50% 0%, rgb(var(--k-navy-rgb) / 0.45), transparent 70%),
     var(--k-surface);
   box-shadow:
     var(--k-edge),
-    0 34px 90px -44px rgb(61 220 151 / 0.45);
+    0 0 10px rgb(var(--k-navy-rgb) / 0.9),
+    0 34px 90px -44px rgb(var(--k-navy-rgb) / 0.9);
 }
 .k-plan-name {
   display: flex;
@@ -2316,14 +2317,14 @@ html[data-menu] {
   text-align: center;
   box-shadow:
     var(--k-edge),
-    0 60px 120px -60px rgb(61 220 151 / 0.3);
+    0 60px 120px -60px rgb(var(--k-navy-rgb) / 0.9);
 }
 .k-final-bg {
   position: absolute;
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(50% 70% at 50% 0%, rgb(61 220 151 / 0.16), transparent 70%),
+    radial-gradient(50% 70% at 50% 0%, rgb(var(--k-navy-rgb) / 0.5), transparent 70%),
     radial-gradient(60% 80% at 50% 120%, var(--k-glow), transparent 70%);
 }
 .k-final-bg::before {

@@ -28,8 +28,9 @@ unverändert – geändert wird ausschließlich die Gestaltung.
 | Bewegung | Überschriften hellen beim Scrollen auf, sonst wenig Bewegung | Bewegung dient dem Lesen, nicht der Show |
 | Mobil | Zentrierte Texte, große Headlines, Menü als Overlay | Mobil eigene, ruhige Komposition |
 
-Nicht übernommen werden: Logo, Farben (Orange/Blau), Schriften (Barlow/Quicksand), Fotos,
-Videos, Bewertungen, Logos, Texte oder die konkrete Anordnung einzelner Module.
+Nicht übernommen werden: Logo, Schriften (Barlow/Quicksand), Fotos, Videos, Bewertungen, Logos,
+Texte oder die konkrete Anordnung einzelner Module. Die Farbpalette (Orange/Navy) wird seit Update 3
+auf Wunsch übernommen (siehe 3.1).
 
 ### 1.2 Bestehende Kayco-Seite – Ausgangslage
 
@@ -52,7 +53,7 @@ klares Preismodell, gute Informationsarchitektur.
 KAYCO verkauft keine Leads, sondern **bestätigte Termine**. Das visuelle Leitmotiv ist deshalb
 der **Slot**: ein abgerundetes Rechteck im Zeitraster eines Kalenders. Er taucht als Akzent-
 quadrat in Labels, als leuchtende Kachel im Hero-Raster, als Knoten im Ablauf und als
-Kalendereintrag auf. Signalgrün steht ausschließlich für „bestätigt / Handlung“.
+Kalendereintrag auf. Orange (seit Update 3, vorher Signalgrün) steht ausschließlich für „bestätigt / Handlung“.
 
 Tonalität: dunkel, präzise, ruhig, selbstbewusst – Datenästhetik einer Performance-Agentur,
 kein Fintech-SaaS-Template (keine Verlaufs-Blobs in Lila, keine Icon-Kachel-Raster als Füller).
@@ -61,33 +62,36 @@ kein Fintech-SaaS-Template (keine Verlaufs-Blobs in Lila, keine Icon-Kachel-Rast
 
 ## 3. Designsystem
 
-### 3.1 Farben (Tokens, `src/app/globals.css`) – „Black Edition“
+### 3.1 Farben (Tokens, `src/app/globals.css`) – Palette von om-vantage.de
 
-Nur noch ein Design: tiefschwarz. Der frühere Hell/Dunkel-Umschalter ist entfernt (Wunsch: Agentur-Look,
-konsequent dunkel). `color-scheme: dark`, `theme-color #000000`.
+Seit Update 3 übernimmt KAYCO die Farbpalette der Referenz om-vantage.de (Werte direkt von der Seite
+ausgelesen). Nur ein Design (dunkel), `theme-color #0C0C0C`. Prinzip wie dort: fast schwarze Bühne,
+graue Karten, Navy-Blau als Licht, Orange ausschließlich für Handlungen und fertige Termine.
 
-| Token | Wert | Verwendung |
-|---|---|---|
-| `--k-bg` | `#000000` | Seitenhintergrund |
-| `--k-bg-2` | `#050607` | Wechsel-Abschnitte |
-| `--k-surface` | `#0B0D10` | Karten |
-| `--k-surface-2` | `#12151A` | Karten-Hover, Eingebettetes |
-| `--k-line` | `rgb(255 255 255 / .08)` | Haarlinien |
-| `--k-line-2` | `rgb(255 255 255 / .15)` | Betonte Linien |
-| `--k-text` | `#F4F6F8` | Text |
-| `--k-text-2` | `#A3ABB8` | Fließtext, sekundär |
-| `--k-text-3` | `#7B8493` | Labels, Metadaten |
-| `--k-accent` | `#3DDC97` | Signalgrün: Buttons, Slots, Fokus, Lichteffekte |
-| `--k-accent-2` | `#22D3EE` | Cyan – nur als zweite Farbe in Licht-Verläufen |
-| `--k-accent-ink` | `#02130B` | Text auf Akzent |
-| `--k-accent-text` | `#5AE6A8` | Akzent als Textfarbe |
-| `--k-glow` | `rgb(34 120 255 / .22)` | Blaues Hintergrundlicht |
-| `--k-warn` | `#F07C7C` | Verlust/Problem (Kalender) |
+| Token | Wert | om-vantage-Quelle | Verwendung |
+|---|---|---|---|
+| `--k-bg` | `#0C0C0C` | Seitenhintergrund | Seitenhintergrund |
+| `--k-bg-2` | `#101010` | – (minimal heller) | Wechsel-Abschnitte |
+| `--k-surface` | `#1C1C1C` | Karten (Bewertungen) | Karten |
+| `--k-surface-2` | `#242424` | Flächen | Karten-Hover, Eingebettetes |
+| `--k-line` | `rgb(255 255 255 / .125)` | Kartenrand | Haarlinien |
+| `--k-line-2` | `rgb(255 255 255 / .2)` | – | Betonte Linien |
+| `--k-text` | `#FFFFFF` | Überschriften | Text |
+| `--k-text-2` | `#D1D1D1` | Fließtext | Fließtext, sekundär |
+| `--k-text-3` | `#8A8A8A` | `#7A7A7A`, für AA aufgehellt | Labels, Metadaten |
+| `--k-accent` | `#FF8F00` | CTA-Buttons, Sterne | Buttons, Termin-Slots, Fokus |
+| `--k-accent-hi` / `-lo` | `#FFA31F` / `#E07A00` | – | Hover, Verlauf der Slots |
+| `--k-accent-ink` | `#1A0E00` | Schrift auf Orange | Text auf Akzent |
+| `--k-navy` | `#023E97` | Markenblau, Lichtfelder, CTA-Box-Rand | Licht, hervorgehobene Karte |
+| `--k-navy-deep` | `#0C1733` | dunkle Navy-Karte | Avatare, Kalender |
+| `--k-accent-2` | `#0067FF` | Blau-Verlauf | zweite Lichtfarbe (Strahlen, Lamp, Kanten) |
+| `--k-link` | `#7AB3FF` | Links | helles Blau in Verläufen |
+| `--k-glow` | `rgb(2 62 151 / .22)` | Hero-Lichtfeld | Hintergrundlicht |
+| `--k-warn` | `#FF5A4F` | Rot `#F30404`, für Text aufgehellt | Verlust/Problem (Kalender) |
 
-Kontraste (WCAG, auf Schwarz / auf der hellsten Kartenfläche `#12151A`): Text 19,4 / 16,9 ·
-Text-2 9,1 / 7,9 · Text-3 5,6 / 4,8 · Akzent-Text 13,3 / 11,6 · Button-Text auf Akzent 10,8 → alle ≥ AA.
+Kontraste (WCAG, auf `#0C0C0C` / auf Karte `#1C1C1C`): Text 19,6 / 17,0 · Text-2 12,8 / 11,2 ·
+Text-3 5,7 / 4,9 · Orange als Text 8,6 / 7,5 · Schrift auf Orange 8,3 · alle Kalendereinträge ≥ 9:1 → alle ≥ AA.
 Der Lese-Effekt im Statement startet bei 42 % Deckkraft und hält damit ≥ 3:1 für große Schrift ein.
-Überschriften mit Verlauf (Weiß → Grau) bleiben auch am dunkelsten Punkt über 7:1.
 
 ### 3.2 Typografie
 
@@ -146,7 +150,7 @@ Alle Effekte sind selbst in CSS bzw. kleinem React-Code umgesetzt (`src/app/fx.c
 
 | Effekt (Vorbild) | Wo | Umsetzung |
 |---|---|---|
-| Grid Beam (cult-ui) | Hero-Hintergrund | Canvas, Lichtstrahlen auf den Rasterlinien; startet erst nach dem Laden, pausiert außerhalb des Bildes und im Hintergrund-Tab |
+| Grid Beam (cult-ui) | Hero-Hintergrund | Canvas, Lichtstrahlen (Blau/Orange) auf den Rasterlinien; startet erst nach dem Laden, pausiert außerhalb des Bildes und im Hintergrund-Tab |
 | Spotlight | Hero, Leistungsliste, Footer-Schriftzug | Radialer Lichtkegel an der Zeigerposition (nur Maus) |
 | Kinetic Typography | H1 | Wörter steigen gestaffelt aus der Unschärfe |
 | Chromatic Text / Word Rotate | Wechselwort „Termine“ | Farbverlauf läuft über das Wort, Wechsel mit Unschärfe |
@@ -155,7 +159,6 @@ Alle Effekte sind selbst in CSS bzw. kleinem React-Code umgesetzt (`src/app/fx.c
 | Border Beam (Magic UI) | Slot-Board, Preis „Jetzt starten“, Abschluss-Panel | Lichtpunkt umläuft den Rand (`offset-path`) |
 | Tilt / 3D Card | Slot-Board, Einblick-Karten, Preiskarten, Über-uns-Panel | Leichte Neigung zum Zeiger (max. 6°/8°) |
 | Glowing Effect (Aceternity) | Karten, Kalender, FAQ | Leuchtende Kante folgt dem Zeiger um die Karte |
-| Infinite Marquee | Unter dem Hero, vor dem Kontakt | Laufband aus wörtlichen Aussagen der Seite, dekorativ (für Screenreader ausgeblendet) |
 | Text Scroll Reveal | Alle H2 | Wörter erscheinen beim Scrollen gestaffelt |
 | Number Ticker (Magic UI) | Kennzahlen, Ergebnisse, Preise | Zählt beim Hineinscrollen hoch; Server liefert den Endwert |
 | Animated Beam | Ablauf | Lichtimpuls läuft die Pipeline entlang, Knoten pulsieren nacheinander |
@@ -189,13 +192,13 @@ Kontraste ≥ AA, dekorative Grafik `aria-hidden`.
 
 | # | Abschnitt (`id`) | Gestaltung neu |
 |---|---|---|
-| 1 | Hero (`top`) | Links Status-Pille, H1 mit Wechselwort, Lead, CTA; rechts „Slot-Board“ (Zeitraster, Kacheln leuchten nacheinander grün auf); mitternachtsblaues Licht |
+| 1 | Hero (`top`) | Links Status-Pille, H1 mit Wechselwort, Lead, CTA; rechts „Slot-Board“ (Zeitraster, Kacheln leuchten nacheinander orange auf); Navy-Licht |
 | 2 | Über KAYCO (`about`) | Großes Statement, Zeilen hellen beim Lesen auf; Gründer-Kürzel als Avatare; 4 Kennzahlen in Haarlinien-Raster |
-| 3 | Problem (`problem`) | Kalender als dunkler Produkt-Screen; Verlust in Rot-Grau, Beratung in Signalgrün |
+| 3 | Problem (`problem`) | Kalender als dunkler Produkt-Screen; Verlust in Rot-Grau, Akquise in Grau/Navy, Beratung in Orange |
 | 4 | Leistung (`services`) | Nummerierte Akkordeon-Liste (Mono-Nummern, Zeit-Chip) |
 | 5 | Einblick (`work`) | 2 × 2 Produktkarten mit UI-Ausschnitten + CTA-Karte (statt horizontaler Scroll-Strecke) |
 | 6 | Ablauf (`process`) | Vier-Stufen-Pipeline mit verbundenen Slot-Knoten (mobil vertikal) |
-| 7 | Ergebnisse (`results`) | Dunkles Panel, große Kennzahlen, Diagramm in Signalgrün |
+| 7 | Ergebnisse (`results`) | Dunkles Panel, große Kennzahlen, Diagramm in Blau |
 | 8 | Über uns (`team`) | Monatsraster als Produktkarte, Text, sechs Punkte als Karten |
 | 9 | Preise (`pricing`) | Drei Karten, „Unser Modell“ mit Akzentrand und Licht |
 | 10 | FAQ (`faq`) | Links Kopf + Kontaktkarte, rechts Akkordeon |

@@ -2,7 +2,7 @@ import type { CSSProperties } from "react"
 
 /*
  * Server-seitige Effekt-Bausteine (reines CSS, kein JavaScript im Browser), angepasst nach 21st.dev:
- * Text Scroll Reveal, Infinite Marquee, Border Beam, Sparkles, Lamp, Text Hover Effect.
+ * Text Scroll Reveal, Border Beam, Sparkles, Lamp, Text Hover Effect.
  * Stile: src/app/fx.css
  */
 
@@ -20,28 +20,6 @@ export function SplitWords({ text }: { text: string }) {
         </span>
       ))}
     </>
-  )
-}
-
-/** „Infinite Marquee“: endlos laufendes Band (dekorativ, für Screenreader ausgeblendet). */
-export function Marquee({ items, reverse }: { items: string[]; reverse?: boolean }) {
-  const row = (
-    <ul className="k-marquee-row">
-      {items.map((t, i) => (
-        <li key={i}>
-          <i aria-hidden="true" />
-          {t}
-        </li>
-      ))}
-    </ul>
-  )
-  return (
-    <div className="k-marquee" data-reverse={reverse ? "" : undefined} aria-hidden="true">
-      <div className="k-marquee-track">
-        {row}
-        {row}
-      </div>
-    </div>
   )
 }
 
@@ -102,9 +80,9 @@ export function Wordmark({ text }: { text: string }) {
       <svg className="k-wm-top" viewBox="0 0 1000 230" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="k-wm-grad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#3ddc97" />
-            <stop offset="50%" stopColor="#22d3ee" />
-            <stop offset="100%" stopColor="#a7f3d0" />
+            <stop offset="0%" stopColor="#ff8f00" />
+            <stop offset="50%" stopColor="#0067ff" />
+            <stop offset="100%" stopColor="#7ab3ff" />
           </linearGradient>
         </defs>
         {t("k-wm-glow")}

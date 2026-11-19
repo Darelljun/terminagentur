@@ -120,7 +120,6 @@ export function ResultsSection() {
           {near ? (
             <PeakChart
               width={width}
-              accent="#3ddc97"
               data={SERIES[period]}
               labels={MONTHS}
               value={3}

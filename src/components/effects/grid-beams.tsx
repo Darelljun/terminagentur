@@ -4,16 +4,16 @@ import { useEffect, useRef } from "react"
 
 /**
  * Lichtstrahlen auf den Rasterlinien des Hero-Hintergrunds – angepasst nach „Grid Beam“ (cult-ui, 21st.dev).
- * Änderungen gegenüber dem Original: KAYCO-Farben (Signalgrün/Cyan), nur jede zweite Linie bekommt einen
+ * Änderungen gegenüber dem Original: KAYCO-Farben (Blau/Orange nach om-vantage), nur jede zweite Linie bekommt einen
  * Strahl, Pixeldichte begrenzt, Schleife pausiert außerhalb des Bildes und im Hintergrund-Tab, mit
  * „Bewegung reduzieren“ wird nichts gezeichnet. Raster: 88 × 64 px, ab links oben (wie .k-hero-bg).
  */
 const CELL_W = 88
 const CELL_H = 64
 const COLORS: [number, number, number][] = [
-  [61, 220, 151],
-  [34, 211, 238],
-  [120, 240, 190],
+  [0, 103, 255],
+  [255, 143, 0],
+  [122, 179, 255],
 ]
 
 export function GridBeams() {

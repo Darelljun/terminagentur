@@ -49,7 +49,5 @@ export type LandingContent = {
   faq: { kicker: string; title: string; text: string; items: Faq[] }
   cta: { title: string; text: string; button: string }
   footer: { claim: string; columns: { title: string; links: Link[] }[]; note: string; copyright: string }
-  /** Laufband – ausschließlich wörtliche Aussagen, die bereits auf der Seite stehen. */
-  marquee: string[]
   email: string
 }

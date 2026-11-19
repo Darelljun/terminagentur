@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 
 /**
  * Wechselwort in der Hero-Headline – nach „Chromatic Text Reveal“ (honestui, 21st.dev):
- * Jedes neue Wort taucht aus der Unschärfe auf, ein farbiger Verlauf (Grün → Cyan) streicht darüber.
+ * Jedes neue Wort taucht aus der Unschärfe auf, ein farbiger Verlauf (Orange → Weiß → Blau) streicht darüber.
  * Umsetzung in CSS (registrierte Eigenschaft --sweep), ohne Motion. Mit „Bewegung reduzieren“ bleibt
  * das erste Wort stehen. Das Wort steht in einer eigenen Zeile – ein Wechsel verschiebt nichts im Layout.
  */

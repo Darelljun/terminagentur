@@ -891,7 +891,7 @@ export function PeakChart({
 
   const px = (n: number) => `${(n * u).toFixed(3)}px`
   const textBase: React.CSSProperties = { position: "absolute", whiteSpace: "nowrap", fontFamily: font, fontStretch: "110%", fontWeight: 300, margin: 0, lineHeight: 1 }
-  const trendColor = trend === "down" ? "#f08a8a" : "#93cfa2"
+  const trendColor = trend === "down" ? "#ff8a80" : "#7ab3ff"
   const finalDigits = value.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
 
   const cardEl = (

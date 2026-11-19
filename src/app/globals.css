@@ -17,26 +17,35 @@
 
 :root {
   color-scheme: dark;
-  /* Black Edition: tiefes Schwarz, Flächen mit minimaler Aufhellung, ein Signalgrün */
-  --k-bg: #000000;
-  --k-bg-2: #050607;
-  --k-surface: #0b0d10;
-  --k-surface-2: #12151a;
-  --k-line: rgb(255 255 255 / 0.08);
-  --k-line-2: rgb(255 255 255 / 0.15);
-  --k-text: #f4f6f8;
-  --k-text-2: #a3abb8;
-  --k-text-3: #7b8493;
-  --k-accent: #3ddc97;
-  --k-accent-2: #22d3ee;
-  --k-accent-ink: #02130b;
-  --k-accent-text: #5ae6a8;
-  --k-accent-soft: rgb(61 220 151 / 0.12);
-  --k-glow: rgb(34 120 255 / 0.22);
-  --k-warn: #f07c7c;
-  --k-warn-soft: rgb(240 124 124 / 0.1);
+  /* Palette nach om-vantage.de: Fast-Schwarz, graue Karten, Navy-Licht, Orange nur für Handlungen */
+  --k-bg: #0c0c0c;
+  --k-bg-2: #101010;
+  --k-surface: #1c1c1c;
+  --k-surface-2: #242424;
+  --k-line: rgb(255 255 255 / 0.125);
+  --k-line-2: rgb(255 255 255 / 0.2);
+  --k-text: #ffffff;
+  --k-text-2: #d1d1d1;
+  /* om-vantage nutzt #7a7a7a; auf Karten zu kontrastarm (3,6:1) – daher minimal heller für AA */
+  --k-text-3: #8a8a8a;
+  --k-accent: #ff8f00;
+  --k-accent-rgb: 255 143 0;
+  --k-accent-hi: #ffa31f;
+  --k-accent-lo: #e07a00;
+  --k-accent-2: #0067ff;
+  --k-accent-ink: #1a0e00;
+  --k-accent-text: #ff8f00;
+  --k-accent-soft: rgb(255 143 0 / 0.12);
+  --k-navy: #023e97;
+  --k-navy-rgb: 2 62 151;
+  --k-navy-deep: #0c1733;
+  --k-blue-rgb: 0 103 255;
+  --k-link: #7ab3ff;
+  --k-glow: rgb(2 62 151 / 0.22);
+  --k-warn: #ff5a4f;
+  --k-warn-soft: rgb(243 4 4 / 0.12);
   --k-shade: rgb(0 0 0 / 0.7);
-  --k-header: rgb(0 0 0 / 0.72);
+  --k-header: rgb(12 12 12 / 0.72);
   --k-edge: inset 0 1px 0 rgb(255 255 255 / 0.05);
   --k-dim: 0.42;
 }

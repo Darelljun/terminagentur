@@ -1,7 +1,23 @@
 # KAYCO – Visueller Relaunch: Änderungen & Prüfprotokoll
 
-Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 18.11.2026 (inkl. Update 2)
+Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 19.11.2026 (inkl. Update 3)
 Konzept und Designsystem: [`docs/design-system.md`](design-system.md)
+
+## Update 3: Farbpalette von om-vantage.de, Laufbänder entfernt (19.11.2026)
+
+Auftrag: Farbpalette genau wie om-vantage.de; das Laufband mit „75 € pro Termin“ entfernen, damit
+KAYCO als ernstzunehmende Agentur wirkt.
+
+- **Farben:** Werte direkt von om-vantage.de ausgelesen und als Tokens übernommen – Hintergrund
+  `#0C0C0C`, Karten `#1C1C1C`, Text `#FFFFFF`/`#D1D1D1`, Orange `#FF8F00` für Buttons und Termine,
+  Navy `#023E97` und Blau `#0067FF`/`#7AB3FF` für Licht und hervorgehobene Karten (Tabelle:
+  [`design-system.md` → 3.1](design-system.md)). Grün und Cyan sind überall ersetzt: Effekte,
+  Lichtstrahlen, Footer-Schriftzug, Kalender, Diagramm, Favicon-Punkt und Social-Vorschaubild.
+- **Hervorgehobener Preis** wie die CTA-Box bei om-vantage: Navy-Rand mit Navy-Leuchten, Button orange.
+- **Laufbänder entfernt** (unter dem Hero und vor dem Kontakt), samt Komponente, Stilen und Inhaltsfeld.
+- **Eine Textanpassung aus sachlichem Grund:** Im Kalender hieß es „Jeder grüne Slot ist ein fertiger
+  Termin …“. Die Slots sind jetzt orange, daher „Jeder orangefarbene Slot …“.
+- Bewusste Abweichung von om-vantage: Grau für Labels `#8A8A8A` statt `#7A7A7A` (sonst unter AA auf Karten).
 
 ## Update 2: „Black Edition“ & Animationen (18.11.2026)
 
@@ -14,15 +30,15 @@ damit Besucher sofort sagen: „Mit denen will ich arbeiten.“
 - Nur noch ein Design: Der Hell/Dunkel-Umschalter im Header ist entfernt.
 - Feines Filmkorn über der Seite, leuchtende Kanten an den Abschnittsübergängen, Scroll-Fortschritt.
 
-**17 Effekte** (Liste mit Vorbild und Einsatzort: [`design-system.md` → 3.5.1](design-system.md)):
+**17 Effekte, seit Update 3 noch 16** (Liste mit Vorbild und Einsatzort: [`design-system.md` → 3.5.1](design-system.md)):
 Grid Beams im Hero, Kinetic Typography, chromatisches Wechselwort, Text Shimmer, Shiny + Magnetic
-Buttons, Border Beam, 3D-Tilt, Glowing Effect, Spotlight, Infinite Marquee, Wort-für-Wort-Einblendung
+Buttons, Border Beam, 3D-Tilt, Glowing Effect, Spotlight, ~~Infinite Marquee~~, Wort-für-Wort-Einblendung
 der H2, Number Ticker, Animated Beam im Ablauf, Lamp, Sparkles, Text-Hover-Schriftzug im Footer.
 
 **Neu, bewusst ergänzt (keine neuen Aussagen)**
 | Was | Inhalt / Begründung |
 |---|---|
-| Zwei Laufbänder (unter dem Hero, vor dem Kontakt) | Nur wörtliche Aussagen, die bereits auf der Seite stehen (`marquee` in `src/content/kayco.ts`); für Screenreader ausgeblendet, damit nichts doppelt vorgelesen wird |
+| Zwei Laufbänder | In Update 3 wieder entfernt |
 | Footer-Schriftzug als SVG mit Hover-Licht | Gleicher Text „KAYCO“ wie vorher (vorher Einzelbuchstaben) |
 | Kalender wechselt einmal von selbst auf „Mit KAYCO“ | Erst wenn der Kalender gut sichtbar ist und man 1,4 s hinschaut; nie, wenn man selbst umgeschaltet hat |
 | Zahlen zählen beim Hineinscrollen hoch | Server-HTML und Suchmaschinen sehen immer den Endwert |
@@ -84,21 +100,21 @@ Maschineller Abgleich der gerenderten Seite vorher/nachher (Texte je Abschnitt, 
 - **Header-Verhalten:** exakt übernommen aus `main` (Desktop sticky mit Hysterese, mobil fixiert mit
   Aus-/Einblenden, solid ab 40 px, nie ausgeblendet bei offenem Menü).
 
-## 3. Prüfprotokoll (Stand nach Update 2)
+## 3. Prüfprotokoll (Stand nach Update 3)
 
 | Prüfung | Ergebnis |
 |---|---|
 | Build (`next build`), TypeScript, ESLint | fehlerfrei |
-| Inhaltsabgleich gegen den Stand vor dem Relaunch | Texte, Reihenfolge, Links, Überschriften, Meta-Daten, JSON-LD, Rechtsseiten gleich; neu nur Laufbänder (wörtliche Zitate), Schriftzug als SVG, Hell-Umschalter entfernt |
+| Inhaltsabgleich gegen den Stand vor dem Relaunch | Texte, Reihenfolge, Links, Überschriften, Meta-Daten, JSON-LD, Rechtsseiten gleich; Unterschiede nur: Schriftzug als SVG, Hell-Umschalter entfernt, Kalender-Satz „grüne“ → „orangefarbene“ Slot |
 | Funktionstests (Playwright, 62 Prüfungen: Navigation, aktiver Menüpunkt, Header-Verhalten Desktop/mobil, Mobile-Menü inkl. Fokus/Escape/Scroll-Sperre, Kalender inkl. Auto-Wechsel, Akkordeons, FAQ, E-Mail kopieren, Links, Rechtsseiten, schwarzes Design, Zähler-Endwerte, Touch-Ziele) | alle bestanden |
 | Browserkonsole (Produktion und Entwicklungsmodus) | keine Fehler, keine Hydrierungswarnungen |
 | Horizontaler Überlauf (390 px, 360 px, 834 px, ganze Seite) | keiner |
 | Layoutsprünge beim Laden und Scrollen (Handy, Tablet, Desktop) | 0,000 |
 | `prefers-reduced-motion` | keine Animationen, alle Inhalte sichtbar, Wort wechselt nicht, kein Smooth-Scroll |
-| Lighthouse Startseite mobil | Performance 85–88 · Barrierefreiheit 100 · Best Practices 100 · SEO 100 (gemessener LCP 0,3 s; der simulierte Wert 2,6 s entsteht durch die zusätzliche Stil-/Animationsarbeit beim ersten Aufbau) |
+| Lighthouse Startseite mobil | Performance 91 (nach Update 2: 85–88; ohne Laufbänder wieder schneller) · Barrierefreiheit 100 · Best Practices 100 · SEO 100 (gemessener LCP 0,3 s; der simulierte Wert 2,6 s entsteht durch die zusätzliche Stil-/Animationsarbeit beim ersten Aufbau) |
 | Lighthouse Startseite Desktop | Performance 100 · Barrierefreiheit 100 · Best Practices 100 · SEO 100 |
-| Lighthouse Impressum mobil / Desktop | 98 / 100 · alle anderen Kategorien 100 |
-| Übertragene Datenmenge Startseite | 266 KB (Update 1: 257 KB, vor dem Relaunch 499 KB) |
+| Lighthouse Impressum mobil / Desktop | 97 / 100 · alle anderen Kategorien 100 |
+| Übertragene Datenmenge Startseite | 265 KB (Update 1: 257 KB, vor dem Relaunch 499 KB) |
 | Ruckelnde Frames beim Scrollen (Handy 4× gedrosselt / Desktop) | 3–4 % / 2 % (ohne Pausieren außerhalb des Bildes wären es 15–18 % gewesen) |
 
 Vergleich: vor dem Relaunch Lighthouse mobil 80–83 / 499 KB; nach Update 1 mobil 90–93 / 257 KB.

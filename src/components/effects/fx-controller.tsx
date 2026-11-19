@@ -13,12 +13,12 @@ import { useEffect } from "react"
  * alle Maße gelesen, dann alle Werte geschrieben (kein Layout-Thrashing); nur sichtbare Elemente zählen.
  */
 export function FxController() {
-  // Endlos-Animationen (glänzende Buttons, Lichtstreifen, Funkeln, Laufband …) laufen nur, solange ihr
+  // Endlos-Animationen (glänzende Buttons, Lichtstreifen, Funkeln …) laufen nur, solange ihr
   // Abschnitt im Bild ist. Außerhalb setzt der Wächter `data-idle`, und fx.css hält sie an – das spart beim
   // Scrollen auf schwächeren Handys spürbar Rechenzeit. Gilt für Maus und Touch.
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-    const hosts = document.querySelectorAll<HTMLElement>(".k-hero, .k-marquee, .k-work, .k-process, .k-pricing, .k-contact, .k-wordmark")
+    const hosts = document.querySelectorAll<HTMLElement>(".k-hero, .k-work, .k-process, .k-pricing, .k-contact, .k-wordmark")
     const io = new IntersectionObserver(
       (es) => {
         for (const e of es) e.target.toggleAttribute("data-idle", !e.isIntersecting)
