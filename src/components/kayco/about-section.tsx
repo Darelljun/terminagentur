@@ -28,7 +28,7 @@ export function AboutSection() {
         <ul className="kay-founders" aria-label="Gründer">
           {team.map((t, i) => (
             <li key={t.name} data-anim={i ? "fr" : "fl"} style={{ "--d": i * 0.12 + "s" } as CSSProperties}>
-              <Image src={t.photo} alt={t.name} sizes="(max-width: 900px) 50vw, 300px" placeholder="blur" />
+              <Image src={t.photo} alt={t.name} sizes="(max-width: 900px) 46vw, 320px" quality={92} />
               <b>{t.name}</b>
               <span>{t.role}</span>
             </li>

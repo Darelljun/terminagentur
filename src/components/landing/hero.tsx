@@ -78,7 +78,7 @@ export function Hero({ c }: { c: LandingContent }) {
         <p className="k-hero-founders k-in" style={d(0.66)}>
           <span className="k-hero-avs" aria-hidden="true">
             {team.map((t) => (
-              <Image key={t.name} src={t.avatar} alt="" width={46} height={46} priority />
+              <Image key={t.name} src={t.avatar} alt="" width={92} height={92} quality={92} priority />
             ))}
           </span>
           {hero.founders}

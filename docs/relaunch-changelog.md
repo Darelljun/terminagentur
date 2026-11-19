@@ -6,8 +6,11 @@ Konzept und Designsystem: [`docs/design-system.md`](design-system.md)
 ## Update 7: Gründerfotos, noch kompakter (19.11.2026)
 
 - **Fotos** von Magdalena Kayser und Darell Kacou in den Gründer-Karten („Über uns“, Porträt 4:5) und als
-  runde Avatare im Hero (wie die Avatar-Reihe bei om-vantage). Zugeschnitten und komprimiert
-  (`src/assets/team/`, je ca. 50 KB bzw. 8 KB), über `next/image` mit Unschärfe-Platzhalter.
+  runde Avatare im Hero (wie die Avatar-Reihe bei om-vantage). Nachbesserung nach Rückmeldung („sehen
+  komprimiert aus“): Zuschnitte jetzt in Originalauflösung ohne Skalierung (JPEG 95 %, ohne
+  Farbunterabtastung) in `src/assets/team/`; `next/image` verkleinert erst beim Ausliefern, mit Qualität 92
+  statt 75 (`images.qualities: [75, 92]` in `next.config.ts`), Avatare in 2×/3×-Auflösung, kein
+  Unschärfe-Platzhalter. Ausgeliefert z. B. 640 px WebP (51–79 KB) für die Karten.
 - **Abschnitt „Preise“ entfernt:** Die Preise stehen weiter in der FAQ („Was kostet KAYCO?“), in den
   Ablauf-Schritten (einmalig 300 € / 75 € pro Termin), in der Leistungsleiste und in der Abschluss-Box.
 - **Abschnitt „Ergebnisse“ entfernt:** 80 Neukunden und 3× Umsatz stehen jetzt als Belege im Hero – an der
@@ -182,7 +185,7 @@ Maschineller Abgleich der gerenderten Seite vorher/nachher (Texte je Abschnitt, 
 | Lighthouse Startseite mobil | Performance 96 (Update 6: 92–94, Update 4: 93, Update 3: 91, Update 2: 85–88) · Barrierefreiheit 100 · Best Practices 100 · SEO 100 (gemessener LCP 0,3 s; der simulierte Wert 2,6 s entsteht durch die zusätzliche Stil-/Animationsarbeit beim ersten Aufbau) |
 | Lighthouse Startseite Desktop | Performance 100 · Barrierefreiheit 100 · Best Practices 100 · SEO 100 |
 | Lighthouse Impressum mobil / Desktop | 97 / 100 · alle anderen Kategorien 100 |
-| Übertragene Datenmenge Startseite | 252 KB mobil inkl. Fotos (Update 1: 257 KB, vor dem Relaunch 499 KB) |
+| Übertragene Datenmenge Startseite | 274 KB mobil inkl. Fotos in hoher Qualität (Update 1: 257 KB, vor dem Relaunch 499 KB) |
 | Ruckelnde Frames beim Scrollen (Handy 4× gedrosselt / Desktop) | 3–4 % / 2 % (ohne Pausieren außerhalb des Bildes wären es 15–18 % gewesen) |
 
 Vergleich: vor dem Relaunch Lighthouse mobil 80–83 / 499 KB; nach Update 1 mobil 90–93 / 257 KB.
