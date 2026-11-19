@@ -1,15 +1,13 @@
+import { LogoWord } from "@/components/landing/primitives"
+
 /**
- * Footer-Schriftzug wie bei om-vantage: sehr groß, nur als Kontur, unten von der Footer-Linie angeschnitten.
- * Rein dekorativ (für Screenreader ausgeblendet). Stile: src/app/fx.css („k-wordmark“).
+ * Footer-Schriftzug wie bei om-vantage: sehr groß, dezent, unten von der Footer-Linie angeschnitten –
+ * in den Buchstabenformen des KAYCO-Logos. Rein dekorativ (für Screenreader ausgeblendet).
  */
-export function Wordmark({ text }: { text: string }) {
+export function Wordmark() {
   return (
     <div className="k-wordmark" aria-hidden="true">
-      <svg viewBox="0 0 1000 200" preserveAspectRatio="xMidYMax meet">
-        <text x="50%" y="236" textAnchor="middle">
-          {text}
-        </text>
-      </svg>
+      <LogoWord className="k-wordmark-svg" height={78} />
     </div>
   )
 }

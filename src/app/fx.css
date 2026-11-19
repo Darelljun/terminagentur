@@ -186,30 +186,22 @@
   animation-play-state: paused !important;
 }
 
-/* --------------------------------------------- Footer-Schriftzug (Kontur, angeschnitten) */
+/* ---------------------------------------- Footer-Schriftzug (Logo-Buchstaben, angeschnitten) */
 .k-wordmark {
   max-width: calc(var(--k-wrap) + 2 * var(--k-gutter));
   margin: 0 auto;
   padding-inline: var(--k-gutter);
   user-select: none;
 }
-.k-wordmark svg {
+.k-wordmark-svg {
   display: block;
   width: 100%;
   height: auto;
   border-bottom: 1px solid var(--k-line);
+  color: rgb(255 255 255 / 0.07);
 }
-.k-wordmark text {
-  font-family: var(--font-sans), sans-serif;
-  font-size: 270px;
-  font-stretch: 84%;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  /* Füllung in Seitenfarbe über der Kontur: verdeckt die inneren Überlappungen der variablen Schrift */
-  fill: var(--k-bg);
-  stroke: rgb(255 255 255 / 0.24);
-  stroke-width: 2.4;
-  paint-order: stroke;
+.k-wordmark-svg .k-logo-slot {
+  fill: rgb(var(--k-accent-rgb) / 0.2);
 }
 
 @media print {

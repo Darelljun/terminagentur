@@ -1,7 +1,18 @@
 # KAYCO – Visueller Relaunch: Änderungen & Prüfprotokoll
 
-Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 19.11.2026 (inkl. Update 7)
+Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 19.11.2026 (inkl. Update 8)
 Konzept und Designsystem: [`docs/design-system.md`](design-system.md)
+
+## Update 8: Neues Logo, Handy-Hero mit Termin-Benachrichtigungen (19.11.2026)
+
+- **Logo** neu als Vektor (SVG, `BrandMark`/`LogoWord` in `src/components/landing/primitives.tsx`):
+  Bildzeichen = blaue App-Kachel (Verlauf `#0067FF` → `#023E97`) mit weißem „K“ und orangem Punkt (der neue
+  Termin); Schriftzug = geometrische Versalien, der Querbalken im „A“ ist ein orangener Termin-Slot.
+  Eingesetzt in Header, Rechtsseiten, Footer-Schriftzug (groß, dezent, angeschnitten), Favicon und
+  Social-Vorschaubild. Hover: der Punkt pulsiert kurz.
+- **Handy-Hero:** statt der Kalender-Woche unter dem Intro drei Benachrichtigungen „Neuer Termin“
+  (Thema, Tag, Uhrzeit, „mit Briefing“), die nacheinander erscheinen. Laptop unverändert mit Kalender;
+  ein eingetragenes Hero-Video ersetzt beides.
 
 ## Update 7: Gründerfotos, noch kompakter (19.11.2026)
 
@@ -171,7 +182,7 @@ Maschineller Abgleich der gerenderten Seite vorher/nachher (Texte je Abschnitt, 
 - **Header-Verhalten:** exakt übernommen aus `main` (Desktop sticky mit Hysterese, mobil fixiert mit
   Aus-/Einblenden, solid ab 40 px, nie ausgeblendet bei offenem Menü).
 
-## 3. Prüfprotokoll (Stand nach Update 7)
+## 3. Prüfprotokoll (Stand nach Update 8)
 
 | Prüfung | Ergebnis |
 |---|---|
@@ -182,7 +193,7 @@ Maschineller Abgleich der gerenderten Seite vorher/nachher (Texte je Abschnitt, 
 | Horizontaler Überlauf (390 px, 360 px, 834 px, ganze Seite) | keiner |
 | Layoutsprünge beim Laden und Scrollen (Handy, Tablet, Desktop) | 0,000 |
 | `prefers-reduced-motion` | keine Animationen, alle Inhalte sichtbar, Wort wechselt nicht, kein Smooth-Scroll |
-| Lighthouse Startseite mobil | Performance 96 (Update 6: 92–94, Update 4: 93, Update 3: 91, Update 2: 85–88) · Barrierefreiheit 100 · Best Practices 100 · SEO 100 (gemessener LCP 0,3 s; der simulierte Wert 2,6 s entsteht durch die zusätzliche Stil-/Animationsarbeit beim ersten Aufbau) |
+| Lighthouse Startseite mobil | Performance 94–96 (Update 6: 92–94, Update 4: 93, Update 3: 91, Update 2: 85–88) · Barrierefreiheit 100 · Best Practices 100 · SEO 100 (gemessener LCP 0,3 s; der simulierte Wert 2,6 s entsteht durch die zusätzliche Stil-/Animationsarbeit beim ersten Aufbau) |
 | Lighthouse Startseite Desktop | Performance 100 · Barrierefreiheit 100 · Best Practices 100 · SEO 100 |
 | Lighthouse Impressum mobil / Desktop | 97 / 100 · alle anderen Kategorien 100 |
 | Übertragene Datenmenge Startseite | 274 KB mobil inkl. Fotos in hoher Qualität (Update 1: 257 KB, vor dem Relaunch 499 KB) |

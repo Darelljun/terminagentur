@@ -9,7 +9,7 @@ export function SiteFooter({ c }: { c: LandingContent }) {
   return (
     <footer className="k-foot">
       {/* Großer, angeschnittener Schriftzug als Kontur – wie bei om-vantage */}
-      <Wordmark text={c.brand} />
+      <Wordmark />
       <div className="k-wrap">
         <div className="k-foot-top">
           <div className="k-foot-claim">

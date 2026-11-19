@@ -240,3 +240,28 @@ export function GcalMini() {
     </div>
   )
 }
+
+/** Benachrichtigungen „Neuer Termin“ – die Handy-Fassung des Hero-Mediums (statt der Kalender-Woche). */
+const NOTIFS = [
+  { t: "Beratung · Altersvorsorge", when: "Mo., 16. Nov. · 9:00 – 10:00", ago: "vor 5 Min." },
+  { t: "Beratung · Baufinanzierung", when: "Di., 17. Nov. · 13:00 – 14:00", ago: "vor 2 Min." },
+  { t: "Beratung · Vermögensaufbau", when: "Mi., 18. Nov. · 9:00 – 10:00", ago: "jetzt" },
+]
+
+export function GcalNotifs() {
+  return (
+    <ul className="k-notifs" aria-hidden="true">
+      {NOTIFS.map((n, i) => (
+        <li key={n.t} className="k-notif" style={{ "--o": i } as CSSProperties}>
+          <span className="gc-logo k-notif-ico">
+            <b>{DAYS[TODAY].n}</b>
+          </span>
+          <p className="k-notif-t">Neuer Termin</p>
+          <span className="k-notif-ago">{n.ago}</span>
+          <p className="k-notif-b">{n.t}</p>
+          <p className="k-notif-s">{n.when} · mit Briefing</p>
+        </li>
+      ))}
+    </ul>
+  )
+}

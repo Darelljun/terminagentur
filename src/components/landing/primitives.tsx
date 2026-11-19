@@ -43,15 +43,48 @@ export function Check() {
   )
 }
 
-/** Bildmarke: Kalenderblatt mit bestätigtem Slot (wie das Favicon). */
+/*
+ * KAYCO-Logo. Bildzeichen: App-Symbol in Blau mit weißem „K“ und orangem Punkt – der neue Termin, der gerade
+ * eingegangen ist. Schriftzug: geometrische Versalien, der Querbalken im „A“ ist ein orangener Termin-Slot.
+ * Ohne IDs (mehrfach auf einer Seite nutzbar); die Kachel ist ein CSS-Verlauf, die überstehenden Striche
+ * schneidet das jeweilige SVG-Ansichtsfenster ab. Stile: kayco.css („k-mark“, „k-logo-word“).
+ */
 export function BrandMark({ className = "k-mark" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 32 32" aria-hidden="true">
-      <rect x="1" y="1" width="30" height="30" rx="9" fill="currentColor" />
-      <rect x="7" y="9" width="18" height="2" rx="1" fill="var(--k-bg)" opacity="0.45" />
-      <rect x="7" y="14" width="10" height="9" rx="2.5" fill="var(--k-bg)" />
-      <circle cx="22" cy="18.5" r="2.25" fill="var(--k-accent)" />
+    <span className={className} aria-hidden="true">
+      <svg viewBox="0 0 64 64">
+        <svg x="0" y="16" width="64" height="32" viewBox="0 16 64 32">
+          <path d="M20 8V56M44 8L25 32L44 56" fill="none" stroke="#fff" strokeWidth="7.5" strokeMiterlimit="10" />
+        </svg>
+        <circle cx="49" cy="15" r="7" fill="#ff8f00" />
+      </svg>
+    </span>
+  )
+}
+
+export function LogoWord({ className = "k-logo-word", height = 100 }: { className?: string; height?: number }) {
+  return (
+    <svg className={className} viewBox={`0 0 500 ${height}`} aria-hidden="true">
+      <g fill="none" stroke="currentColor" strokeWidth="20" strokeMiterlimit="10">
+        <path d="M10 -20V120M78 -20L24 50L78 120" />
+        <path d="M100 120L142 -20L184 120" />
+        <path d="M204 -20L240 48L276 -20M240 44V120" />
+        <path d="M366.3 21.7A40 40 0 1 0 366.3 78.3" />
+        <circle cx="440" cy="50" r="40" />
+      </g>
+      <rect className="k-logo-slot" x="132" y="57" width="20" height="13" rx="6.5" />
     </svg>
+  )
+}
+
+/** Logo für Header und Rechtsseiten: Bildzeichen + Schriftzug, Name als Text für Screenreader. */
+export function Logo({ name }: { name: string }) {
+  return (
+    <>
+      <BrandMark />
+      <LogoWord />
+      <span className="k-sr">{name}</span>
+    </>
   )
 }
 

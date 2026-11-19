@@ -4,6 +4,10 @@ export const alt = "KAYCO – Keine Leads. Termine.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+/* Logo (Bildzeichen + Schriftzug) als SVG-Daten – dieselben Formen wie BrandMark/LogoWord */
+const LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0067ff"/><stop offset="1" stop-color="#023e97"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#g)"/><svg x="0" y="16" width="64" height="32" viewBox="0 16 64 32"><path d="M20 8V56M44 8L25 32L44 56" fill="none" stroke="#fff" stroke-width="7.5" stroke-miterlimit="10"/></svg><circle cx="49" cy="15" r="7" fill="#ff8f00"/><svg x="84" y="16" width="160" height="32" viewBox="0 0 500 100"><g fill="none" stroke="#fff" stroke-width="20" stroke-miterlimit="10"><path d="M10 -20V120M78 -20L24 50L78 120"/><path d="M100 120L142 -20L184 120"/><path d="M204 -20L240 48L276 -20M240 44V120"/><path d="M366.3 21.7A40 40 0 1 0 366.3 78.3"/><circle cx="440" cy="50" r="40"/></g><rect x="132" y="57" width="20" height="13" rx="6.5" fill="#ff8f00"/></svg></svg>`;
+const LOGO = "data:image/svg+xml;base64," + Buffer.from(LOGO_SVG).toString("base64");
+
 export default function OpengraphImage() {
   return new ImageResponse(
     (
@@ -19,12 +23,9 @@ export default function OpengraphImage() {
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <div style={{ width: 52, height: 52, borderRadius: 16, background: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ width: 22, height: 20, borderRadius: 6, background: "#0c0c0c" }} />
-            <div style={{ width: 10, height: 10, borderRadius: 10, background: "#FF8F00", marginLeft: 6 }} />
-          </div>
-          <div style={{ fontSize: 34, fontWeight: 700, letterSpacing: 6, color: "#ffffff" }}>KAYCO</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- ImageResponse rendert nur <img> */}
+          <img src={LOGO} width={300} height={64} alt="" />
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 120, fontWeight: 700, letterSpacing: -5, color: "#ffffff", lineHeight: 1 }}>Keine Leads.</div>

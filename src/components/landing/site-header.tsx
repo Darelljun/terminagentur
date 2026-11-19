@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react"
 import type { Link } from "@/content/types"
 import { BookLink } from "./actions"
-import { Arrow, BrandMark } from "./primitives"
+import { Arrow, Logo } from "./primitives"
 
 /**
  * Header mit dem bestehenden Verhalten (übernommen aus dem Stand auf main):
@@ -155,8 +155,7 @@ export function SiteHeader({ brand, links }: { brand: string; links: Link[] }) {
       <header ref={bar} className="k-nav" data-open={menu ? "" : undefined}>
         <div className="k-nav-in">
           <a className="k-brand" href="#top" onClick={() => setMenu(false)}>
-            <BrandMark />
-            <span>{brand}</span>
+            <Logo name={brand} />
           </a>
           <nav className="k-nav-links" aria-label="Hauptnavigation">
             {links.map((l) => (

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import { ArrowLeft, TriangleAlert } from "lucide-react"
 import Link from "next/link"
-import { BrandMark } from "@/components/landing/primitives"
+import { Logo } from "@/components/landing/primitives"
 import { site } from "@/lib/site"
 
 /** Kennzeichnet vor Veröffentlichung zu ergänzende oder zu prüfende Angaben. */
@@ -19,8 +19,7 @@ export function LegalPage({ title, updated, children }: { title: string; updated
       <header className="k-legal-head">
         <div className="k-wrap">
           <Link href="/" className="k-brand">
-            <BrandMark />
-            <span>KAYCO</span>
+            <Logo name="KAYCO" />
           </Link>
           <Link href="/" className="k-legal-back">
             <ArrowLeft className="size-4" aria-hidden="true" />

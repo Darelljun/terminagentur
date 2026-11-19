@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react"
 import Image from "next/image"
 import { CalendarCheck2, FileText, ListChecks, Megaphone, PhoneCall, TrendingUp, Users } from "lucide-react"
-import { GcalMini } from "@/components/kayco/gcal"
+import { GcalMini, GcalNotifs } from "@/components/kayco/gcal"
 import { team } from "@/content/team"
 import type { LandingContent } from "@/content/types"
 import { BookLink } from "./actions"
@@ -84,9 +84,15 @@ export function Hero({ c }: { c: LandingContent }) {
           {hero.founders}
         </p>
 
-        <div className="k-hero-media k-in" style={d(0.3)}>
+        {/* Laptop: Kalender-Woche; Handy: Termin-Benachrichtigungen. Ein Video (falls eingetragen) zeigen beide. */}
+        <div className={"k-hero-media k-in" + (hero.video ? "" : " k-hero-media--cal")} style={d(0.3)}>
           {hero.video ? <VideoCard video={hero.video} className="k-video--hero" /> : <GcalMini />}
         </div>
+        {hero.video ? null : (
+          <div className="k-hero-notifs">
+            <GcalNotifs />
+          </div>
+        )}
 
         <ul className="k-hero-feats k-in" style={d(0.74)} aria-label="Was wir übernehmen">
           {c.services.items.map((s, i) => {

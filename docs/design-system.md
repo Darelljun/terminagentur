@@ -98,6 +98,15 @@ Kontraste (WCAG, auf `#0C0C0C` / auf `#1D1D1F`): Text 19,6 / 16,9 · Text-2 12,8
 Text-3 5,7 / 4,9 · Orange als Text 8,6 / 7,4 · Schrift auf Orange 8,3 · alle Kalendereinträge ≥ 9:1 → alle ≥ AA.
 Der Lese-Effekt im Statement startet bei 42 % Deckkraft und hält damit ≥ 3:1 für große Schrift ein.
 
+### 3.1.1 Logo (Update 8)
+
+- **Bildzeichen:** blaue Kachel (Radius 25 %, Verlauf `#0067FF` → `#023E97`, feine helle Innenkante), weißes
+  geometrisches „K“, oranger Punkt oben rechts – der gerade eingegangene Termin.
+- **Schriftzug:** „KAYCO“ aus gleich starken Strichen (Strichstärke 20 % der Versalhöhe), flache Enden; der
+  Querbalken des „A“ ist ein oranger, abgerundeter Slot („der bestätigte Slot“).
+- Dateien: `BrandMark`, `LogoWord`, `Logo` in `src/components/landing/primitives.tsx`; Favicon `src/app/icon.svg`;
+  Social-Vorschaubild `src/app/opengraph-image.tsx`. Mindestgröße Bildzeichen 16 px, Schriftzug 12 px hoch.
+
 ### 3.2 Typografie
 
 - **Instrument Sans** (variabel, `wght` 400–700, `wdth` 75–100), lokal über `next/font`.
@@ -186,7 +195,7 @@ Kontraste ≥ AA, dekorative Grafik `aria-hidden`.
 
 | # | Abschnitt | Gestaltung |
 |---|---|---|
-| 1 | Hero (`top`) | Aufbau wie om-vantage; Belege 80 Neukunden / 3× Umsatz; Gründer-Avatare mit Foto; rechts Google-Kalender-Woche (später optional Video) |
+| 1 | Hero (`top`) | Aufbau wie om-vantage; Belege 80 Neukunden / 3× Umsatz; Gründer-Avatare mit Foto; Laptop: rechts Google-Kalender-Woche, Handy: Benachrichtigungen „Neuer Termin“ (später optional Video) |
 | 2 | Problem (`problem`) | „Volle Woche. Kaum Umsatz.“ + Google-Kalender (dunkel), umschaltbar „Mit Leads“ / „Mit KAYCO“ |
 | 3 | Ablauf (`process`) | Zeitleiste mit Mittellinie, Titel und Text wechseln die Seite |
 | – | Stimmen (`stimmen`) | Video-Testimonials, erscheinen erst mit Inhalt |
