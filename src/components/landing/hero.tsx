@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react"
 import Image from "next/image"
 import { CalendarCheck2, FileText, ListChecks, Megaphone, PhoneCall, TrendingUp, Users } from "lucide-react"
-import { GcalMini, GcalNotifs } from "@/components/kayco/gcal"
+import { GcalMini } from "@/components/kayco/gcal"
 import { team } from "@/content/team"
 import type { LandingContent } from "@/content/types"
 import { BookLink } from "./actions"
@@ -84,14 +84,24 @@ export function Hero({ c }: { c: LandingContent }) {
           {hero.founders}
         </p>
 
-        {/* Laptop: Kalender-Woche; Handy: Termin-Benachrichtigungen. Ein Video (falls eingetragen) zeigen beide. */}
+        {/* Laptop: Kalender-Woche. Handy: Gründer-Karte (der Kalender kommt dort direkt im nächsten Abschnitt).
+            Ein eingetragenes Video ersetzt beides. */}
         <div className={"k-hero-media k-in" + (hero.video ? "" : " k-hero-media--cal")} style={d(0.3)}>
           {hero.video ? <VideoCard video={hero.video} className="k-video--hero" /> : <GcalMini />}
         </div>
         {hero.video ? null : (
-          <div className="k-hero-notifs">
-            <GcalNotifs />
-          </div>
+          <figure className="k-hero-team k-in" style={d(0.8)}>
+            <div className="k-hero-team-pics">
+              {team.map((t) => (
+                <Image key={t.name} src={t.photo} alt={t.name} sizes="(max-width: 1020px) 46vw, 1px" quality={92} />
+              ))}
+            </div>
+            <figcaption>
+              <b>{team.map((t) => t.name).join(" & ")}</b>
+              <span>Gründerteam von KAYCO</span>
+              <q>Wir kommen selbst aus der Finanzdienstleistungsbranche – und kennen das Problem aus eigener Erfahrung.</q>
+            </figcaption>
+          </figure>
         )}
 
         <ul className="k-hero-feats k-in" style={d(0.74)} aria-label="Was wir übernehmen">

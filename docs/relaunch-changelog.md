@@ -10,9 +10,12 @@ Konzept und Designsystem: [`docs/design-system.md`](design-system.md)
   geometrischen Versalien mit orangem Punkt im „O“.
   Eingesetzt in Header, Rechtsseiten, Footer-Schriftzug (groß, dezent, angeschnitten), Favicon und
   Social-Vorschaubild. Hover: Slot und Punkt pulsieren kurz.
-- **Handy-Hero:** statt der Kalender-Woche unter dem Intro drei Benachrichtigungen „Neuer Termin“
-  (Thema, Tag, Uhrzeit, „mit Briefing“), die nacheinander erscheinen. Laptop unverändert mit Kalender;
-  ein eingetragenes Hero-Video ersetzt beides.
+- **Handy-Hero:** statt der Kalender-Woche unter dem Intro eine Gründer-Karte (beide Porträts, „Magdalena
+  Kayser & Darell Kacou · Gründerteam von KAYCO“ und der Satz aus „Über uns“: „Wir kommen selbst aus der
+  Finanzdienstleistungsbranche – und kennen das Problem aus eigener Erfahrung.“). Grund: Direkt danach folgt
+  der Kalender-Abschnitt – Termin-Motive im Hero wären doppelt (ein erster Versuch mit Benachrichtigungen
+  „Neuer Termin“ wurde deshalb wieder ersetzt). Die kleine Avatar-Zeile entfällt auf dem Handy. Laptop
+  unverändert mit Kalender; ein eingetragenes Hero-Video ersetzt beides.
 
 ## Update 7: Gründerfotos, noch kompakter (19.11.2026)
 

@@ -196,7 +196,7 @@ Kontraste ≥ AA, dekorative Grafik `aria-hidden`.
 
 | # | Abschnitt | Gestaltung |
 |---|---|---|
-| 1 | Hero (`top`) | Aufbau wie om-vantage; Belege 80 Neukunden / 3× Umsatz; Gründer-Avatare mit Foto; Laptop: rechts Google-Kalender-Woche, Handy: Benachrichtigungen „Neuer Termin“ (später optional Video) |
+| 1 | Hero (`top`) | Aufbau wie om-vantage; Belege 80 Neukunden / 3× Umsatz; Gründer-Avatare mit Foto; Laptop: rechts Google-Kalender-Woche, Handy: Gründer-Karte mit Fotos und Zitat (später optional Video) |
 | 2 | Problem (`problem`) | „Volle Woche. Kaum Umsatz.“ + Google-Kalender (dunkel), umschaltbar „Mit Leads“ / „Mit KAYCO“ |
 | 3 | Ablauf (`process`) | Zeitleiste mit Mittellinie, Titel und Text wechseln die Seite |
 | – | Stimmen (`stimmen`) | Video-Testimonials, erscheinen erst mit Inhalt |

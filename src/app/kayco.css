@@ -714,80 +714,9 @@ html[data-menu] {
   grid-area: media;
   align-self: center;
 }
-/* Handy-Fassung des Mediums: Benachrichtigungen „Neuer Termin“ (auf dem Laptop ausgeblendet) */
-.k-hero-notifs {
+/* Handy-Fassung des Mediums: Gründer-Karte (auf dem Laptop ausgeblendet) */
+.k-hero-team {
   display: none;
-}
-.k-notifs {
-  display: grid;
-  gap: 10px;
-}
-.k-notif {
-  display: grid;
-  grid-template-columns: 38px minmax(0, 1fr) auto;
-  grid-template-areas:
-    "ico t ago"
-    "ico b b"
-    "ico s s";
-  gap: 1px 12px;
-  align-items: center;
-  padding: 12px 14px;
-  border: 1px solid rgb(255 255 255 / 0.08);
-  border-radius: 20px;
-  background: rgb(255 255 255 / 0.07);
-  -webkit-backdrop-filter: blur(20px) saturate(1.6);
-  backdrop-filter: blur(20px) saturate(1.6);
-  box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.9);
-  text-align: left;
-}
-.k-notif-ico {
-  grid-area: ico;
-  align-self: start;
-  margin-top: 2px;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-}
-.k-notif-t {
-  grid-area: t;
-  overflow: hidden;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.3;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.k-notif-ago {
-  grid-area: ago;
-  font-size: 12px;
-  color: var(--k-text-3);
-}
-.k-notif-b {
-  grid-area: b;
-  overflow: hidden;
-  font-size: 14px;
-  line-height: 1.35;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.k-notif-s {
-  grid-area: s;
-  font-size: 12.5px;
-  line-height: 1.35;
-  color: var(--k-text-2);
-}
-@keyframes k-notif {
-  from {
-    opacity: 0;
-    translate: 0 -14px;
-    scale: 0.96;
-  }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .k-notif {
-    animation: k-notif 0.6s var(--k-ease) backwards;
-    animation-delay: calc(1s + var(--o) * 0.6s);
-  }
 }
 /* Leistungsreihe unter dem Hero („Glas-Leiste“ beim Vorbild) */
 .k-hero-feats {
@@ -928,12 +857,53 @@ html[data-menu] {
   .k-hero-media--cal {
     display: none;
   }
-  .k-hero-notifs {
+  .k-hero-team {
     display: block;
     grid-area: media;
     width: 100%;
     max-width: 440px;
     margin-top: 36px;
+    padding: 10px 10px 20px;
+    border-radius: 24px;
+    background: var(--k-surface-2);
+    text-align: left;
+  }
+  .k-hero-team-pics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .k-hero-team-pics img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    border-radius: 16px;
+    object-fit: cover;
+  }
+  .k-hero-team figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 16px 8px 0;
+  }
+  .k-hero-team b {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .k-hero-team span {
+    font-size: 13px;
+    color: var(--k-text-3);
+  }
+  .k-hero-team q {
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--k-text-2);
+    quotes: "„" "“";
+  }
+  /* Die Karte zeigt die Gründer schon – die kleine Avatar-Zeile entfällt dann */
+  .k-hero-grid:has(.k-hero-team) .k-hero-founders {
+    display: none;
   }
 }
 @media (max-width: 560px) {
