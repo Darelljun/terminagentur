@@ -87,7 +87,7 @@ export function ProblemCalendar() {
                 </div>
                 <p className="gc-sum-note">
                   {withKayco
-                    ? "Jeder orangefarbene Slot ist ein fertiger Termin mit Briefing. Akquise: null Stunden – die übernehmen wir."
+                    ? "Jeder blaue Slot ist ein fertiger Termin mit Briefing. Akquise: null Stunden – die übernehmen wir."
                     : "Der Rest der Woche geht für Leads drauf, von denen du vorher nicht weißt, ob sie gut oder schlecht sind."}
                 </p>
               </div>

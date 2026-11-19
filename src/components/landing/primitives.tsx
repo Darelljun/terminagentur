@@ -44,8 +44,8 @@ export function Check() {
 }
 
 /*
- * KAYCO-Logo (Variante 3). Bildzeichen: dunkle Kachel mit weißem „K“ und orangem Slot – der bestätigte Termin.
- * Schriftzug: geometrische Versalien, im „O“ ein oranger Punkt (der Termin im Kalender).
+ * KAYCO-Logo (Variante 3). Bildzeichen: dunkle Kachel mit weißem „K“ und eisblauem Slot – der bestätigte Termin.
+ * Schriftzug: geometrische Versalien, im „O“ ein eisblauer Punkt (der Termin im Kalender).
  * Ohne IDs (mehrfach auf einer Seite nutzbar); die Kachel ist ein CSS-Verlauf, die überstehenden Striche
  * schneidet das jeweilige SVG-Ansichtsfenster ab. Stile: kayco.css („k-mark“, „k-logo-word“).
  */
@@ -56,7 +56,7 @@ export function BrandMark({ className = "k-mark" }: { className?: string }) {
         <svg x="0" y="16" width="64" height="32" viewBox="0 16 64 32">
           <path d="M20 8V56M44 8L25 32L44 56" fill="none" stroke="#fff" strokeWidth="7.5" strokeMiterlimit="10" />
         </svg>
-        <rect className="k-mark-slot" x="38" y="41" width="14" height="7" rx="3.5" fill="#ff8f00" />
+        <rect className="k-mark-slot" x="38" y="41" width="14" height="7" rx="3.5" fill="#4cc3ff" />
       </svg>
     </span>
   )

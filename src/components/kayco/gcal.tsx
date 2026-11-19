@@ -21,14 +21,14 @@ export const DAYS = [
 export const TODAY = 3
 export const MONTH = "November 2026"
 
-/** Ereignisfarben aus der Google-Kalender-Palette (Graphit, Heidelbeere, Banane, Tomate, Lavendel); Beratung in KAYCO-Orange. */
+/** Ereignisfarben aus der Google-Kalender-Palette (Graphit, Weintraube, Banane, Tomate, Flamingo); Beratung in KAYCO-Eisblau – Blau ist nur für Termine reserviert. */
 export const KIND: Record<Kind, { label: string; bg: string; fg: string; money?: boolean }> = {
   anrufen: { label: "Leads abtelefonieren", bg: "#616161", fg: "#ffffff" },
-  mailbox: { label: "Mailbox – erneut anrufen", bg: "#3f51b5", fg: "#ffffff" },
+  mailbox: { label: "Mailbox – erneut anrufen", bg: "#8e24aa", fg: "#ffffff" },
   nachfassen: { label: "Nachfassen", bg: "#f6bf26", fg: "#1f1f1f" },
   noshow: { label: "No-Show", bg: "#d50000", fg: "#ffffff" },
-  unpassend: { label: "Kein Bedarf", bg: "#7986cb", fg: "#1f1f1f" },
-  beratung: { label: "Beratung", bg: "#ff8f00", fg: "#1a0e00", money: true },
+  unpassend: { label: "Kein Bedarf", bg: "#e67c73", fg: "#1f1f1f" },
+  beratung: { label: "Beratung", bg: "#4cc3ff", fg: "#04202e", money: true },
 }
 
 export const WITHOUT: Ev[] = [

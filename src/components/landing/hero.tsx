@@ -16,7 +16,7 @@ const d = (s: number) => ({ "--d": s + "s" }) as CSSProperties
 
 /**
  * Hero im Aufbau von om-vantage.de: Zielgruppen-Zeile, dreizeilige Headline im Silber-Verlauf, Einleitung,
- * Belege (80 Neukunden, 3× Umsatz – an Stelle von Bewertungen, es werden keine erfunden), orange Haupt-CTA,
+ * Belege (80 Neukunden, 3× Umsatz – an Stelle von Bewertungen, es werden keine erfunden), Haupt-CTA in der Akzentfarbe,
  * Gründer-Zeile mit Fotos,
  * rechts das Medium (Video, sobald vorhanden – sonst eine Google-Kalender-Wochenansicht), darunter fünf Leistungen.
  * Alle Texte stammen aus dem bestehenden Inhalt (Hero, Ergebnisse, Leistungen, Über uns).

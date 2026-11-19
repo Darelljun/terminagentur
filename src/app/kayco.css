@@ -396,7 +396,7 @@ html[data-menu] .k-nav-in {
   min-height: 44px;
   color: var(--k-text);
 }
-/* Bildzeichen: dunkle Kachel, weißes K, oranger Slot */
+/* Bildzeichen: dunkle Kachel, weißes K, Slot in der Akzentfarbe */
 .k-mark {
   display: block;
   width: 32px;
@@ -584,7 +584,7 @@ html[data-menu] {
 }
 
 /* ---------------------------------------------------------------------- Hero */
-/* Aufbau, Maße und Licht nach om-vantage.de: Navy-Licht links oben, Orange rechts Mitte, sonst #0C0C0C. */
+/* Aufbau, Maße und Licht nach om-vantage.de: Navy-Licht links oben, Akzent-Licht rechts Mitte, sonst #0C0C0C. */
 .k-hero {
   position: relative;
   isolation: isolate;

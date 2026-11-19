@@ -1,7 +1,17 @@
 # KAYCO – Visueller Relaunch: Änderungen & Prüfprotokoll
 
-Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 19.11.2026 (inkl. Update 8)
+Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 19.11.2026 (inkl. Update 9)
 Konzept und Designsystem: [`docs/design-system.md`](design-system.md)
+
+## Update 9: Eigene Akzentfarbe Eisblau statt Orange (19.11.2026)
+
+Wunsch: nicht das Orange von om-vantage, sondern eine eigene Farbe. Fünf Farben im Vergleich vorgelegt
+(Smaragd, Champagner-Gold, Eisblau, Lime, Violett), gewählt: **Eisblau `#4CC3FF`**.
+- Tokens `--k-accent*` umgestellt (Hover `#7FD4FF`, Verlauf `#1EA7F0`, Schrift auf Eisblau `#04202E`, 8,4:1).
+- Mit umgestellt: Buttons, Hero-Licht, Termin-Slots im Kalender, Logo (Slot im Bildzeichen, Punkt im „O“),
+  Favicon, Social-Vorschaubild, Footer-Schriftzug, Zeitleisten-Tags.
+- Kalender: Damit Blau nur für Termine steht, sind „Mailbox“ jetzt Weintraube (`#8E24AA`) und „Kein Bedarf“
+  Flamingo (`#E67C73`) statt Blau-Tönen. Satz im Kalender: „Jeder blaue Slot ist ein fertiger Termin …“.
 
 ## Update 8: Neues Logo, Handy-Hero mit Termin-Benachrichtigungen (19.11.2026)
 
@@ -185,7 +195,7 @@ Maschineller Abgleich der gerenderten Seite vorher/nachher (Texte je Abschnitt, 
 - **Header-Verhalten:** exakt übernommen aus `main` (Desktop sticky mit Hysterese, mobil fixiert mit
   Aus-/Einblenden, solid ab 40 px, nie ausgeblendet bei offenem Menü).
 
-## 3. Prüfprotokoll (Stand nach Update 8)
+## 3. Prüfprotokoll (Stand nach Update 9)
 
 | Prüfung | Ergebnis |
 |---|---|

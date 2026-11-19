@@ -70,7 +70,7 @@ so bleibt alles dunkel, auch wenn eine Umgebung (Vorschau-Rahmen, alter Browser)
 Seit Update 3 übernimmt KAYCO die Farbpalette der Referenz om-vantage.de (Werte direkt von der Seite
 ausgelesen). Nur ein Design (dunkel), `theme-color #0C0C0C`. Seit Update 4 einheitlich wie dort: jeder
 Abschnitt hat dieselbe Hintergrundfarbe `#0C0C0C`, Karten sind Umrandungen (1 px, Radius 24) mit einem
-Navy-Schimmer von unten, Navy-Blau ist das Licht, Orange ausschließlich für Handlungen und fertige Termine.
+Navy-Schimmer von unten, Navy-Blau ist das Licht, die Akzentfarbe (seit Update 9 Eisblau) ausschließlich für Handlungen und fertige Termine.
 
 | Token | Wert | om-vantage-Quelle | Verwendung |
 |---|---|---|---|
@@ -83,9 +83,9 @@ Navy-Schimmer von unten, Navy-Blau ist das Licht, Orange ausschließlich für Ha
 | `--k-text` | `#FFFFFF` | Überschriften | Text |
 | `--k-text-2` | `#D1D1D1` | Fließtext | Fließtext, sekundär |
 | `--k-text-3` | `#8A8A8A` | `#7A7A7A`, für AA aufgehellt | Labels, Metadaten |
-| `--k-accent` | `#FF8F00` | CTA-Buttons, Sterne | Buttons, Termin-Slots, Fokus |
-| `--k-accent-hi` / `-lo` | `#FFA31F` / `#E07A00` | – | Hover, Verlauf der Slots |
-| `--k-accent-ink` | `#1A0E00` | Schrift auf Orange | Text auf Akzent |
+| `--k-accent` | `#4CC3FF` (Eisblau, seit Update 9; vorher Orange `#FF8F00` von om-vantage) | – eigene Farbe | Buttons, Termin-Slots, Fokus |
+| `--k-accent-hi` / `-lo` | `#7FD4FF` / `#1EA7F0` | – | Hover, Verlauf der Slots |
+| `--k-accent-ink` | `#04202E` | – | Text auf Akzent (8,4:1) |
 | `--k-navy` | `#023E97` | Markenblau, Lichtfelder, CTA-Box-Rand | Licht, hervorgehobene Karte |
 | `--k-navy-deep` | `#0C1733` | dunkle Navy-Karte | Avatare, Kalender |
 | `--k-accent-2` | `#0067FF` | Blau-Verlauf | zweite Lichtfarbe (Strahlen, Lamp, Kanten) |
@@ -95,15 +95,15 @@ Navy-Schimmer von unten, Navy-Blau ist das Licht, Orange ausschließlich für Ha
 | `--k-warn` | `#FF5A4F` | Rot `#F30404`, für Text aufgehellt | Verlust/Problem (Kalender) |
 
 Kontraste (WCAG, auf `#0C0C0C` / auf `#1D1D1F`): Text 19,6 / 16,9 · Text-2 12,8 / 11,0 ·
-Text-3 5,7 / 4,9 · Orange als Text 8,6 / 7,4 · Schrift auf Orange 8,3 · alle Kalendereinträge ≥ 9:1 → alle ≥ AA.
+Text-3 5,7 / 4,9 · Eisblau als Text 9,8 / 8,5 · Schrift auf Eisblau 8,4 · alle Kalendereinträge ≥ 9:1 → alle ≥ AA.
 Der Lese-Effekt im Statement startet bei 42 % Deckkraft und hält damit ≥ 3:1 für große Schrift ein.
 
 ### 3.1.1 Logo (Update 8, Variante 3)
 
 - **Bildzeichen:** dunkle Kachel `#141416` (Radius 25 %, feine helle Innenkante), weißes geometrisches „K“,
-  rechts unten ein oranger, abgerundeter Slot – der bestätigte Termin.
+  rechts unten ein abgerundeter Slot in der Akzentfarbe (Eisblau) – der bestätigte Termin.
 - **Schriftzug:** „KAYCO“ aus gleich starken Strichen (Strichstärke 20 % der Versalhöhe), flache Enden; im
-  „O“ ein oranger Punkt – der Termin im Kalender.
+  „O“ ein eisblauer Punkt – der Termin im Kalender.
 - Dateien: `BrandMark`, `LogoWord`, `Logo` in `src/components/landing/primitives.tsx`; Favicon `src/app/icon.svg`;
   Social-Vorschaubild `src/app/opengraph-image.tsx`. Hover: Slot und Punkt pulsieren kurz.
   Mindestgröße Bildzeichen 16 px, Schriftzug 12 px hoch.
@@ -174,7 +174,7 @@ sind entfernt.
 Alle Kalender (Hero, Problem-Abschnitt) sind als Google-Kalender-Wochenansicht im dunklen Modus nachgebaut
 (`src/components/kayco/gcal.tsx`): Kopfzeile mit „Heute“, Pfeilen und Monat, „Erstellen“-Knopf,
 Mini-Monat, „Meine Kalender“ als Legende, heutiger Tag als blauer Kreis, rote Jetzt-Linie, Ereignisfarben
-aus der Google-Palette (Graphit, Heidelbeere, Banane, Tomate, Lavendel), Beratungen in KAYCO-Orange.
+aus der Google-Palette (Graphit, Weintraube, Banane, Tomate, Flamingo), Beratungen in KAYCO-Eisblau (Blau ist nur für Termine reserviert).
 Helle Schrift auf dunklem Grund (Seitenleiste/Raster `#1B1C1E`/`#131314`, Text `#E3E3E3`; alle Ereignisse ≥ 4,5:1),
 damit es keine weißen Flächen auf der dunklen Seite gibt. Kein Google-Logo und keine Google-Marke.
 

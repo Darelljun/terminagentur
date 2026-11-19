@@ -17,7 +17,7 @@
 
 :root {
   color-scheme: dark;
-  /* Palette nach om-vantage.de: Fast-Schwarz, graue Karten, Navy-Licht, Orange nur für Handlungen */
+  /* Palette: Fast-Schwarz und Navy-Licht wie om-vantage.de; eigene Akzentfarbe Eisblau nur für Handlungen und Termine */
   --k-bg: #0c0c0c;
   /* Einheitlich wie om-vantage: jede Fläche steht auf derselben Seitenfarbe; Karten sind Umrandungen */
   --k-bg-2: #0c0c0c;
@@ -31,14 +31,14 @@
   --k-text-2: #d1d1d1;
   /* om-vantage nutzt #7a7a7a; auf Karten zu kontrastarm (3,6:1) – daher minimal heller für AA */
   --k-text-3: #8a8a8a;
-  --k-accent: #ff8f00;
-  --k-accent-rgb: 255 143 0;
-  --k-accent-hi: #ffa31f;
-  --k-accent-lo: #e07a00;
+  --k-accent: #4cc3ff;
+  --k-accent-rgb: 76 195 255;
+  --k-accent-hi: #7fd4ff;
+  --k-accent-lo: #1ea7f0;
   --k-accent-2: #0067ff;
-  --k-accent-ink: #1a0e00;
-  --k-accent-text: #ff8f00;
-  --k-accent-soft: rgb(255 143 0 / 0.12);
+  --k-accent-ink: #04202e;
+  --k-accent-text: #4cc3ff;
+  --k-accent-soft: rgb(76 195 255 / 0.12);
   --k-navy: #023e97;
   --k-navy-rgb: 2 62 151;
   --k-navy-deep: #0c1733;
