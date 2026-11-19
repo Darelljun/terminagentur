@@ -31,7 +31,7 @@ export function FxController() {
   // Endlos-Animationen nur im Bild
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-    const hosts = document.querySelectorAll<HTMLElement>(".k-hero, .k-pricing, .k-contact, .k-foot, .kay-about")
+    const hosts = document.querySelectorAll<HTMLElement>(".k-hero, .k-contact, .k-foot, .kay-about")
     const io = new IntersectionObserver(
       (es) => {
         for (const e of es) e.target.toggleAttribute("data-idle", !e.isIntersecting)

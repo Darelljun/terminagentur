@@ -1,17 +1,9 @@
 import type { CSSProperties } from "react"
+import Image from "next/image"
 import { Arrow } from "@/components/landing/primitives"
-import { site } from "@/lib/site"
+import { team } from "@/content/team"
 
-/*
- * Über uns – kurz, wie „Das sind wir“ bei om-vantage: Gründer-Karten neben dem Text.
- * Fotos können später ergänzt werden (bis dahin Kürzel).
- */
-const initials = (n: string) =>
-  n
-    .split(" ")
-    .map((p) => p[0])
-    .join("")
-
+/* Über uns – kurz, wie „Das sind wir“ bei om-vantage: Text links, Gründer-Karten mit Foto rechts. */
 export function AboutSection() {
   return (
     <section id="team" className="k-sec kay-about" data-sec="team" aria-labelledby="kay-about-title">
@@ -34,13 +26,11 @@ export function AboutSection() {
           </a>
         </div>
         <ul className="kay-founders" aria-label="Gründer">
-          {site.founders.map((name, i) => (
-            <li key={name} data-anim={i ? "fr" : "fl"} style={{ "--d": i * 0.12 + "s" } as CSSProperties}>
-              <span className="kay-founder-av" aria-hidden="true">
-                {initials(name)}
-              </span>
-              <b>{name}</b>
-              <span>Co-Founder</span>
+          {team.map((t, i) => (
+            <li key={t.name} data-anim={i ? "fr" : "fl"} style={{ "--d": i * 0.12 + "s" } as CSSProperties}>
+              <Image src={t.photo} alt={t.name} sizes="(max-width: 900px) 50vw, 300px" placeholder="blur" />
+              <b>{t.name}</b>
+              <span>{t.role}</span>
             </li>
           ))}
         </ul>

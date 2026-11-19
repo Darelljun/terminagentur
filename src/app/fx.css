@@ -6,7 +6,6 @@
  *    Licht folgt der Maus, Lichtstreifen über der Leistungsleiste („glass-sweep“)
  * 4. Pfeile in den Haupt-Buttons wippen („moveIcon“)
  * 5. Zeitleiste füllt sich beim Scrollen (GSAP-Scrub „top 50 % → bottom 50 %“)
- * 6. Zahlen zählen hoch (number-ticker.tsx)
  * „Bewegung reduzieren“ schaltet alles ab, Inhalte stehen sofort da.
  */
 

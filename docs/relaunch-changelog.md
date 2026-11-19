@@ -1,7 +1,19 @@
 # KAYCO – Visueller Relaunch: Änderungen & Prüfprotokoll
 
-Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 19.11.2026 (inkl. Update 6)
+Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 19.11.2026 (inkl. Update 7)
 Konzept und Designsystem: [`docs/design-system.md`](design-system.md)
+
+## Update 7: Gründerfotos, noch kompakter (19.11.2026)
+
+- **Fotos** von Magdalena Kayser und Darell Kacou in den Gründer-Karten („Über uns“, Porträt 4:5) und als
+  runde Avatare im Hero (wie die Avatar-Reihe bei om-vantage). Zugeschnitten und komprimiert
+  (`src/assets/team/`, je ca. 50 KB bzw. 8 KB), über `next/image` mit Unschärfe-Platzhalter.
+- **Abschnitt „Preise“ entfernt:** Die Preise stehen weiter in der FAQ („Was kostet KAYCO?“), in den
+  Ablauf-Schritten (einmalig 300 € / 75 € pro Termin), in der Leistungsleiste und in der Abschluss-Box.
+- **Abschnitt „Ergebnisse“ entfernt:** 80 Neukunden und 3× Umsatz stehen jetzt als Belege im Hero – an der
+  Stelle, an der om-vantage Bewertungen zeigt.
+- Jetzt 6 Abschnitte: Hero → Problem → Ablauf → [Video-Stimmen, sobald vorhanden] → Über uns → FAQ → Kontakt.
+  Navigation: Problem · Ablauf · Über uns · FAQ. Seite rund 6.400 px hoch (vorher 8.000, ursprünglich 13.700).
 
 ## Update 6: Dunkler Hintergrund überall erzwungen (19.11.2026)
 
@@ -156,21 +168,21 @@ Maschineller Abgleich der gerenderten Seite vorher/nachher (Texte je Abschnitt, 
 - **Header-Verhalten:** exakt übernommen aus `main` (Desktop sticky mit Hysterese, mobil fixiert mit
   Aus-/Einblenden, solid ab 40 px, nie ausgeblendet bei offenem Menü).
 
-## 3. Prüfprotokoll (Stand nach Update 6)
+## 3. Prüfprotokoll (Stand nach Update 7)
 
 | Prüfung | Ergebnis |
 |---|---|
 | Build (`next build`), TypeScript, ESLint | fehlerfrei |
 | Inhaltsabgleich gegen den Stand vor dem Relaunch | Texte, Reihenfolge, Links, Überschriften, Meta-Daten, JSON-LD, Rechtsseiten gleich; Unterschiede nur: Hero (siehe Update 4), Schriftzug als SVG, Hell-Umschalter entfernt, Kalender-Satz „grüne“ → „orangefarbene“ Slot |
-| Funktionstests (Playwright, 61 Prüfungen: Navigation, aktiver Menüpunkt, Header-Verhalten, Mobile-Menü inkl. Fokus/Escape/Scroll-Sperre, kompakte Abschnittsfolge, Google-Kalender (dunkel) lesbar, Kalender inkl. Auto-Wechsel, FAQ, E-Mail kopieren, Links, Rechtsseiten, Einblenden, Zähler-Endwerte, Touch-Ziele) | alle bestanden |
+| Funktionstests (Playwright, 60 Prüfungen, u. a. Gründerfotos geladen und Belege im Hero: Navigation, aktiver Menüpunkt, Header-Verhalten, Mobile-Menü inkl. Fokus/Escape/Scroll-Sperre, kompakte Abschnittsfolge, Google-Kalender (dunkel) lesbar, Kalender inkl. Auto-Wechsel, FAQ, E-Mail kopieren, Links, Rechtsseiten, Einblenden, Zähler-Endwerte, Touch-Ziele) | alle bestanden |
 | Browserkonsole (Produktion und Entwicklungsmodus) | keine Fehler, keine Hydrierungswarnungen |
 | Horizontaler Überlauf (390 px, 360 px, 834 px, ganze Seite) | keiner |
 | Layoutsprünge beim Laden und Scrollen (Handy, Tablet, Desktop) | 0,000 |
 | `prefers-reduced-motion` | keine Animationen, alle Inhalte sichtbar, Wort wechselt nicht, kein Smooth-Scroll |
-| Lighthouse Startseite mobil | Performance 92–94 (Update 4: 93, Update 3: 91, Update 2: 85–88) · Barrierefreiheit 100 · Best Practices 100 · SEO 100 (gemessener LCP 0,3 s; der simulierte Wert 2,6 s entsteht durch die zusätzliche Stil-/Animationsarbeit beim ersten Aufbau) |
+| Lighthouse Startseite mobil | Performance 96 (Update 6: 92–94, Update 4: 93, Update 3: 91, Update 2: 85–88) · Barrierefreiheit 100 · Best Practices 100 · SEO 100 (gemessener LCP 0,3 s; der simulierte Wert 2,6 s entsteht durch die zusätzliche Stil-/Animationsarbeit beim ersten Aufbau) |
 | Lighthouse Startseite Desktop | Performance 100 · Barrierefreiheit 100 · Best Practices 100 · SEO 100 |
 | Lighthouse Impressum mobil / Desktop | 97 / 100 · alle anderen Kategorien 100 |
-| Übertragene Datenmenge Startseite | 243 KB (Update 1: 257 KB, vor dem Relaunch 499 KB) |
+| Übertragene Datenmenge Startseite | 252 KB mobil inkl. Fotos (Update 1: 257 KB, vor dem Relaunch 499 KB) |
 | Ruckelnde Frames beim Scrollen (Handy 4× gedrosselt / Desktop) | 3–4 % / 2 % (ohne Pausieren außerhalb des Bildes wären es 15–18 % gewesen) |
 
 Vergleich: vor dem Relaunch Lighthouse mobil 80–83 / 499 KB; nach Update 1 mobil 90–93 / 257 KB.

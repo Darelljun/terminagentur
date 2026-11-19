@@ -155,7 +155,6 @@ sind entfernt.
 | `glass-sweep` über der Vorteilsleiste | Lichtstreifen über der Leistungsleiste | CSS, 6 s, pausiert außerhalb des Bildes |
 | `moveIcon` (Pfeil wippt 8 px) | Pfeile in orangen und dunklen Buttons | CSS, pausiert außerhalb des Bildes |
 | GSAP-Zeitleiste füllt sich (Scrub `top 50 % → bottom 50 %`) | Ablauf | benannte `view-timeline` |
-| Elementor-Zähler | 80 / 3× / Preise | `number-ticker.tsx` |
 | Swiper-Karussell (Kunden-Videos) | Video-Testimonials (sobald vorhanden) | wischbare Reihe mit Scroll-Snap |
 
 `prefers-reduced-motion: reduce`: nichts bewegt sich, alle Inhalte stehen sofort da, kein Smooth-Scroll.
@@ -183,19 +182,19 @@ Kontraste ≥ AA, dekorative Grafik `aria-hidden`.
 
 ---
 
-## 4. Abschnitte (seit Update 5 kompakt, wie om-vantage)
+## 4. Abschnitte (seit Update 7: sechs Abschnitte, wie om-vantage)
 
 | # | Abschnitt | Gestaltung |
 |---|---|---|
-| 1 | Hero (`top`) | Aufbau wie om-vantage; rechts Google-Kalender-Woche mit Beratungen (später optional Video) |
-| 2 | Problem (`problem`) | „Volle Woche. Kaum Umsatz.“ + Google-Kalender, umschaltbar „Mit Leads“ / „Mit KAYCO“ |
+| 1 | Hero (`top`) | Aufbau wie om-vantage; Belege 80 Neukunden / 3× Umsatz; Gründer-Avatare mit Foto; rechts Google-Kalender-Woche (später optional Video) |
+| 2 | Problem (`problem`) | „Volle Woche. Kaum Umsatz.“ + Google-Kalender (dunkel), umschaltbar „Mit Leads“ / „Mit KAYCO“ |
 | 3 | Ablauf (`process`) | Zeitleiste mit Mittellinie, Titel und Text wechseln die Seite |
-| 4 | Ergebnisse (`results`) | 80 / 3× im umrandeten Kasten mit Navy-Licht; darunter Video-Testimonials, sobald vorhanden |
-| 5 | Preise (`pricing`) | drei Karten, „Pro Termin“ mit Navy-Rand |
-| 6 | Über uns (`team`) | kurzer Text + zwei Gründer-Karten (Fotos später) |
-| 7 | FAQ (`faq`) | Akkordeon |
-| 8 | Kontakt (`contact`) | Abschluss-Box mit Navy-Rand |
+| – | Stimmen (`stimmen`) | Video-Testimonials, erscheinen erst mit Inhalt |
+| 4 | Über uns (`team`) | kurzer Text + Gründer-Karten mit Foto (wie die Team-Karten bei om-vantage) |
+| 5 | FAQ (`faq`) | Akkordeon |
+| 6 | Kontakt (`contact`) | Abschluss-Box mit Navy-Rand |
 | – | Footer | angeschnittener Kontur-Schriftzug, Spalten Navigation / Rechtliches / Adresse |
 
 Entfernt in Update 5: „Über KAYCO“-Statement mit Kennzahlen, Leistungsliste (steht als Leiste im Hero),
-„Einblick“-Karten, Diagramm, „Wofür KAYCO steht“-Karten.
+„Einblick“-Karten, Diagramm, „Wofür KAYCO steht“-Karten. Entfernt in Update 7: Preise (Preise stehen in FAQ,
+Ablauf und Abschluss), Ergebnisse als eigener Abschnitt (Belege im Hero).

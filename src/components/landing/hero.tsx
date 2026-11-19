@@ -1,6 +1,8 @@
 import type { CSSProperties } from "react"
-import { CalendarCheck2, FileText, ListChecks, Megaphone, PhoneCall, Wallet } from "lucide-react"
+import Image from "next/image"
+import { CalendarCheck2, FileText, ListChecks, Megaphone, PhoneCall, TrendingUp, Users } from "lucide-react"
 import { GcalMini } from "@/components/kayco/gcal"
+import { team } from "@/content/team"
 import type { LandingContent } from "@/content/types"
 import { BookLink } from "./actions"
 import { Arrow } from "./primitives"
@@ -14,15 +16,15 @@ const d = (s: number) => ({ "--d": s + "s" }) as CSSProperties
 
 /**
  * Hero im Aufbau von om-vantage.de: Zielgruppen-Zeile, dreizeilige Headline im Silber-Verlauf, Einleitung,
- * Faktenreihe (an Stelle von Bewertungen – es werden keine erfunden), orange Haupt-CTA, Gründer-Zeile,
+ * Belege (80 Neukunden, 3× Umsatz – an Stelle von Bewertungen, es werden keine erfunden), orange Haupt-CTA,
+ * Gründer-Zeile mit Fotos,
  * rechts das Medium (Video, sobald vorhanden – sonst eine Google-Kalender-Wochenansicht), darunter fünf Leistungen.
- * Alle Texte stammen aus dem bestehenden Inhalt (Hero, Kennzahlen, Leistungen, Über uns).
+ * Alle Texte stammen aus dem bestehenden Inhalt (Hero, Ergebnisse, Leistungen, Über uns).
  * Die Elemente sind direkte Rasterkinder, damit die Reihenfolge mobil wie beim Vorbild umsortiert werden kann.
  */
 export function Hero({ c }: { c: LandingContent }) {
   const { hero } = c
-  const termine = c.stats[3]
-  const kosten = c.stats[1]
+  const PROOF_ICONS = [Users, TrendingUp]
   return (
     <section id="top" className="k-hero" data-sec="top" aria-label="Einleitung">
       <div className="k-wrap k-hero-grid">
@@ -50,27 +52,21 @@ export function Hero({ c }: { c: LandingContent }) {
         </p>
 
         <ul className="k-hero-facts k-in" style={d(0.5)}>
-          <li>
-            <CalendarCheck2 aria-hidden="true" />
-            <span>
-              <b>
-                {termine.value}
-                {termine.suffix}
-              </b>{" "}
-              {/* nur der erste Teil der Kennzahl („… garantiert“), der Zusatz steht in „Über KAYCO“ */}
-              {termine.label.split(" – ")[0]}
-            </span>
-          </li>
-          <li>
-            <Wallet aria-hidden="true" />
-            <span>
-              <b>
-                {kosten.value}
-                {kosten.suffix}
-              </b>{" "}
-              {kosten.label}
-            </span>
-          </li>
+          {c.proof.map((p, i) => {
+            const Icon = PROOF_ICONS[i] ?? Users
+            return (
+              <li key={p.label}>
+                <Icon aria-hidden="true" />
+                <span>
+                  <b>
+                    {p.value}
+                    {p.suffix}
+                  </b>{" "}
+                  {p.label}
+                </span>
+              </li>
+            )
+          })}
         </ul>
 
         <div className="k-hero-cta k-in" style={d(0.58)}>
@@ -81,10 +77,9 @@ export function Hero({ c }: { c: LandingContent }) {
 
         <p className="k-hero-founders k-in" style={d(0.66)}>
           <span className="k-hero-avs" aria-hidden="true">
-            <span className="kay-av">MK</span>
-            <span className="kay-av" data-tone="3">
-              DK
-            </span>
+            {team.map((t) => (
+              <Image key={t.name} src={t.avatar} alt="" width={46} height={46} priority />
+            ))}
           </span>
           {hero.founders}
         </p>

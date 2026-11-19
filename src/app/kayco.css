@@ -672,13 +672,15 @@ html[data-menu] {
 .k-hero-avs {
   display: flex;
 }
-.k-hero-avs .kay-av {
+.k-hero-avs img {
   width: 46px;
   height: 46px;
-  font-size: 13px;
+  border: 2px solid var(--k-bg);
+  border-radius: 50%;
+  object-fit: cover;
 }
-.k-hero-avs .kay-av + .kay-av {
-  margin-left: -10px;
+.k-hero-avs img + img {
+  margin-left: -12px;
 }
 .k-hero-media {
   grid-area: media;
@@ -1435,49 +1437,6 @@ html[data-menu] {
   }
 }
 
-/* ---------------------------------------------------------------- Ergebnisse */
-.kay-results-box {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  padding: clamp(32px, 4vw, 56px) 0;
-  border: 1px solid var(--k-line);
-  border-radius: 24px;
-  background: var(--k-card-glow), var(--k-bg);
-}
-.kay-results-box > div {
-  padding: 0 clamp(16px, 3vw, 40px);
-  text-align: center;
-}
-.kay-results-box > div + div {
-  border-left: 1px solid var(--k-line);
-}
-.kay-results-box dd {
-  font-size: clamp(56px, 7vw, 96px);
-  font-stretch: 84%;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: var(--k-accent);
-}
-.kay-results-box dt {
-  max-width: 22em;
-  margin: 12px auto 0;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--k-text-2);
-}
-@media (max-width: 640px) {
-  .kay-results-box {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 28px;
-  }
-  .kay-results-box > div + div {
-    padding-top: 28px;
-    border-left: 0;
-    border-top: 1px solid var(--k-line);
-  }
-}
-
 /* Video (Testimonials, optional im Hero) – Play-Knopf wie bei om-vantage */
 .k-video {
   position: relative;
@@ -1520,12 +1479,6 @@ html[data-menu] {
 }
 .k-video--hero {
   border-radius: 24px;
-}
-.k-testi {
-  margin-top: clamp(64px, 8vw, 112px);
-}
-.k-testi-h {
-  margin-bottom: 32px;
 }
 .k-testi-row {
   display: grid;
@@ -1586,25 +1539,21 @@ html[data-menu] {
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
-  padding: 28px 24px;
+  padding: 12px 12px 20px;
   border-radius: 15px;
   background: var(--k-surface-2);
 }
-.kay-founder-av {
-  display: grid;
-  place-items: center;
-  width: 72px;
-  height: 72px;
-  margin-bottom: 16px;
-  border-radius: 50%;
-  background: var(--k-navy-deep);
-  font-family: var(--k-mono);
-  font-size: 18px;
-  color: #b9c0d4;
+.kay-founders img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  object-fit: cover;
 }
-.kay-founders li + li .kay-founder-av {
-  background: var(--k-accent);
-  color: var(--k-accent-ink);
+.kay-founders b,
+.kay-founders li > span:last-child {
+  padding-inline: 8px;
 }
 .kay-founders b {
   font-size: 18px;
@@ -1620,124 +1569,6 @@ html[data-menu] {
   }
 }
 
-/* Avatare (Hero-Gründerzeile) */
-.kay-av {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 2px solid var(--k-bg);
-  border-radius: 999px;
-  background: var(--k-surface-2);
-  color: var(--k-text);
-  font-family: var(--k-mono);
-  font-size: 11px;
-}
-.kay-av[data-tone="3"] {
-  background: var(--k-accent);
-  color: var(--k-accent-ink);
-}
-
-/* -------------------------------------------------------------------- Preise */
-.k-plans {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-  align-items: stretch;
-}
-.k-plan {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: clamp(26px, 2.6vw, 34px);
-  border: 1px solid var(--k-line);
-  border-radius: 24px;
-  background: var(--k-card-glow), var(--k-surface);
-  box-shadow: var(--k-edge);
-}
-.k-plan[data-featured] {
-  border-color: var(--k-navy);
-  background:
-    radial-gradient(90% 60% at 50% 0%, rgb(var(--k-navy-rgb) / 0.45), transparent 70%),
-    var(--k-surface);
-  box-shadow:
-    var(--k-edge),
-    0 0 10px rgb(var(--k-navy-rgb) / 0.9),
-    0 34px 90px -44px rgb(var(--k-navy-rgb) / 0.9);
-}
-.k-plan-name {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  min-height: 26px;
-  font-family: var(--k-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--k-text-2);
-}
-.k-plan-name span {
-  padding: 5px 9px;
-  border-radius: 999px;
-  background: var(--k-accent);
-  color: var(--k-accent-ink);
-  letter-spacing: 0.04em;
-}
-.k-plan-price {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 10px;
-  margin-top: 28px;
-}
-.k-plan-price span {
-  font-size: clamp(44px, 4.4vw, 60px);
-  font-stretch: 84%;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-.k-plan-price small {
-  font-size: 15px;
-  color: var(--k-text-2);
-}
-.k-plan-text {
-  min-height: 3.1em;
-  margin-top: 16px;
-  font-size: 16px;
-  line-height: 1.55;
-  color: var(--k-text-2);
-}
-.k-plan ul {
-  display: grid;
-  gap: 12px;
-  margin: 28px 0 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--k-line);
-  font-size: 15px;
-}
-.k-plan li {
-  display: grid;
-  grid-template-columns: 18px minmax(0, 1fr);
-  gap: 10px;
-  align-items: start;
-}
-.k-plan li .k-check {
-  margin-top: 2px;
-  color: var(--k-accent-text);
-}
-.k-plan .k-btn {
-  width: 100%;
-  margin-top: auto;
-}
-@media (max-width: 960px) {
-  .k-plans {
-    grid-template-columns: 1fr;
-    max-width: 560px;
-  }
-}
 
 /* ----------------------------------------------------------------------- FAQ */
 .k-faq-grid {
@@ -1918,6 +1749,7 @@ html[data-menu] {
 .k-foot-cols a {
   display: inline-flex;
   align-items: center;
+  min-width: 44px;
   min-height: 44px;
   font-size: 16px;
   color: var(--k-text-2);

@@ -45,9 +45,8 @@ export const faqItems = [
 export const landingProps: LandingContent = {
   brand: "KAYCO",
   links: [
+    { label: "Problem", href: "#problem" },
     { label: "Ablauf", href: "#process" },
-    { label: "Ergebnisse", href: "#results" },
-    { label: "Preise", href: "#pricing" },
     { label: "Über uns", href: "#team" },
     { label: "FAQ", href: "#faq" },
   ],
@@ -65,12 +64,6 @@ export const landingProps: LandingContent = {
     // Optional: Video rechts im Hero statt der Kalender-Ansicht, z. B.
     // video: { src: "/videos/kayco-intro.mp4", poster: "/videos/kayco-intro.jpg", title: "KAYCO in 60 Sekunden" },
   },
-  stats: [
-    { value: pricing.perAppointment, suffix: " €", label: "pro vereinbartem Termin – sonst nichts" },
-    { value: 0, suffix: " €", label: "monatliche Agenturkosten" },
-    { value: pricing.setup, suffix: " €", label: "einmalig für die Einrichtung" },
-    { value: 30, suffix: "+", label: "qualifizierte Termine pro Monat garantiert – nach oben offen" },
-  ],
   // Die fünf Leistungen erscheinen als Leiste unter dem Hero
   services: {
     items: [
@@ -135,53 +128,19 @@ export const landingProps: LandingContent = {
       },
     ],
   },
-  results: {
-    title: "Wenn der Kalender voll ist, wächst der Umsatz.",
-    text: "Mehr Beratungen statt mehr Akquise: Wer seine Zeit nicht mehr mit Leads verbringt, sondern mit vorbereiteten Gesprächen, verdient pro Woche mehr – bei gleichem Aufwand.",
-    stats: [
-      { value: 80, label: "Neukunden haben wir bereits gewonnen." },
-      { value: 3, suffix: "×", label: "So stark steigern wir den Umsatz unserer Kunden." },
-    ],
-  },
+  // Belege im Hero (an der Stelle, an der om-vantage Bewertungen zeigt)
+  proof: [
+    { value: 80, label: "Neukunden bereits gewonnen" },
+    { value: 3, suffix: "×", label: "Umsatz bei unseren Kunden" },
+  ],
   /**
-   * Video-Testimonials. Solange die Liste leer ist, erscheint der Bereich nicht.
+   * Video-Testimonials (eigener Abschnitt nach dem Ablauf). Solange die Liste leer ist, erscheint er nicht.
    * Videos als MP4 (H.264) nach public/videos/ legen, Vorschaubild (JPG) daneben, dann z. B.:
    * { name: "Max Muster", role: "Finanzberater, Köln", video: { src: "/videos/max.mp4", poster: "/videos/max.jpg", title: "Max über KAYCO" } }
    */
   testimonials: {
     title: "Das sagen unsere Kunden.",
     items: [],
-  },
-  pricing: {
-    title: "Du zahlst nur für Termine. Sonst für nichts.",
-    text: `Keine monatlichen Agenturkosten, keine Pauschalen. Einmalig die Einrichtung, dein eigenes Werbebudget – und ${pricing.perAppointment} € für jeden Termin, den wir in deinen Kalender legen.`,
-    plans: [
-      {
-        name: "Einrichtung",
-        price: pricing.setup,
-        unit: "einmalig",
-        text: "Wir bauen die komplette Strecke für dich auf – einmal, dann läuft es.",
-        features: ["Strategie für deine Zielgruppe", "Kampagne aufsetzen", "Qualifizierung abstimmen", "Kalender anbinden"],
-        cta: "Gespräch buchen",
-      },
-      {
-        name: "Pro Termin",
-        price: pricing.perAppointment,
-        unit: "pro Termin",
-        text: "Du zahlst ausschließlich für Beratungstermine, die wir für dich vereinbaren.",
-        features: ["Interessent angerufen und qualifiziert", "Fester Termin in deinem Kalender", "Briefing vor jedem Gespräch", "Keine monatliche Agenturgebühr"],
-        cta: "Jetzt starten",
-        featured: true,
-        badge: "Unser Modell",
-      },
-      {
-        name: "Werbebudget",
-        price: null,
-        text: "Das Werbebudget zahlst du direkt – getrennt von uns. Die Höhe bestimmst du selbst.",
-        features: ["Volle Kostenkontrolle", "Kein Aufschlag von KAYCO", "Höhe nach deinen Zielen", "Wir beraten dich dazu"],
-        cta: "Budget besprechen",
-      },
-    ],
   },
   faq: {
     title: "Was Finanzberater uns zuerst fragen.",
@@ -202,9 +161,8 @@ export const landingProps: LandingContent = {
         links: [
           { label: "Problem", href: "#problem" },
           { label: "Ablauf", href: "#process" },
-          { label: "Ergebnisse", href: "#results" },
-          { label: "Preise", href: "#pricing" },
           { label: "Über uns", href: "#team" },
+          { label: "FAQ", href: "#faq" },
         ],
       },
       {

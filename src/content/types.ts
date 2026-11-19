@@ -13,30 +13,16 @@ export type Testimonial = { name: string; role?: string; video: Video }
 
 export type Step = { name: string; when: string; title: string; text: string }
 
-export type Plan = {
-  name: string
-  /** Festpreis in Euro; `null` zeigt „Individuell“. */
-  price: number | null
-  unit?: string
-  text: string
-  features: string[]
-  cta: string
-  featured?: boolean
-  badge?: string
-}
-
 export type Faq = { q: string; a: string }
 
 export type LandingContent = {
   brand: string
   links: Link[]
   hero: { pre: string; lead: string; words: string[]; tail: string; intro: string; sub: string; founders: string; video?: Video }
-  stats: Stat[]
   services: { items: Service[] }
   process: { title: string; steps: Step[] }
-  results: { title: string; text: string; stats: Stat[] }
+  proof: Stat[]
   testimonials: { title: string; items: Testimonial[] }
-  pricing: { title: string; text: string; plans: Plan[] }
   faq: { title: string; text: string; items: Faq[] }
   cta: { title: string; text: string; button: string }
   footer: { claim: string; columns: { title: string; links: Link[] }[]; note: string; copyright: string }
