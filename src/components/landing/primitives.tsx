@@ -1,33 +1,24 @@
-import type { ReactNode } from "react"
-import { SplitWords } from "@/components/effects/fx"
+import type { CSSProperties, ReactNode } from "react"
 
 /*
  * Gemeinsame Bausteine des KAYCO-Designsystems (docs/design-system.md).
  * Alle Stile stehen in src/app/kayco.css unter dem Präfix „k-“.
  */
 
-/** Label über Überschriften: Akzent-Slot, Mono-Nummer, Text. */
-export function Kicker({ n, text, light }: { n: string; text: string; light?: boolean }) {
-  return (
-    <p className={light ? "k-kicker k-kicker--light" : "k-kicker"}>
-      <span className="k-kicker-n">{n}</span>
-      <span>{text}</span>
-    </p>
-  )
-}
-
-/** Abschnittskopf: Kicker + H2 links, Lead-Text rechts (ab Tablet). */
-export function SectionHead({ n, kicker, title, titleId, lede, side }: { n: string; kicker: string; title: string; titleId: string; lede?: ReactNode; side?: ReactNode }) {
+/**
+ * Abschnittskopf wie bei om-vantage: Überschrift (leuchtet beim Scrollen von 10 % Weiß zum Silber-Verlauf auf),
+ * optional ein Begleittext rechts (ab Tablet) bzw. darunter.
+ */
+export function SectionHead({ title, titleId, lede, side }: { title: string; titleId: string; lede?: ReactNode; side?: ReactNode }) {
   return (
     <div className="k-head">
-      <div className="k-head-main k-reveal">
-        <Kicker n={n} text={kicker} />
+      <div className="k-head-main" data-anim="up">
         <h2 id={titleId} className="k-h2">
-          <SplitWords text={title} />
+          {title}
         </h2>
       </div>
       {lede || side ? (
-        <div className="k-head-side k-reveal">
+        <div className="k-head-side" data-anim="up" style={{ "--d": "0.15s" } as CSSProperties}>
           {lede ? <p className="k-lede">{lede}</p> : null}
           {side}
         </div>

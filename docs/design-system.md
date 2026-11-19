@@ -135,42 +135,35 @@ Der Lese-Effekt im Statement startet bei 42 % Deckkraft und hält damit ≥ 3:1 
 | Akkordeon | Haarlinien-Liste, Plus-Symbol in Kreis dreht zu ×, Höhe per CSS-Grid animiert |
 | Kennzahl | Zahl `display-l` in Tabellenziffern, Haarlinie oben, Label `small` |
 
-### 3.5 Bewegung
+### 3.5 Bewegung – wie om-vantage.de (Update 5)
 
-- Kurven: `--k-ease: cubic-bezier(.2,.7,.2,1)`; Dauer 160 ms (Mikro), 320 ms (UI), 700 ms (Einblenden).
-- Einstieg Hero: CSS-Animation ab dem ersten Bild (kein Warten auf JavaScript). Die Headline-Zeilen sind ab
-  dem ersten Bild schwach sichtbar und werden scharf (kein unsichtbarer Text → schneller LCP).
-- Abschnitte: Einblenden gekoppelt an die Scrollposition (`animation-timeline: view()`); ohne
-  Browser-Unterstützung sofort sichtbar. Keine Scroll-Übernahme, kein Pinning.
-- `prefers-reduced-motion: reduce`: alle Animationen, Lichtstrahlen, Funkeln und Zähler aus, Inhalte
-  sofort sichtbar, `scroll-behavior: auto`.
+Die Effekte wurden von om-vantage.de ausgelesen (dort Elementor + GSAP) und ohne Bibliothek nachgebaut
+(`src/app/fx.css`, `src/components/effects/fx-controller.tsx`). Die früheren 21st.dev-Effekte (Neigung,
+Leuchtkanten, Spotlight, Lichtkegel, Funkeln, Border Beam, Fortschrittsbalken, Filmkorn, Wort-Einblendung)
+sind entfernt.
 
-### 3.5.1 Effekt-Bibliothek (nach 21st.dev-Vorbildern, ohne neue Abhängigkeiten)
-
-Alle Effekte sind selbst in CSS bzw. kleinem React-Code umgesetzt (`src/app/fx.css`,
-`src/components/effects/`). Kein Motion/GSAP/Three.js.
-
-| Effekt (Vorbild) | Wo | Umsetzung |
+| Effekt bei om-vantage | KAYCO | Umsetzung |
 |---|---|---|
-| Spotlight | Leistungsliste, Footer-Schriftzug | Radialer Lichtkegel an der Zeigerposition (nur Maus) |
-| Word Rotate | Wechselwort „Termine“ | Silber wie die Headline, Wechsel mit Unschärfe |
-| Shiny Button + Magnetic Button | Haupt-CTAs | Rotierender Lichtrand, Glanzstreifen, folgt dem Zeiger um wenige Pixel |
-| Border Beam (Magic UI) | Preis „Jetzt starten“, Abschluss-Panel | Lichtpunkt umläuft den Rand (`offset-path`) |
-| Tilt / 3D Card | Einblick-Karten, Preiskarten, Über-uns-Panel | Leichte Neigung zum Zeiger (max. 6°/8°) |
-| Glowing Effect (Aceternity) | Karten, Kalender, FAQ | Leuchtende Kante folgt dem Zeiger um die Karte |
-| Text Scroll Reveal | Alle H2 | Wörter erscheinen beim Scrollen gestaffelt |
-| Number Ticker (Magic UI) | Kennzahlen, Ergebnisse, Preise | Zählt beim Hineinscrollen hoch; Server liefert den Endwert |
-| Animated Beam | Ablauf | Lichtimpuls läuft die Pipeline entlang, Knoten pulsieren nacheinander |
-| Lamp (Aceternity) | Abschluss-Panel | Lichtkegel öffnet sich beim Scrollen |
-| Sparkles | Abschluss-Panel | Funkelnde Lichtpunkte |
-| Text Hover Effect (Aceternity) | Footer-Schriftzug „KAYCO“ | Kontur zeichnet sich, Verlauf folgt dem Zeiger (Touch: wandert von selbst) |
-| Scroll Progress | Oberkante | Fortschrittsbalken gekoppelt an die Scrollposition |
+| Elementor `fadeInUp` / `slideInLeft` / `fadeInLeft/Right`, 1,25 s, einmalig | Abschnittsköpfe, Kalender, Ergebnis-Kasten, FAQ, Abschluss (hoch); Preiskarten (von links); Zeitleiste und Gründer (von links/rechts) | `data-anim` + IntersectionObserver setzt `data-in`; versteckt nur mit JavaScript (`@media (scripting: enabled)`) |
+| GSAP „scroll-gradient-title“: Überschriften von 10 % Weiß zum Silber-Verlauf (Scrub `top 80 % → top 20 %`) | alle H2 und Abschluss-Titel | `animation-timeline: view()`, `animation-range: cover 20vh cover 80vh` |
+| `fadeInMoveUp` im Hero (30 px) | Zielgruppe, Headline-Zeilen, Text, Button, Medium | CSS ab dem ersten Bild |
+| Motion-FX „vertikal scrollen“ | Hero-Headline wandert beim Scrollen 56 px nach oben | `animation-timeline: scroll(root)` |
+| Motion-FX „Maus-Tracking“ (Hintergrund) | Hero-Licht folgt leicht dem Zeiger | `--hx/--hy` aus FxController, nur mit Maus |
+| `glass-sweep` über der Vorteilsleiste | Lichtstreifen über der Leistungsleiste | CSS, 6 s, pausiert außerhalb des Bildes |
+| `moveIcon` (Pfeil wippt 8 px) | Pfeile in orangen und dunklen Buttons | CSS, pausiert außerhalb des Bildes |
+| GSAP-Zeitleiste füllt sich (Scrub `top 50 % → bottom 50 %`) | Ablauf | benannte `view-timeline` |
+| Elementor-Zähler | 80 / 3× / Preise | `number-ticker.tsx` |
+| Swiper-Karussell (Kunden-Videos) | Video-Testimonials (sobald vorhanden) | wischbare Reihe mit Scroll-Snap |
 
-Regeln, damit das flüssig bleibt:
-- Zeiger-Effekte nur mit Maus/Trackpad (`hover: hover` + `pointer: fine`), ein einziger Listener
-  (`FxController`), pro Frame erst lesen, dann schreiben, nur sichtbare Elemente.
-- Endlos-Animationen laufen nur, solange ihr Abschnitt im Bild ist (`data-idle` hält sie an).
-- Unschärfe bei der Wort-Einblendung nur auf Desktop; auf Handys nur Deckkraft + Versatz.
+`prefers-reduced-motion: reduce`: nichts bewegt sich, alle Inhalte stehen sofort da, kein Smooth-Scroll.
+
+### 3.5.1 Kalender im Stil von Google Kalender
+
+Alle Kalender (Hero, Problem-Abschnitt) sind als helle Google-Kalender-Wochenansicht nachgebaut
+(`src/components/kayco/gcal.tsx`): Kopfzeile mit „Heute“, Pfeilen und Monat, „Erstellen“-Knopf,
+Mini-Monat, „Meine Kalender“ als Legende, heutiger Tag als blauer Kreis, rote Jetzt-Linie, Ereignisfarben
+aus der Google-Palette (Graphit, Heidelbeere, Banane, Tomate, Lavendel), Beratungen in KAYCO-Orange.
+Dunkle Schrift auf hellem Grund (alle Ereignisse ≥ 4,5:1). Kein Google-Logo und keine Google-Marke.
 
 ### 3.6 Responsiv
 
@@ -186,20 +179,19 @@ Kontraste ≥ AA, dekorative Grafik `aria-hidden`.
 
 ---
 
-## 4. Abbildung auf die bestehenden Abschnitte (Reihenfolge unverändert)
+## 4. Abschnitte (seit Update 5 kompakt, wie om-vantage)
 
-| # | Abschnitt (`id`) | Gestaltung neu |
+| # | Abschnitt | Gestaltung |
 |---|---|---|
-| 1 | Hero (`top`) | Aufbau wie om-vantage: Zielgruppen-Zeile, H1 in drei Zeilen im Silber-Verlauf (64 px), Einleitung, zwei Fakten (statt Bewertungen), orange CTA in Versalien, Gründer-Zeile; rechts das Slot-Board flach (Radius 24); darunter fünf Leistungen mit Navy-Icons. Licht: Navy links oben, Orange rechts. Mobil zentriert, Leistungen als wischbare Reihe vor dem Button |
-| 2 | Über KAYCO (`about`) | Großes Statement, Zeilen hellen beim Lesen auf; Gründer-Kürzel als Avatare; 4 Kennzahlen in Haarlinien-Raster |
-| 3 | Problem (`problem`) | Kalender als dunkler Produkt-Screen; Verlust in Rot-Grau, Akquise in Grau/Navy, Beratung in Orange |
-| 4 | Leistung (`services`) | Nummerierte Akkordeon-Liste (Mono-Nummern, Zeit-Chip) |
-| 5 | Einblick (`work`) | 2 × 2 Produktkarten mit UI-Ausschnitten + CTA-Karte (statt horizontaler Scroll-Strecke) |
-| 6 | Ablauf (`process`) | Vier-Stufen-Pipeline mit verbundenen Slot-Knoten (mobil vertikal) |
-| 7 | Ergebnisse (`results`) | Dunkles Panel, große Kennzahlen, Diagramm in Blau |
-| 8 | Über uns (`team`) | Monatsraster als Produktkarte, Text, sechs Punkte als Karten |
-| 9 | Preise (`pricing`) | Drei Karten, „Unser Modell“ mit Akzentrand und Licht |
-| 10 | FAQ (`faq`) | Links Kopf + Kontaktkarte, rechts Akkordeon |
-| 11 | Kontakt (`contact`) | Abschluss-Panel mit Raster und Licht, CTA + E-Mail kopieren |
-| – | Footer | Claim + CTA, Spalten, großer Schriftzug, Copyright, „Nach oben“ |
-| – | Rechtsseiten | Gleiche Tokens, gut lesbare Textspalte (72 Zeichen) |
+| 1 | Hero (`top`) | Aufbau wie om-vantage; rechts Google-Kalender-Woche mit Beratungen (später optional Video) |
+| 2 | Problem (`problem`) | „Volle Woche. Kaum Umsatz.“ + Google-Kalender, umschaltbar „Mit Leads“ / „Mit KAYCO“ |
+| 3 | Ablauf (`process`) | Zeitleiste mit Mittellinie, Titel und Text wechseln die Seite |
+| 4 | Ergebnisse (`results`) | 80 / 3× im umrandeten Kasten mit Navy-Licht; darunter Video-Testimonials, sobald vorhanden |
+| 5 | Preise (`pricing`) | drei Karten, „Pro Termin“ mit Navy-Rand |
+| 6 | Über uns (`team`) | kurzer Text + zwei Gründer-Karten (Fotos später) |
+| 7 | FAQ (`faq`) | Akkordeon |
+| 8 | Kontakt (`contact`) | Abschluss-Box mit Navy-Rand |
+| – | Footer | angeschnittener Kontur-Schriftzug, Spalten Navigation / Rechtliches / Adresse |
+
+Entfernt in Update 5: „Über KAYCO“-Statement mit Kennzahlen, Leistungsliste (steht als Leiste im Hero),
+„Einblick“-Karten, Diagramm, „Wofür KAYCO steht“-Karten.

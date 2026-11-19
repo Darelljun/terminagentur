@@ -1,20 +1,11 @@
 import type { CSSProperties } from "react"
 import { CalendarCheck2, FileText, ListChecks, Megaphone, PhoneCall, Wallet } from "lucide-react"
+import { GcalMini } from "@/components/kayco/gcal"
 import type { LandingContent } from "@/content/types"
 import { BookLink } from "./actions"
 import { Arrow } from "./primitives"
+import { VideoCard } from "./video-card"
 import { WordMorph } from "./word-morph"
-
-/** Belegung des Slot-Boards: 5 Tage × 7 Zeitfenster. 1 = bestätigter Termin, 2 = verlorene Akquise-Zeit. */
-const BOARD = [
-  [1, 0, 2, 1, 0],
-  [0, 1, 0, 0, 1],
-  [2, 0, 1, 2, 0],
-  [1, 0, 0, 1, 0],
-  [0, 2, 1, 0, 1],
-  [1, 0, 0, 1, 0],
-  [0, 1, 2, 0, 1],
-]
 
 /** Symbole der Leistungsreihe – gleiche Reihenfolge wie die Leistungen in src/content/kayco.ts. */
 const FEATURE_ICONS = [Megaphone, PhoneCall, ListChecks, CalendarCheck2, FileText]
@@ -24,7 +15,7 @@ const d = (s: number) => ({ "--d": s + "s" }) as CSSProperties
 /**
  * Hero im Aufbau von om-vantage.de: Zielgruppen-Zeile, dreizeilige Headline im Silber-Verlauf, Einleitung,
  * Faktenreihe (an Stelle von Bewertungen – es werden keine erfunden), orange Haupt-CTA, Gründer-Zeile,
- * rechts das Medium (bei KAYCO das Slot-Board), darunter eine Reihe mit fünf Leistungen.
+ * rechts das Medium (Video, sobald vorhanden – sonst eine Google-Kalender-Wochenansicht), darunter fünf Leistungen.
  * Alle Texte stammen aus dem bestehenden Inhalt (Hero, Kennzahlen, Leistungen, Über uns).
  * Die Elemente sind direkte Rasterkinder, damit die Reihenfolge mobil wie beim Vorbild umsortiert werden kann.
  */
@@ -32,7 +23,6 @@ export function Hero({ c }: { c: LandingContent }) {
   const { hero } = c
   const termine = c.stats[3]
   const kosten = c.stats[1]
-  let booked = 0
   return (
     <section id="top" className="k-hero" data-sec="top" aria-label="Einleitung">
       <div className="k-wrap k-hero-grid">
@@ -84,7 +74,7 @@ export function Hero({ c }: { c: LandingContent }) {
         </ul>
 
         <div className="k-hero-cta k-in" style={d(0.58)}>
-          <BookLink className="k-btn k-btn--primary k-btn--xl" data-magnetic="">
+          <BookLink className="k-btn k-btn--primary k-btn--xl">
             <span>Strategiegespräch anfragen</span> <Arrow />
           </BookLink>
         </div>
@@ -99,28 +89,8 @@ export function Hero({ c }: { c: LandingContent }) {
           {hero.founders}
         </p>
 
-        <div className="k-hero-media k-in" style={d(0.3)} aria-hidden="true">
-          <div className="k-board">
-            <div className="k-board-bar">
-              <i />
-              <i />
-              <i />
-              <span />
-            </div>
-            <div className="k-board-head">
-              {[0, 1, 2, 3, 4].map((n) => (
-                <span key={n} />
-              ))}
-            </div>
-            <div className="k-board-grid">
-              {BOARD.flatMap((row, r) =>
-                row.map((v, col) => {
-                  const order = v === 1 ? booked++ : 0
-                  return <span key={r + "-" + col} className={v === 1 ? "k-slot is-on" : v === 2 ? "k-slot is-lost" : "k-slot"} style={v === 1 ? ({ "--o": order } as CSSProperties) : undefined} />
-                }),
-              )}
-            </div>
-          </div>
+        <div className="k-hero-media k-in" style={d(0.3)}>
+          {hero.video ? <VideoCard video={hero.video} className="k-video--hero" /> : <GcalMini />}
         </div>
 
         <ul className="k-hero-feats k-in" style={d(0.74)} aria-label="Was wir übernehmen">

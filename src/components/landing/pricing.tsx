@@ -1,7 +1,7 @@
-import { BorderBeam } from "@/components/effects/fx"
 import { NumberTicker } from "@/components/effects/number-ticker"
 import type { LandingContent } from "@/content/types"
 import { BookLink } from "./actions"
+import type { CSSProperties } from "react"
 import { Arrow, Check, SectionHead } from "./primitives"
 
 export function Pricing({ c }: { c: LandingContent }) {
@@ -9,11 +9,10 @@ export function Pricing({ c }: { c: LandingContent }) {
   return (
     <section id="pricing" className="k-sec k-pricing" data-sec="pricing" aria-labelledby="k-pricing-title">
       <div className="k-wrap">
-        <SectionHead n="05" kicker={pc.kicker} title={pc.title} titleId="k-pricing-title" lede={pc.text} />
+        <SectionHead title={pc.title} titleId="k-pricing-title" lede={pc.text} />
         <div className="k-plans">
-          {pc.plans.map((p) => (
-            <div key={p.name} className="k-plan k-reveal" data-featured={p.featured ? "" : undefined} data-glow="" data-tilt="">
-              {p.featured ? <BorderBeam duration={7} size={200} /> : null}
+          {pc.plans.map((p, i) => (
+            <div key={p.name} className="k-plan" data-featured={p.featured ? "" : undefined} data-anim="left" style={{ "--d": i * 0.12 + "s" } as CSSProperties}>
               <p className="k-plan-name">
                 {p.name}
                 {p.badge ? <span>{p.badge}</span> : null}
@@ -31,7 +30,7 @@ export function Pricing({ c }: { c: LandingContent }) {
                   </li>
                 ))}
               </ul>
-              <BookLink className={"k-btn " + (p.featured ? "k-btn--shiny" : "k-btn--ghost")}>
+              <BookLink className={"k-btn " + (p.featured ? "k-btn--primary" : "k-btn--ghost")}>
                 <span>{p.cta}</span> <Arrow />
               </BookLink>
             </div>

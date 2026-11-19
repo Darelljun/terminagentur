@@ -45,11 +45,10 @@ export const faqItems = [
 export const landingProps: LandingContent = {
   brand: "KAYCO",
   links: [
-    { label: "Leistung", href: "#services" },
     { label: "Ablauf", href: "#process" },
     { label: "Ergebnisse", href: "#results" },
-    { label: "Über uns", href: "#team" },
     { label: "Preise", href: "#pricing" },
+    { label: "Über uns", href: "#team" },
     { label: "FAQ", href: "#faq" },
   ],
   hero: {
@@ -63,10 +62,8 @@ export const landingProps: LandingContent = {
     sub: "Du berätst. Wir machen den Rest.",
     // wie im Abschnitt „Über uns“
     founders: "Gegründet von Magdalena Kayser und Darell Kacou",
-  },
-  manifesto: {
-    kicker: "Über KAYCO",
-    text: "Wir kommen selbst aus der Finanzbranche [team] und wissen, wie viel Zeit Leads kosten. Deshalb rufen wir deine Interessenten an, qualifizieren sie und legen fertige Termine in deinen Kalender. [chart] Du setzt dich hin und berätst. Mehr musst du nicht tun. [leaf]",
+    // Optional: Video rechts im Hero statt der Kalender-Ansicht, z. B.
+    // video: { src: "/videos/kayco-intro.mp4", poster: "/videos/kayco-intro.jpg", title: "KAYCO in 60 Sekunden" },
   },
   stats: [
     { value: pricing.perAppointment, suffix: " €", label: "pro vereinbartem Termin – sonst nichts" },
@@ -74,10 +71,8 @@ export const landingProps: LandingContent = {
     { value: pricing.setup, suffix: " €", label: "einmalig für die Einrichtung" },
     { value: 30, suffix: "+", label: "qualifizierte Termine pro Monat garantiert – nach oben offen" },
   ],
+  // Die fünf Leistungen erscheinen als Leiste unter dem Hero
   services: {
-    kicker: "Was wir übernehmen",
-    title: "Alles bis zum Termin. Du übernimmst nur die Beratung.",
-    text: "Andere liefern dir Leads und lassen dich damit allein. Wir übernehmen die komplette Strecke – von der Anzeige bis zum bestätigten Termin in deinem Kalender.",
     items: [
       {
         title: "Kampagne",
@@ -111,51 +106,7 @@ export const landingProps: LandingContent = {
       },
     ],
   },
-  work: {
-    kicker: "Einblick",
-    title: "So sieht KAYCO für dich aus.",
-    next: "Dein Kalender ist der nächste.",
-    items: [
-      {
-        client: "Kampagne",
-        kind: "Wir bringen Interessenten",
-        title: "Anzeigen für deine Zielgruppe – aufgesetzt und betreut von uns.",
-        metric: "0 €",
-        metricLabel: "monatliche Agenturkosten",
-        year: "Schritt 1",
-        mock: "dashboard",
-      },
-      {
-        client: "Qualifizierung",
-        kind: "Wir rufen an",
-        title: "Jeder Interessent wird persönlich angerufen und qualifiziert.",
-        metric: "0",
-        metricLabel: "Leads, die du selbst anrufen musst",
-        year: "Schritt 2",
-        mock: "chat",
-      },
-      {
-        client: "Briefing",
-        kind: "Du bist vorbereitet",
-        title: "Zu jedem Termin weißt du, wer kommt und worum es geht.",
-        metric: "1",
-        metricLabel: "Briefing pro Termin",
-        year: "Schritt 3",
-        mock: "doc",
-      },
-      {
-        client: "Kalender",
-        kind: "Du berätst",
-        title: "Fertige Beratungstermine – direkt in deinem Kalender.",
-        metric: `${pricing.perAppointment} €`,
-        metricLabel: "pro Termin – und sonst nichts",
-        year: "Schritt 4",
-        mock: "mobile",
-      },
-    ],
-  },
   process: {
-    kicker: "Ablauf",
     title: "In vier Schritten zum vollen Kalender.",
     steps: [
       {
@@ -184,8 +135,24 @@ export const landingProps: LandingContent = {
       },
     ],
   },
+  results: {
+    title: "Wenn der Kalender voll ist, wächst der Umsatz.",
+    text: "Mehr Beratungen statt mehr Akquise: Wer seine Zeit nicht mehr mit Leads verbringt, sondern mit vorbereiteten Gesprächen, verdient pro Woche mehr – bei gleichem Aufwand.",
+    stats: [
+      { value: 80, label: "Neukunden haben wir bereits gewonnen." },
+      { value: 3, suffix: "×", label: "So stark steigern wir den Umsatz unserer Kunden." },
+    ],
+  },
+  /**
+   * Video-Testimonials. Solange die Liste leer ist, erscheint der Bereich nicht.
+   * Videos als MP4 (H.264) nach public/videos/ legen, Vorschaubild (JPG) daneben, dann z. B.:
+   * { name: "Max Muster", role: "Finanzberater, Köln", video: { src: "/videos/max.mp4", poster: "/videos/max.jpg", title: "Max über KAYCO" } }
+   */
+  testimonials: {
+    title: "Das sagen unsere Kunden.",
+    items: [],
+  },
   pricing: {
-    kicker: "Preise",
     title: "Du zahlst nur für Termine. Sonst für nichts.",
     text: `Keine monatlichen Agenturkosten, keine Pauschalen. Einmalig die Einrichtung, dein eigenes Werbebudget – und ${pricing.perAppointment} € für jeden Termin, den wir in deinen Kalender legen.`,
     plans: [
@@ -217,7 +184,6 @@ export const landingProps: LandingContent = {
     ],
   },
   faq: {
-    kicker: "Fragen",
     title: "Was Finanzberater uns zuerst fragen.",
     text: "Noch etwas offen? Schreib uns – wir antworten persönlich.",
     items: faqItems,
@@ -235,10 +201,10 @@ export const landingProps: LandingContent = {
         title: "KAYCO",
         links: [
           { label: "Problem", href: "#problem" },
-          { label: "Leistung", href: "#services" },
           { label: "Ablauf", href: "#process" },
-          { label: "Über uns", href: "#team" },
+          { label: "Ergebnisse", href: "#results" },
           { label: "Preise", href: "#pricing" },
+          { label: "Über uns", href: "#team" },
         ],
       },
       {

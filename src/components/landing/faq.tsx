@@ -3,8 +3,6 @@
 import { useState } from "react"
 import type { LandingContent } from "@/content/types"
 import { CopyEmail } from "./actions"
-import { SplitWords } from "@/components/effects/fx"
-import { Kicker } from "./primitives"
 
 export function Faq({ c }: { c: LandingContent }) {
   const fq = c.faq
@@ -13,13 +11,12 @@ export function Faq({ c }: { c: LandingContent }) {
     <section id="faq" className="k-sec k-faq" data-sec="faq" aria-labelledby="k-faq-title">
       <div className="k-wrap k-faq-grid">
         <div className="k-faq-side">
-          <div className="k-reveal">
-            <Kicker n="06" text={fq.kicker} />
+          <div data-anim="up">
             <h2 id="k-faq-title" className="k-h2">
-              <SplitWords text={fq.title} />
+              {fq.title}
             </h2>
           </div>
-          <div className="k-faq-card k-reveal" data-glow="">
+          <div className="k-faq-card" data-anim="up">
             <p>{fq.text}</p>
             <CopyEmail email={c.email} className="k-btn k-btn--ghost" copiedLabel="In die Zwischenablage kopiert" />
           </div>
@@ -28,7 +25,7 @@ export function Faq({ c }: { c: LandingContent }) {
           {fq.items.map((f, i) => {
             const on = open === i
             return (
-              <div key={f.q} className="k-acc-item k-reveal" data-open={on ? "" : undefined}>
+              <div key={f.q} className="k-acc-item" data-anim="up" data-open={on ? "" : undefined}>
                 <h3>
                   <button type="button" aria-expanded={on} aria-controls={"k-faq-" + i} onClick={() => setOpen(on ? -1 : i)}>
                     {f.q}
