@@ -1,6 +1,6 @@
 /*
  * KAYCO – Effekt-Ebene (Farben nach om-vantage: Orange für Handlungen, Navy/Blau für Licht). Animationen nach 21st.dev-Vorbildern, an das Designsystem angepasst:
- * Grid Beam (cult-ui), Spotlight, Kinetic Typography, Chromatic Text Reveal (honestui), Text Shimmer,
+ * Spotlight, Chromatic Text Reveal (honestui),
  * Shiny Button (hyperiux), Glowing Effect (Aceternity), Tilt (motion-primitives), Border Beam (Magic UI),
  * Number Ticker (Magic UI), Text Scroll Reveal, Animated Beam, Lamp (Aceternity),
  * Sparkles, Text Hover Effect (Aceternity), Scroll Progress.
@@ -64,57 +64,6 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ------------------------------------------------------------ Hero-Licht */
-.k-beams {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  -webkit-mask-image: radial-gradient(80% 70% at 62% 42%, #000, transparent 82%);
-  mask-image: radial-gradient(80% 70% at 62% 42%, #000, transparent 82%);
-}
-.k-hero-spot {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(560px circle at var(--mx, -999px) var(--my, -999px), rgb(var(--k-blue-rgb) / 0.12), transparent 45%);
-}
-.k-hero-orb {
-  position: absolute;
-  border-radius: 50%;
-}
-.k-hero-orb--a {
-  left: 48%;
-  top: -18%;
-  width: 760px;
-  height: 760px;
-  background: radial-gradient(closest-side, rgb(var(--k-accent-rgb) / 0.16), transparent);
-}
-.k-hero-orb--b {
-  left: -14%;
-  top: 46%;
-  width: 640px;
-  height: 640px;
-  background: radial-gradient(closest-side, rgb(var(--k-navy-rgb) / 0.4), transparent);
-}
-@keyframes k-orb {
-  to {
-    transform: translate(-90px, 70px) scale(1.18);
-  }
-}
-
-/* --------------------------------------------------- Kinetic Typography */
-.k-kw {
-  display: inline-block;
-}
-/* Startet schwach sichtbar statt unsichtbar: Die Schrift ist ab dem ersten Bild da (schneller LCP) und wird scharf */
-@keyframes k-kw {
-  from {
-    opacity: 0.14;
-    filter: blur(14px);
-    translate: 0 0.28em;
-  }
-}
-
 /* --------------------------------------------- Chromatic Text Reveal */
 .k-chroma {
   --k-sweep: 114%;
@@ -154,25 +103,6 @@
     opacity: 0;
     filter: blur(10px);
     translate: 0 -0.16em;
-  }
-}
-
-/* ------------------------------------------------------------ Text Shimmer */
-.k-shimmer {
-  background: linear-gradient(110deg, var(--k-text-2) 40%, #ffffff 50%, var(--k-text-2) 60%);
-  background-size: 260% 100%;
-  background-position: 0 0;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-@keyframes k-shimmer {
-  0% {
-    background-position: 100% 0;
-  }
-  55%,
-  100% {
-    background-position: -160% 0;
   }
 }
 
@@ -290,14 +220,6 @@ html[data-fx] .k-faq-card::before {
 html[data-fx] [data-tilt] {
   transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition: transform 0.5s var(--k-ease);
-}
-html[data-fx] .k-board[data-tilt] {
-  transform: perspective(1600px) rotateY(calc(-9deg + var(--ry, 0deg))) rotateX(calc(4deg + var(--rx, 0deg)));
-}
-@media (max-width: 1020px) {
-  html[data-fx] .k-board[data-tilt] {
-    transform: perspective(1600px) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg));
-  }
 }
 
 /* --------------------------------------------------- Spotlight (Leistungen) */
@@ -565,35 +487,8 @@ html:not([data-fx]) .k-wm-top {
   }
 }
 
-/* ----------------------------------------- Leuchtende Abschnittskanten */
-.kay-problem::before,
-.k-work::before,
-.kay-results::before,
-.k-pricing::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: -1px;
-  width: min(760px, 80%);
-  height: 1px;
-  translate: -50% 0;
-  background: linear-gradient(90deg, transparent, rgb(var(--k-blue-rgb) / 0.75), transparent);
-  box-shadow: 0 0 22px 2px rgb(var(--k-blue-rgb) / 0.35);
-  pointer-events: none;
-}
-
 /* ===================================================== Animationen aktiv */
 @media (prefers-reduced-motion: no-preference) {
-  .k-hero-orb--a {
-    animation: k-orb 18s ease-in-out infinite alternate;
-  }
-  .k-hero-orb--b {
-    animation: k-orb 23s ease-in-out infinite alternate-reverse;
-  }
-  .k-kw {
-    animation: k-kw 1.05s var(--k-ease) backwards;
-    animation-delay: var(--d);
-  }
   .k-chroma {
     animation:
       k-chroma 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.15s backwards,
@@ -601,9 +496,6 @@ html:not([data-fx]) .k-wm-top {
   }
   .k-morph[data-out] .k-chroma {
     animation: k-chroma-out 0.4s cubic-bezier(0.6, 0, 0.8, 0.4) forwards;
-  }
-  .k-shimmer {
-    animation: k-shimmer 4.2s ease-in-out infinite;
   }
   .k-btn--shiny {
     animation: k-ang 3.4s linear infinite;
@@ -628,21 +520,13 @@ html:not([data-fx]) .k-wm-top {
   .k-sparkles-drift {
     animation: k-drift 14s ease-in-out infinite alternate;
   }
-  .k-board-wrap {
-    animation: k-float 7s ease-in-out infinite alternate;
-  }
   html:not([data-fx]) .k-wm-top {
     animation: k-wm-sweep 7s ease-in-out infinite;
   }
 }
-@keyframes k-float {
-  to {
-    transform: translateY(-12px);
-  }
-}
 /* Abschnitt außerhalb des Bildschirms (FxController setzt data-idle): Endlos-Animationen anhalten */
-[data-idle] :is(.k-hero-orb, .k-shimmer, .k-btn--shiny, .k-board-wrap, .k-rail-pulse, .k-sparkles i, .k-sparkles-drift, .k-wm-top),
-[data-idle] :is(.k-btn--shiny, .k-beam, .k-status i, .k-cue-line)::after,
+[data-idle] :is(.k-btn--shiny, .k-rail-pulse, .k-sparkles i, .k-sparkles-drift, .k-wm-top),
+[data-idle] :is(.k-btn--shiny, .k-beam)::after,
 [data-idle] .k-step-node::before {
   animation-play-state: paused !important;
 }
@@ -703,7 +587,6 @@ html:not([data-fx]) .k-wm-top {
 }
 @media print {
   .k-w,
-  .k-kw,
   .k-chroma {
     animation: none !important;
   }

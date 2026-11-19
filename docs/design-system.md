@@ -65,15 +65,16 @@ kein Fintech-SaaS-Template (keine Verlaufs-Blobs in Lila, keine Icon-Kachel-Rast
 ### 3.1 Farben (Tokens, `src/app/globals.css`) – Palette von om-vantage.de
 
 Seit Update 3 übernimmt KAYCO die Farbpalette der Referenz om-vantage.de (Werte direkt von der Seite
-ausgelesen). Nur ein Design (dunkel), `theme-color #0C0C0C`. Prinzip wie dort: fast schwarze Bühne,
-graue Karten, Navy-Blau als Licht, Orange ausschließlich für Handlungen und fertige Termine.
+ausgelesen). Nur ein Design (dunkel), `theme-color #0C0C0C`. Seit Update 4 einheitlich wie dort: jeder
+Abschnitt hat dieselbe Hintergrundfarbe `#0C0C0C`, Karten sind Umrandungen (1 px, Radius 24) mit einem
+Navy-Schimmer von unten, Navy-Blau ist das Licht, Orange ausschließlich für Handlungen und fertige Termine.
 
 | Token | Wert | om-vantage-Quelle | Verwendung |
 |---|---|---|---|
 | `--k-bg` | `#0C0C0C` | Seitenhintergrund | Seitenhintergrund |
-| `--k-bg-2` | `#101010` | – (minimal heller) | Wechsel-Abschnitte |
-| `--k-surface` | `#1C1C1C` | Karten (Bewertungen) | Karten |
-| `--k-surface-2` | `#242424` | Flächen | Karten-Hover, Eingebettetes |
+| `--k-bg-2` | `#0C0C0C` | wie Hintergrund | (keine Wechsel-Abschnitte mehr) |
+| `--k-surface` | `#0C0C0C` | Karten stehen auf der Seitenfarbe | Karten (Umrandung + Navy-Schimmer `--k-card-glow`) |
+| `--k-surface-2` | `#1D1D1F` | dunkle Nav-Pille | Navigations-Button, Hover, Eingebettetes |
 | `--k-line` | `rgb(255 255 255 / .125)` | Kartenrand | Haarlinien |
 | `--k-line-2` | `rgb(255 255 255 / .2)` | – | Betonte Linien |
 | `--k-text` | `#FFFFFF` | Überschriften | Text |
@@ -85,12 +86,13 @@ graue Karten, Navy-Blau als Licht, Orange ausschließlich für Handlungen und fe
 | `--k-navy` | `#023E97` | Markenblau, Lichtfelder, CTA-Box-Rand | Licht, hervorgehobene Karte |
 | `--k-navy-deep` | `#0C1733` | dunkle Navy-Karte | Avatare, Kalender |
 | `--k-accent-2` | `#0067FF` | Blau-Verlauf | zweite Lichtfarbe (Strahlen, Lamp, Kanten) |
-| `--k-link` | `#7AB3FF` | Links | helles Blau in Verläufen |
+| `--k-link` | `#7AB3FF` | Links | helles Blau in Verläufen und Icons |
+| `--k-silver` | Weiß → `#7A7A7A` | Headline-Verlauf | H1 und Zielgruppen-Zeile im Hero |
 | `--k-glow` | `rgb(2 62 151 / .22)` | Hero-Lichtfeld | Hintergrundlicht |
 | `--k-warn` | `#FF5A4F` | Rot `#F30404`, für Text aufgehellt | Verlust/Problem (Kalender) |
 
-Kontraste (WCAG, auf `#0C0C0C` / auf Karte `#1C1C1C`): Text 19,6 / 17,0 · Text-2 12,8 / 11,2 ·
-Text-3 5,7 / 4,9 · Orange als Text 8,6 / 7,5 · Schrift auf Orange 8,3 · alle Kalendereinträge ≥ 9:1 → alle ≥ AA.
+Kontraste (WCAG, auf `#0C0C0C` / auf `#1D1D1F`): Text 19,6 / 16,9 · Text-2 12,8 / 11,0 ·
+Text-3 5,7 / 4,9 · Orange als Text 8,6 / 7,4 · Schrift auf Orange 8,3 · alle Kalendereinträge ≥ 9:1 → alle ≥ AA.
 Der Lese-Effekt im Statement startet bei 42 % Deckkraft und hält damit ≥ 3:1 für große Schrift ein.
 
 ### 3.2 Typografie
@@ -122,13 +124,13 @@ Der Lese-Effekt im Statement startet bei 42 % Deckkraft und hält damit ≥ 3:1 
 
 | Komponente | Spezifikation |
 |---|---|
-| Header | Volle Breite, 72 px (mobil 64 px). Oben transparent; ab 40 px Scroll Fläche `--k-bg` 78 % + Unschärfe + Haarlinie. Verhalten unverändert: Desktop sticky, blendet nach 400 px beim Runterscrollen (≥ 32 px) aus und beim Hochscrollen (≥ 20 px) ein; mobil fixiert, aus/ein nach 16 px, nie bei offenem Menü. Aktiver Menüpunkt mit Akzent-Slot. |
+| Header | Schwebende Pille wie om-vantage: bündig mit dem Inhalt, 64 px hoch (mobil 56 px), 14 px Abstand oben, Radius 50, Glas-Unschärfe; ab 40 px Scroll Fläche `--k-header` + Haarlinie. Links 15 px/600 weiß, aktiver Abschnitt grau, Button dunkel (`#1D1D1F`). Verhalten unverändert: Desktop sticky, blendet nach 400 px beim Runterscrollen (≥ 32 px) aus und beim Hochscrollen (≥ 20 px) ein; mobil fixiert, aus/ein nach 16 px, nie bei offenem Menü. Aktiver Menüpunkt mit Akzent-Slot. |
 | Mobile-Menü | Vollflächiges Panel unter dem Header, nummerierte Links (Mono), CTA, Fokusfalle, Escape, Hintergrund-Scroll gesperrt, schließt beim Wechsel auf Desktop. |
 | Kicker | Akzent-Slot (8 × 8, Radius 2) + Mono-Nummer + Label, z. B. `▪ 02 — WAS WIR ÜBERNEHMEN` |
 | Abschnittskopf | Kicker + H2 links, Lead rechts (ab 960 px), sonst untereinander |
-| Primär-Button | Akzentfläche, Pille, 48 px (mobil 52 px), 15 px/600, Pfeil verschiebt sich bei Hover um 3 px. Haupt-CTAs als „Shiny Button“: umlaufender Lichtrand, Glanz-Streifen, Leuchten bei Hover, magnetisch (Maus) |
+| Primär-Button | Orange, Pille, Versalien wie om-vantage, 48 px (Hero 54 px), Schrift `#1A0E00` (statt Weiß, wegen Kontrast), Pfeil verschiebt sich bei Hover um 3 px. Haupt-CTAs als „Shiny Button“: umlaufender Lichtrand, Glanz-Streifen, Leuchten bei Hover, magnetisch (Maus) |
 | Sekundär-Button | Transparent, Rand `--k-line-2`, Hover Fläche `--k-surface-2` |
-| Karte | `--k-surface`, Rand `--k-line`, Radius 22, Hover (nur Maus): Lichtkante folgt dem Zeiger, Spotlight, leichte 3D-Neigung |
+| Karte | Seitenfarbe, Rand `rgba(255,255,255,.125)`, Radius 24, Navy-Schimmer von unten; Hover (nur Maus): Lichtkante folgt dem Zeiger, Spotlight, leichte 3D-Neigung. Abschluss-Box: 2 px Navy-Rand mit Leuchten |
 | Chip | Mono 12 px, Rand `--k-line-2`, Radius 8 |
 | Akkordeon | Haarlinien-Liste, Plus-Symbol in Kreis dreht zu ×, Höhe per CSS-Grid animiert |
 | Kennzahl | Zahl `display-l` in Tabellenziffern, Haarlinie oben, Label `small` |
@@ -136,8 +138,8 @@ Der Lese-Effekt im Statement startet bei 42 % Deckkraft und hält damit ≥ 3:1 
 ### 3.5 Bewegung
 
 - Kurven: `--k-ease: cubic-bezier(.2,.7,.2,1)`; Dauer 160 ms (Mikro), 320 ms (UI), 700 ms (Einblenden).
-- Einstieg Hero: CSS-Animation ab dem ersten Bild (kein Warten auf JavaScript). Die Headline ist ab dem
-  ersten Bild schwach sichtbar und wird scharf (kein unsichtbarer Text → schneller LCP).
+- Einstieg Hero: CSS-Animation ab dem ersten Bild (kein Warten auf JavaScript). Die Headline-Zeilen sind ab
+  dem ersten Bild schwach sichtbar und werden scharf (kein unsichtbarer Text → schneller LCP).
 - Abschnitte: Einblenden gekoppelt an die Scrollposition (`animation-timeline: view()`); ohne
   Browser-Unterstützung sofort sichtbar. Keine Scroll-Übernahme, kein Pinning.
 - `prefers-reduced-motion: reduce`: alle Animationen, Lichtstrahlen, Funkeln und Zähler aus, Inhalte
@@ -150,14 +152,11 @@ Alle Effekte sind selbst in CSS bzw. kleinem React-Code umgesetzt (`src/app/fx.c
 
 | Effekt (Vorbild) | Wo | Umsetzung |
 |---|---|---|
-| Grid Beam (cult-ui) | Hero-Hintergrund | Canvas, Lichtstrahlen (Blau/Orange) auf den Rasterlinien; startet erst nach dem Laden, pausiert außerhalb des Bildes und im Hintergrund-Tab |
-| Spotlight | Hero, Leistungsliste, Footer-Schriftzug | Radialer Lichtkegel an der Zeigerposition (nur Maus) |
-| Kinetic Typography | H1 | Wörter steigen gestaffelt aus der Unschärfe |
-| Chromatic Text / Word Rotate | Wechselwort „Termine“ | Farbverlauf läuft über das Wort, Wechsel mit Unschärfe |
-| Text Shimmer | Status-Zeile im Hero | Glanz läuft über den Text |
+| Spotlight | Leistungsliste, Footer-Schriftzug | Radialer Lichtkegel an der Zeigerposition (nur Maus) |
+| Word Rotate | Wechselwort „Termine“ | Silber wie die Headline, Wechsel mit Unschärfe |
 | Shiny Button + Magnetic Button | Haupt-CTAs | Rotierender Lichtrand, Glanzstreifen, folgt dem Zeiger um wenige Pixel |
-| Border Beam (Magic UI) | Slot-Board, Preis „Jetzt starten“, Abschluss-Panel | Lichtpunkt umläuft den Rand (`offset-path`) |
-| Tilt / 3D Card | Slot-Board, Einblick-Karten, Preiskarten, Über-uns-Panel | Leichte Neigung zum Zeiger (max. 6°/8°) |
+| Border Beam (Magic UI) | Preis „Jetzt starten“, Abschluss-Panel | Lichtpunkt umläuft den Rand (`offset-path`) |
+| Tilt / 3D Card | Einblick-Karten, Preiskarten, Über-uns-Panel | Leichte Neigung zum Zeiger (max. 6°/8°) |
 | Glowing Effect (Aceternity) | Karten, Kalender, FAQ | Leuchtende Kante folgt dem Zeiger um die Karte |
 | Text Scroll Reveal | Alle H2 | Wörter erscheinen beim Scrollen gestaffelt |
 | Number Ticker (Magic UI) | Kennzahlen, Ergebnisse, Preise | Zählt beim Hineinscrollen hoch; Server liefert den Endwert |
@@ -172,7 +171,6 @@ Regeln, damit das flüssig bleibt:
   (`FxController`), pro Frame erst lesen, dann schreiben, nur sichtbare Elemente.
 - Endlos-Animationen laufen nur, solange ihr Abschnitt im Bild ist (`data-idle` hält sie an).
 - Unschärfe bei der Wort-Einblendung nur auf Desktop; auf Handys nur Deckkraft + Versatz.
-- Canvas mit begrenzter Pixeldichte (1,5 bzw. 1,25 auf Touch).
 
 ### 3.6 Responsiv
 
@@ -192,7 +190,7 @@ Kontraste ≥ AA, dekorative Grafik `aria-hidden`.
 
 | # | Abschnitt (`id`) | Gestaltung neu |
 |---|---|---|
-| 1 | Hero (`top`) | Links Status-Pille, H1 mit Wechselwort, Lead, CTA; rechts „Slot-Board“ (Zeitraster, Kacheln leuchten nacheinander orange auf); Navy-Licht |
+| 1 | Hero (`top`) | Aufbau wie om-vantage: Zielgruppen-Zeile, H1 in drei Zeilen im Silber-Verlauf (64 px), Einleitung, zwei Fakten (statt Bewertungen), orange CTA in Versalien, Gründer-Zeile; rechts das Slot-Board flach (Radius 24); darunter fünf Leistungen mit Navy-Icons. Licht: Navy links oben, Orange rechts. Mobil zentriert, Leistungen als wischbare Reihe vor dem Button |
 | 2 | Über KAYCO (`about`) | Großes Statement, Zeilen hellen beim Lesen auf; Gründer-Kürzel als Avatare; 4 Kennzahlen in Haarlinien-Raster |
 | 3 | Problem (`problem`) | Kalender als dunkler Produkt-Screen; Verlust in Rot-Grau, Akquise in Grau/Navy, Beratung in Orange |
 | 4 | Leistung (`services`) | Nummerierte Akkordeon-Liste (Mono-Nummern, Zeit-Chip) |

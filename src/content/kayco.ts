@@ -52,13 +52,17 @@ export const landingProps: LandingContent = {
     { label: "Preise", href: "#pricing" },
     { label: "FAQ", href: "#faq" },
   ],
-  status: `${pricing.perAppointment} € pro Termin · keine monatlichen Agenturkosten`,
   hero: {
+    // Zielgruppe wie in der FAQ („Für wen ist KAYCO?“), gekürzt
+    pre: "Für Finanzberater, Versicherungsmakler und Finanzdienstleister.",
     lead: "Keine Leads.",
     words: ["Termine", "Beratungen", "Gespräche"],
     tail: "im Kalender.",
-    cue: "Scrollen und mehr erfahren",
+    // Satz aus der Seitenbeschreibung (Meta-Description)
+    intro: "KAYCO ruft deine Interessenten an, qualifiziert sie und legt fertige Beratungstermine in deinen Kalender.",
     sub: "Du berätst. Wir machen den Rest.",
+    // wie im Abschnitt „Über uns“
+    founders: "Gegründet von Magdalena Kayser und Darell Kacou",
   },
   manifesto: {
     kicker: "Über KAYCO",

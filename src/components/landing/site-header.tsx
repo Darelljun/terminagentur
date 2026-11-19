@@ -166,7 +166,7 @@ export function SiteHeader({ brand, links }: { brand: string; links: Link[] }) {
             ))}
           </nav>
           <div className="k-nav-end">
-            <BookLink className="k-btn k-btn--primary k-btn--sm k-nav-cta" data-magnetic="">
+            <BookLink className="k-btn k-btn--dark k-btn--sm k-nav-cta" data-magnetic="">
               <span>Gespräch buchen</span>
               <Arrow />
             </BookLink>

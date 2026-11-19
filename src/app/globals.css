@@ -19,9 +19,12 @@
   color-scheme: dark;
   /* Palette nach om-vantage.de: Fast-Schwarz, graue Karten, Navy-Licht, Orange nur für Handlungen */
   --k-bg: #0c0c0c;
-  --k-bg-2: #101010;
-  --k-surface: #1c1c1c;
-  --k-surface-2: #242424;
+  /* Einheitlich wie om-vantage: jede Fläche steht auf derselben Seitenfarbe; Karten sind Umrandungen */
+  --k-bg-2: #0c0c0c;
+  --k-surface: #0c0c0c;
+  --k-surface-2: #1d1d1f;
+  /* Navy-Schimmer von unten in Karten (wie die Schritt-Karten bei om-vantage) */
+  --k-card-glow: radial-gradient(130% 70% at 50% 118%, rgb(2 62 151 / 0.42), transparent 70%);
   --k-line: rgb(255 255 255 / 0.125);
   --k-line-2: rgb(255 255 255 / 0.2);
   --k-text: #ffffff;
@@ -42,6 +45,8 @@
   --k-blue-rgb: 0 103 255;
   --k-link: #7ab3ff;
   --k-glow: rgb(2 62 151 / 0.22);
+  /* Silber-Verlauf der Headlines bei om-vantage (von unten links Weiß nach oben rechts Grau) */
+  --k-silver: linear-gradient(to right top, #fff, #fcfcfc, #f9f9f9, #f7f7f7, #f4f4f4, #e8e8e8, #ddd, #d1d1d1, #bababa, #a4a4a4, #8f8f8f, #7a7a7a);
   --k-warn: #ff5a4f;
   --k-warn-soft: rgb(243 4 4 / 0.12);
   --k-shade: rgb(0 0 0 / 0.7);

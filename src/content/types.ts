@@ -38,8 +38,7 @@ export type Faq = { q: string; a: string }
 export type LandingContent = {
   brand: string
   links: Link[]
-  status: string
-  hero: { lead: string; words: string[]; tail: string; cue: string; sub: string }
+  hero: { pre: string; lead: string; words: string[]; tail: string; intro: string; sub: string; founders: string }
   manifesto: { kicker: string; text: string }
   stats: Stat[]
   services: { kicker: string; title: string; text: string; items: Service[] }

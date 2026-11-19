@@ -1,7 +1,34 @@
 # KAYCO – Visueller Relaunch: Änderungen & Prüfprotokoll
 
-Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 19.11.2026 (inkl. Update 3)
+Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 19.11.2026 (inkl. Update 4)
 Konzept und Designsystem: [`docs/design-system.md`](design-system.md)
+
+## Update 4: Hero wie om-vantage, einheitliche Farbe (19.11.2026)
+
+Auftrag: Hero-Bereich genau wie om-vantage.de aufbauen; eine einheitliche Farbe auf der ganzen Website.
+
+**Hero** (Maße, Abstände und Farben von om-vantage.de vermessen, Inhalte von KAYCO):
+| om-vantage | KAYCO | Herkunft des Textes |
+|---|---|---|
+| Zielgruppen-Zeile | „Für Finanzberater, Versicherungsmakler und Finanzdienstleister.“ | FAQ „Für wen ist KAYCO?“, gekürzt |
+| H1, 60 px, Silber-Verlauf | „Keine Leads. / Termine / im Kalender.“ mit Wechselwort, 64 px, Silber-Verlauf | unverändert |
+| Einleitung | „KAYCO ruft deine Interessenten an, … Du berätst. Wir machen den Rest.“ | Meta-Description + bisheriger Untertitel |
+| Google-/Trustpilot-Bewertungen | **keine** – stattdessen „30+ qualifizierte Termine pro Monat garantiert“ und „0 € monatliche Agenturkosten“ | Kennzahlen aus „Über KAYCO“ (keine erfundenen Bewertungen) |
+| Orange CTA in Versalien | „STRATEGIEGESPRÄCH ANFRAGEN“ (Schrift dunkel statt weiß – Kontrast) | unverändert, nur Versalien per CSS |
+| Avatare + „Sichere Dir Deinen Platz!“ | Kürzel MK/DK + „Gegründet von Magdalena Kayser und Darell Kacou“ | Abschnitt „Über uns“ |
+| Video rechts | Slot-Board, jetzt flach mit Radius 24 | – |
+| Leiste mit 5 Vorteilen | Kampagne · Erstkontakt · Qualifizierung · Terminvereinbarung · Briefing | Titel und Zeit-Chips der Leistungen |
+| Schwebende Navigation | Pille mit Glas-Unschärfe, Links weiß, aktiver Abschnitt grau, dunkler Button | Verhalten (Ein-/Ausblenden) unverändert |
+
+Entfernt aus dem Hero: Preis-Pille „75 € pro Termin · keine monatlichen Agenturkosten“ (Information steht
+weiter in Kennzahlen, Preisen und Kontakt), Link „Scrollen und mehr erfahren“, Raster, Lichtstrahlen (Grid
+Beams), Leuchtkugeln, 3D-Neigung und Lichtpunkt am Board, Glanz auf der Status-Zeile.
+
+**Einheitliche Farbe:** jeder Abschnitt `#0C0C0C` (keine abweichenden Abschnittsflächen, keine Trennlinien
+oder Leuchtkanten mehr), Karten als Umrandung auf der Seitenfarbe mit Navy-Schimmer von unten (wie die
+Schritt-Karten bei om-vantage), Abschluss-Box mit 2 px Navy-Rand und Leuchten (wie die Erstgespräch-Box),
+Raster im Abschluss entfernt, Kalender-Kategorie „Kein Bedarf“ in kühlem Grau statt Braun, orange Buttons
+überall in Versalien.
 
 ## Update 3: Farbpalette von om-vantage.de, Laufbänder entfernt (19.11.2026)
 
@@ -100,18 +127,18 @@ Maschineller Abgleich der gerenderten Seite vorher/nachher (Texte je Abschnitt, 
 - **Header-Verhalten:** exakt übernommen aus `main` (Desktop sticky mit Hysterese, mobil fixiert mit
   Aus-/Einblenden, solid ab 40 px, nie ausgeblendet bei offenem Menü).
 
-## 3. Prüfprotokoll (Stand nach Update 3)
+## 3. Prüfprotokoll (Stand nach Update 4)
 
 | Prüfung | Ergebnis |
 |---|---|
 | Build (`next build`), TypeScript, ESLint | fehlerfrei |
-| Inhaltsabgleich gegen den Stand vor dem Relaunch | Texte, Reihenfolge, Links, Überschriften, Meta-Daten, JSON-LD, Rechtsseiten gleich; Unterschiede nur: Schriftzug als SVG, Hell-Umschalter entfernt, Kalender-Satz „grüne“ → „orangefarbene“ Slot |
+| Inhaltsabgleich gegen den Stand vor dem Relaunch | Texte, Reihenfolge, Links, Überschriften, Meta-Daten, JSON-LD, Rechtsseiten gleich; Unterschiede nur: Hero (siehe Update 4), Schriftzug als SVG, Hell-Umschalter entfernt, Kalender-Satz „grüne“ → „orangefarbene“ Slot |
 | Funktionstests (Playwright, 62 Prüfungen: Navigation, aktiver Menüpunkt, Header-Verhalten Desktop/mobil, Mobile-Menü inkl. Fokus/Escape/Scroll-Sperre, Kalender inkl. Auto-Wechsel, Akkordeons, FAQ, E-Mail kopieren, Links, Rechtsseiten, schwarzes Design, Zähler-Endwerte, Touch-Ziele) | alle bestanden |
 | Browserkonsole (Produktion und Entwicklungsmodus) | keine Fehler, keine Hydrierungswarnungen |
 | Horizontaler Überlauf (390 px, 360 px, 834 px, ganze Seite) | keiner |
 | Layoutsprünge beim Laden und Scrollen (Handy, Tablet, Desktop) | 0,000 |
 | `prefers-reduced-motion` | keine Animationen, alle Inhalte sichtbar, Wort wechselt nicht, kein Smooth-Scroll |
-| Lighthouse Startseite mobil | Performance 91 (nach Update 2: 85–88; ohne Laufbänder wieder schneller) · Barrierefreiheit 100 · Best Practices 100 · SEO 100 (gemessener LCP 0,3 s; der simulierte Wert 2,6 s entsteht durch die zusätzliche Stil-/Animationsarbeit beim ersten Aufbau) |
+| Lighthouse Startseite mobil | Performance 93 (Update 3: 91, Update 2: 85–88) · Barrierefreiheit 100 · Best Practices 100 · SEO 100 (gemessener LCP 0,3 s; der simulierte Wert 2,6 s entsteht durch die zusätzliche Stil-/Animationsarbeit beim ersten Aufbau) |
 | Lighthouse Startseite Desktop | Performance 100 · Barrierefreiheit 100 · Best Practices 100 · SEO 100 |
 | Lighthouse Impressum mobil / Desktop | 97 / 100 · alle anderen Kategorien 100 |
 | Übertragene Datenmenge Startseite | 265 KB (Update 1: 257 KB, vor dem Relaunch 499 KB) |
