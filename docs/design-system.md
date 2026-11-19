@@ -64,6 +64,9 @@ kein Fintech-SaaS-Template (keine Verlaufs-Blobs in Lila, keine Icon-Kachel-Rast
 
 ### 3.1 Farben (Tokens, `src/app/globals.css`) – Palette von om-vantage.de
 
+Die Seitenfarbe ist ohne Cascade-Layer und zusätzlich auf jedem Abschnitt gesetzt (`kayco.css`, „Grundlagen“) –
+so bleibt alles dunkel, auch wenn eine Umgebung (Vorschau-Rahmen, alter Browser) eigene Seitenstile mitbringt.
+
 Seit Update 3 übernimmt KAYCO die Farbpalette der Referenz om-vantage.de (Werte direkt von der Seite
 ausgelesen). Nur ein Design (dunkel), `theme-color #0C0C0C`. Seit Update 4 einheitlich wie dort: jeder
 Abschnitt hat dieselbe Hintergrundfarbe `#0C0C0C`, Karten sind Umrandungen (1 px, Radius 24) mit einem
@@ -159,11 +162,12 @@ sind entfernt.
 
 ### 3.5.1 Kalender im Stil von Google Kalender
 
-Alle Kalender (Hero, Problem-Abschnitt) sind als helle Google-Kalender-Wochenansicht nachgebaut
+Alle Kalender (Hero, Problem-Abschnitt) sind als Google-Kalender-Wochenansicht im dunklen Modus nachgebaut
 (`src/components/kayco/gcal.tsx`): Kopfzeile mit „Heute“, Pfeilen und Monat, „Erstellen“-Knopf,
 Mini-Monat, „Meine Kalender“ als Legende, heutiger Tag als blauer Kreis, rote Jetzt-Linie, Ereignisfarben
 aus der Google-Palette (Graphit, Heidelbeere, Banane, Tomate, Lavendel), Beratungen in KAYCO-Orange.
-Dunkle Schrift auf hellem Grund (alle Ereignisse ≥ 4,5:1). Kein Google-Logo und keine Google-Marke.
+Helle Schrift auf dunklem Grund (Seitenleiste/Raster `#1B1C1E`/`#131314`, Text `#E3E3E3`; alle Ereignisse ≥ 4,5:1),
+damit es keine weißen Flächen auf der dunklen Seite gibt. Kein Google-Logo und keine Google-Marke.
 
 ### 3.6 Responsiv
 

@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from "react"
 import { ChevronLeft, ChevronRight, Euro, Menu, PhoneMissed, Plus, Search } from "lucide-react"
 
 /*
- * Kalender-Ansicht im Stil von Google Kalender (hell, Wochenansicht) – nachgebaut, ohne Google-Logo oder
+ * Kalender-Ansicht im Stil von Google Kalender (dunkler Modus, Wochenansicht) – nachgebaut, ohne Google-Logo oder
  * -Marken. Wird im Hero (kompakt, nur KAYCO-Termine) und im Problem-Abschnitt (umschaltbar) verwendet.
  * Server-tauglich: keine Hooks; der Umschalter lebt in problem-calendar.tsx. Stile: kayco.css („gc-“).
  */

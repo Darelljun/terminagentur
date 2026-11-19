@@ -1,7 +1,19 @@
 # KAYCO – Visueller Relaunch: Änderungen & Prüfprotokoll
 
-Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 19.11.2026 (inkl. Update 5)
+Branch: `design-relaunch` (abgezweigt von `main` @ `d9048da`) · Stand: 19.11.2026 (inkl. Update 6)
 Konzept und Designsystem: [`docs/design-system.md`](design-system.md)
+
+## Update 6: Dunkler Hintergrund überall erzwungen (19.11.2026)
+
+Rückmeldung: Der Hintergrund erschien weiß, die helle Schrift war darauf nicht zu sehen.
+- **Ursache:** Die Seitenfarbe stand in einer Cascade-Layer (`@layer base`). Bringt eine Umgebung eigene
+  Seitenstile mit (z. B. ein Vorschau-Rahmen im hellen Modus) oder kennt ein Browser keine Layer, gewinnen
+  diese – der Grund wird weiß, die Schrift bleibt hell. Nachgestellt und behoben.
+- **Lösung:** Seitenfarbe `#0C0C0C` ohne Layer und mit Vorrang auf `html`/`body`, zusätzlich auf der Seitenwurzel
+  und jedem einzelnen Abschnitt (Hero, alle Sections, Footer, Rechtsseiten). Geprüft mit simulierten fremden
+  Stilen, die Weiß sogar erzwingen: alle Abschnitte bleiben dunkel.
+- **Kalender** im dunklen Modus von Google Kalender statt hell – keine weißen Flächen mehr.
+- Kleiner Fehler behoben: Der obere Abstand der Navigation schob die Seite 14 px nach unten (heller Streifen oben).
 
 ## Update 5: Kompakt im Agenturstil von om-vantage (19.11.2026)
 
@@ -144,18 +156,18 @@ Maschineller Abgleich der gerenderten Seite vorher/nachher (Texte je Abschnitt, 
 - **Header-Verhalten:** exakt übernommen aus `main` (Desktop sticky mit Hysterese, mobil fixiert mit
   Aus-/Einblenden, solid ab 40 px, nie ausgeblendet bei offenem Menü).
 
-## 3. Prüfprotokoll (Stand nach Update 5)
+## 3. Prüfprotokoll (Stand nach Update 6)
 
 | Prüfung | Ergebnis |
 |---|---|
 | Build (`next build`), TypeScript, ESLint | fehlerfrei |
 | Inhaltsabgleich gegen den Stand vor dem Relaunch | Texte, Reihenfolge, Links, Überschriften, Meta-Daten, JSON-LD, Rechtsseiten gleich; Unterschiede nur: Hero (siehe Update 4), Schriftzug als SVG, Hell-Umschalter entfernt, Kalender-Satz „grüne“ → „orangefarbene“ Slot |
-| Funktionstests (Playwright, 61 Prüfungen: Navigation, aktiver Menüpunkt, Header-Verhalten, Mobile-Menü inkl. Fokus/Escape/Scroll-Sperre, kompakte Abschnittsfolge, Google-Kalender lesbar, Kalender inkl. Auto-Wechsel, FAQ, E-Mail kopieren, Links, Rechtsseiten, Einblenden, Zähler-Endwerte, Touch-Ziele) | alle bestanden |
+| Funktionstests (Playwright, 61 Prüfungen: Navigation, aktiver Menüpunkt, Header-Verhalten, Mobile-Menü inkl. Fokus/Escape/Scroll-Sperre, kompakte Abschnittsfolge, Google-Kalender (dunkel) lesbar, Kalender inkl. Auto-Wechsel, FAQ, E-Mail kopieren, Links, Rechtsseiten, Einblenden, Zähler-Endwerte, Touch-Ziele) | alle bestanden |
 | Browserkonsole (Produktion und Entwicklungsmodus) | keine Fehler, keine Hydrierungswarnungen |
 | Horizontaler Überlauf (390 px, 360 px, 834 px, ganze Seite) | keiner |
 | Layoutsprünge beim Laden und Scrollen (Handy, Tablet, Desktop) | 0,000 |
 | `prefers-reduced-motion` | keine Animationen, alle Inhalte sichtbar, Wort wechselt nicht, kein Smooth-Scroll |
-| Lighthouse Startseite mobil | Performance 94 (Update 4: 93, Update 3: 91, Update 2: 85–88) · Barrierefreiheit 100 · Best Practices 100 · SEO 100 (gemessener LCP 0,3 s; der simulierte Wert 2,6 s entsteht durch die zusätzliche Stil-/Animationsarbeit beim ersten Aufbau) |
+| Lighthouse Startseite mobil | Performance 92–94 (Update 4: 93, Update 3: 91, Update 2: 85–88) · Barrierefreiheit 100 · Best Practices 100 · SEO 100 (gemessener LCP 0,3 s; der simulierte Wert 2,6 s entsteht durch die zusätzliche Stil-/Animationsarbeit beim ersten Aufbau) |
 | Lighthouse Startseite Desktop | Performance 100 · Barrierefreiheit 100 · Best Practices 100 · SEO 100 |
 | Lighthouse Impressum mobil / Desktop | 97 / 100 · alle anderen Kategorien 100 |
 | Übertragene Datenmenge Startseite | 243 KB (Update 1: 257 KB, vor dem Relaunch 499 KB) |
