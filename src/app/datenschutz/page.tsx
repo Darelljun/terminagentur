@@ -20,7 +20,7 @@ export default function DatenschutzPage() {
         <p>
           <strong>{site.legalName}</strong>
           <br />
-          <Todo>Name der Inhaberin bzw. des Inhabers oder vertretungsberechtigte Person(en) ergänzen</Todo>
+          Geschäftsbezeichnung: {site.tradingName} (Marke KAYCO)
           <br />
           {site.address.street}, {site.address.zip} {site.address.city}, {site.address.country}
           <br />
