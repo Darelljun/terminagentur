@@ -1,6 +1,8 @@
 export const site = {
   name: "KAYCO",
-  legalName: "Kacou North",
+  legalName: "Darell Kacou",
+  tradingName: "Kacou North",
+  taxNumber: "122/5289/2174",
   domain: "kayco.io",
   url: "https://www.kayco.io",
   email: "hello@kayco.io",
