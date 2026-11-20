@@ -10,7 +10,7 @@ export function Todo({ children }: { children: ReactNode }) {
 }
 
 /** Rahmen für Impressum und Datenschutz im KAYCO-Designsystem (Stile: src/app/kayco.css, „k-legal“). */
-export function LegalPage({ title, updated, children }: { title: string; updated: string; children: ReactNode }) {
+export function LegalPage({ title, updated, children, showDraftNotice = true }: { title: string; updated: string; children: ReactNode; showDraftNotice?: boolean }) {
   return (
     <div className="k-root">
       <a href="#main" className="k-skip">
@@ -35,13 +35,13 @@ export function LegalPage({ title, updated, children }: { title: string; updated
           <h1 className="k-h2">{title}</h1>
           <p className="k-legal-meta">Stand: {updated}</p>
 
-          <div role="note" className="k-legal-note">
+          {showDraftNotice && <div role="note" className="k-legal-note">
             <TriangleAlert aria-hidden="true" />
             <p>
               <strong>Entwurf – vor Veröffentlichung rechtlich prüfen.</strong> Gelb markierte Stellen müssen vor dem Livegang
               ergänzt oder bestätigt werden. Dieser Text ersetzt keine Rechtsberatung.
             </p>
-          </div>
+          </div>}
 
           <div className="k-prose">{children}</div>
         </article>
